@@ -1,1 +1,9 @@
 theme: jekyll-theme-cayman
+
+title: Heta language
+email: dev@insysbio.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Short description
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "https://hetalang.insysbio.com"
+logo: /assets/img/logo.png
