@@ -106,13 +106,13 @@ A series of tools supporting Heta language has been developed:
 - JavaScript framework with Heta support has been developed and tested: qs3p-js (0.3.0)
 
 The examples of Heta-based QSP platforms with CI/CD capabilitiew are shared on gitlab: 
-- https://github.com/insysbio/heta-case-mini 
-- https://github.com/insysbio/faah-inhibitor
+- <https://github.com/insysbio/heta-case-mini> 
+- <https://github.com/insysbio/faah-inhibitor>
 
 The Heta language and Heta-based QSP framework were used in several “real world” projects for the development of middle-scale and large-scale models:
--	IRT database: https://irt.insysbio.com 
+-	IRT database: <https://irt.insysbio.com> 
 -	Alzheimer-consortium QSP platform
--	PK/RO simulator for anti-PD-1 mAbs (Shiny app): https://insysbio.shinyapps.io/mAb-app/
+-	PK/RO simulator for anti-PD-1 mAbs (Shiny app): <https://insysbio.shinyapps.io/mAb-app/>
 -	InSysBio internal projects with more than 1000 components each.
 
 ## Origin

@@ -121,7 +121,7 @@ sbml @SBMLExport { model: one };
         "class": "Species",
         "compartment": "comp0",
         "title": "Species number one",
-        "compartmentObj": {#ref-to-comp1-component}
+        "compartmentObj": {...}
     },
     "sbml": {
         "class": "SBMLExport",
@@ -133,7 +133,7 @@ sbml @SBMLExport { model: one };
 
 file: `sbml.xml`
 
-```XML
+```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sbml 
     xmlns = "http://www.sbml.org/sbml/level2/version4"
