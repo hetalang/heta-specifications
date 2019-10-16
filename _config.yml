@@ -2,9 +2,9 @@ theme: jekyll-theme-cayman
 
 title: Heta language
 email: dev@insysbio.com
-description: >- # this means to ignore newlines until "baseurl:"
+description: >-
   Domain specific programming language for QSP and SB modeling
-baseurl: "/heta-lang" # the subpath of your site, e.g. /blog
+baseurl: / # the subpath of your site, e.g. /blog
 url: "https://insysbio.github.io"
 logo: /assets/img/logo.png
 
