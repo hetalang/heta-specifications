@@ -8,7 +8,7 @@
 ## Language specification v0.1.0 (draft)
 
 - [Syntax](syntax)
-- ~~[Classes](classes)~~
+- [Classes](classes)
 - ~~[Actions](actions)~~
 - ~~[Declarative heta](heta-declarative)~~
 - ~~[Heta modules](modules)~~
