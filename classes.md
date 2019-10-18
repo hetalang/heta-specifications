@@ -12,7 +12,20 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 - [_Export](#_Export)
 - [SBMLExport](#SBMLExport)
 - [Record](#Record)
-- ~~[Process](#Process)~~
+- [Process](#Process)
+- ~~[Compartment](#Compartment)~~
+- ~~[Species](#Species)~~
+- ~~[Reaction](#Reaction)~~
+- ~~[_Switcher](#Switcher)~~
+- ~~[TimeSwitcher](#TimeSwitcher)~~
+- ~~[ContinuousSwitcher](#ContinuousSwitcher)~~
+- ~~[SimpleTask](#SimpleTask)~~
+
+## String types list
+- ~~[idString](#idString)~~
+- ~~[units expression](#units-expression)~~
+- ~~[math expression](#math-expression)~~
+- ~~[process expression](#process-expression)~~
 
 ## Basics
 
@@ -98,7 +111,7 @@ This is **unscoped** class.
 | ---------|------|----------|---------|-----|-------------|
 | num | number | true | | | Numerical value or starting value for identification. |
 | free | boolean | | | | If true the constant is unknown and can be evaluated based on experimental data.|
-| units | string | | | | String in specific [unit expression](#unit-expression) syntax. |
+| units | string | | | | String in specific [units expression](#units-expression) syntax. |
 
 ### Example
 ```heta
@@ -139,7 +152,7 @@ pg_authors @Page 'Authors' { content: "
 
 **Parent:** [_Simple](#_simple)
 
-This is class for implementation of a definition of unit to use it in [unit expression](#unit-expression).
+This is class for implementation of a definition of unit to use it in [units expression](#units-expression).
 
 This is **unscoped** class.
 
@@ -217,23 +230,85 @@ This is **unscoped** class.
 
 **Parent:** [_Scoped](#_Scoped)
 
-Record instances describes the dynamic values (variable) which can be changed in time.
+Record instances describes the dynamic values (variable) which can be changed in time. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
 
 This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| assignments | object/string/ | | | | Dictionary of assignments where key is switcher id and value describes the math expression |
-| units | units | string | | | | String in specific [unit expression](#unit-expression) syntax. |
+| assignments | object | | | | Dictionary of assignments where key is switcher id and value describes the math expression |
+| units | units | string | | | | String in specific [units expression](#units-expression) syntax. |
 | boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
 
 ### Example
 
 ```heta
-p1 @Record { boundary: true, units: kg/L };
-p1 .= x*y;
-p1 [sw1]= 0;
+one::p1 @Record { boundary: true, units: kg/L };
+one::p1 .= x*y;
+one::p1 [sw1]= 0;
+
+// equivalent to this code
+/*
+one::p1 {
+    class: Record.
+    boundary: true,
+    units: kg/L,
+    assignments: {
+        start_: x*y,
+        sw: 0
+    }
+};
+*/
 ```
+
+### Assignment dictionary
+
+Assignment dictionary describes a set of assignments which is used to change the `Record` value directly. The keys corresponds to existed switchers id or default switcher like start_, ode_.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| [switcherId] | string/number/object | true | | | [math expression](#math-expression) or number or object in format { expr: \<math expression\> } |
+
+## Process
+
+**Parent:** [Record](#Record)
+
+Process instances changes the other `Record` instances indirectly through the ordinary differential equations. Process is like flux that increase or decrease values over time.
+
+This is **scoped** class.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| actors | Actor[]/string | | [] | | [process expression](#process-expression) or array of objects of format { target: \<string\>, stoichiometry: \<number\> } |
+
+### Example
+
+```heta
+one::pr1 @Process { actors: p1 => 2*p2 };
+
+/* equivalent to 
+one::pr1 @Process { actors: [
+    { target: p1, stoichiometry: -1 },
+    { target: p2, stoichiometry: 2 }
+]};
+*/
+```
+
+### Effector
+
+**Parent:** *none*
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| target | string | true | | `Record` | Reference to record |
+
+### Actor
+
+**Parent:** [Effector](#Effector)
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| stoichiometry| number | true | |  | Stoichiometry of flux. |
 
 ## UML diagram
 
