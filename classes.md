@@ -13,19 +13,23 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 - [SBMLExport](#SBMLExport)
 - [Record](#Record)
 - [Process](#Process)
-- ~~[Compartment](#Compartment)~~
-- ~~[Species](#Species)~~
-- ~~[Reaction](#Reaction)~~
-- ~~[_Switcher](#Switcher)~~
-- ~~[TimeSwitcher](#TimeSwitcher)~~
-- ~~[ContinuousSwitcher](#ContinuousSwitcher)~~
-- ~~[SimpleTask](#SimpleTask)~~
+- [Compartment](#Compartment)
+- [Species](#Species)
+- [Reaction](#Reaction)
+- [_Switcher](#Switcher)
+- [TimeSwitcher](#TimeSwitcher)
+- [ContinuousSwitcher](#ContinuousSwitcher)
+- [SimpleTask](#SimpleTask)
 
-## String types list
-- ~~[idString](#idString)~~
-- ~~[units expression](#units-expression)~~
-- ~~[math expression](#math-expression)~~
-- ~~[process expression](#process-expression)~~
+## String types
+- [ID](#ID)
+- [UnitsExpr](#UnitsExpr)
+- [ProcessExpr](#ProcessExpr)
+- [MathExpr](#MathExpr)~~
+
+## UML diagram
+
+[![Classes UML](./heta.uml.png)](./heta.uml.png)
 
 ## Basics
 
@@ -111,7 +115,7 @@ This is **unscoped** class.
 | ---------|------|----------|---------|-----|-------------|
 | num | number | true | | | Numerical value or starting value for identification. |
 | free | boolean | | | | If true the constant is unknown and can be evaluated based on experimental data.|
-| units | string | | | | String in specific [units expression](#units-expression) syntax. |
+| units | UnitsExpr | | | | String in specific [UnitsExpr](#UnitsExpr) syntax. |
 
 ### Example
 ```heta
@@ -152,7 +156,7 @@ pg_authors @Page 'Authors' { content: "
 
 **Parent:** [_Simple](#_simple)
 
-This is class for implementation of a definition of unit to use it in [units expression](#units-expression).
+This is class for implementation of a definition of unit to use it in [UnitsExpr](#UnitsExpr).
 
 This is **unscoped** class.
 
@@ -176,7 +180,7 @@ kDa @UnitDefinition { components: [
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| kind | string | true | | UnitDefinition | The reference id to the default set of UnitDefinitions |
+| kind | ID | true | | UnitDefinition | The reference id to the default set of UnitDefinitions |
 | multiplier | numeric | true | 1 | | Multiplier |
 | exponent | numeric | true | 1 | | Power |
 
@@ -184,7 +188,7 @@ kDa @UnitDefinition { components: [
 
 **Parent:** [_Simple](#_simple)
 
-This is class describing user defined mathematical functions. See [math expression](#math-expression).
+This is class describing user defined mathematical functions. See [MathExpr](#MathExpr).
 
 This is **unscoped** class.
 
@@ -223,8 +227,8 @@ This is **unscoped** class.
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | version | string | | L2V4 | | SBML version. One of the values: `L2V1`, `L2V3`, etc. |
-| model | string | true | | | namespace id to create the SBML model |
-| skipMathChecking | boolean | | | | `true` means that the model builder will not check math expressions |
+| model | ID | true | | | namespace id to create the SBML model from |
+| skipMathChecking | boolean | | | | `true` means that the model builder will not check MathExprs |
 
 ## Record
 
@@ -236,8 +240,8 @@ This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| assignments | object | | | | Dictionary of assignments where key is switcher id and value describes the math expression |
-| units | units | string | | | | String in specific [units expression](#units-expression) syntax. |
+| assignments | object | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
+| units | UnitsExpr | | | | String in specific [UnitsExpr](#UnitsExpr) syntax. |
 | boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
 
 ### Example
@@ -267,7 +271,7 @@ Assignment dictionary describes a set of assignments which is used to change the
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| [switcherId] | string/number/object | true | | | [math expression](#math-expression) or number or object in format { expr: \<math expression\> } |
+| [switcherId] | string/number/object | true | | | [MathExpr](#MathExpr) or number or object in format { expr: \<MathExpr\> } |
 
 ## Process
 
@@ -279,7 +283,7 @@ This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| actors | Actor[]/string | | [] | | [process expression](#process-expression) or array of objects of format { target: \<string\>, stoichiometry: \<number\> } |
+| actors | Actor[]/string | | [] | | [ProcessExpr](#ProcessExpr) or array of objects of format { target: \<ID\>, stoichiometry: \<number\> } |
 
 ### Example
 
@@ -300,7 +304,7 @@ one::pr1 @Process { actors: [
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| target | string | true | | `Record` | Reference to record |
+| target | ID | true | | `Record` | Reference to record |
 
 ### Actor
 
@@ -308,8 +312,188 @@ one::pr1 @Process { actors: [
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| stoichiometry| number | true | |  | Stoichiometry of flux. |
+| stoichiometry| number | | 1 |  | Stoichiometry of flux. |
 
-## UML diagram
+## Compartment
 
-[![Classes UML](./heta.uml.png)](./heta.uml.png)
+**Parent:** [Record](#Record)
+
+This is **scoped** class.
+
+*no specific properties*
+
+### Example
+```heta
+one::comp1 @Compartment = 5.3 { units: L };
+```
+
+## Species
+
+**Parent:** [Record](#Record)
+
+This is **scoped** class.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| compartment | ID | true | | `Compartment` | Describes the wolume where species is located. |
+| isAmount | boolean | | | | If `true` the value is an amount not concentration. |
+
+### Example
+
+```heta
+one::S @Species {
+    compartment: comp1,
+    isAmount: false
+};
+one::S .= 10;
+```
+
+## Reaction
+
+**Parent:** [Process](#Process)
+
+The same as Process, but all target references should be Species.
+
+This is **scoped** class.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| actors | Reactant[]/string | | [] | | [process string](#process-string) or array of objects in format { target: \<ID\>, stoichiometry: \<number\> where target is the reference to `Species`} |
+| modifiers | Modifiers[] / ID[] | | [] | | List of references to `Species`. Array of references or array of objects in format {target: \<ID\>} |
+
+### Example
+
+```heta
+one::r1 @Reaction {
+    actors: S -> P,
+    modifiers: [ E ]
+};
+one::r1 := k1*A*comp1;
+```
+
+## _Switcher
+
+**Parent:** [_Scoped](#_Scoped)
+
+This is **scoped** class.
+
+*no specific properties*
+
+## TimeSwitcher
+
+**Parent:** [_Switcher](#_Switcher)
+
+This is **scoped** class.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| start | number | true | | | first switch |
+| period | number | | | | > 0 |
+| repeatCount | number | | 0 | | >= 0 |
+
+### Example
+
+```heta
+one::sw1 @TimeSwitcher {
+    start: 0,
+    period: 24,
+    repeatCount: 4
+}; 
+```
+## ContinuousSwitcher
+
+**Parent:** [_Switcher](#_Switcher)
+
+This is **scoped** class.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| condition | ID | true | | `Record` |  |
+
+### Example
+
+```heta
+one::sw2 @ContinuousSwitcher {
+    condition: evt1
+};
+```
+
+## SimpleTask
+
+**Parent:** [_Simple](#_Simple)
+
+This is **unscoped** class.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| subtasks | Subtask[] | true | | | Array of elements of type {saveat: \<number[]\>, output: \<string[]\>} |
+| tspan | number[] | | [0, 100] | | start and end point of simulation |
+| reassign | Dictionary | | {} | `Const` | reassignments of constants for the simulation |
+| solver.alg | string | | lsode | | method |
+| solver.reltol | number | | 1e-6 | | relative tolerance |
+| solver.abstol | number | | 1e-6 | | absolute tolerance |
+| solver.maxiters | number | | 1e5 | | maximum number of iteretions |
+| solver.dt | number | | 0 | | dt value |
+| solver.dtmin | number | | 0 | | dtmin value |
+| solver.dtmax | number | | 0 | | dtmax value |
+| solver.tstops | number[] | | [] | |time points for force stop |
+
+### Example
+
+```heta
+st1 @SimpleTask {
+    subtasks: [
+        { saveat: [0, 10, 100], output: [A, B, C] }
+    ],
+    tspan: [0, 120],
+    reassign: { p1: 10, p2: 0 },
+    solver: {
+        alg: lsoda,
+        abstol: 1e-9
+    }
+};
+```
+
+## ID
+
+ID describes the string type which is used for idexing Heta components. ID type can be used for namespaces and identifiers.
+
+The rules for ID is the following:
+
+1. First symbol should be letter or underscore.
+1. Second and other elements should be letter, number or underscore.
+1. Depriction: the last symbol should not be underscore.
+
+### Example
+
+**Corect ID:** `"x"`, `"x12"`, `"x_12"`, `"_12"`, `"x___12"`
+
+**Wrong ID:** `"12x"`, `"x-12"`, `"x 9"`
+
+**Depricated ID:** `"_"`, `"x12_"`
+
+## UnitsExpr
+
+UnitsExpr strings represent the complex units combined from the predefined unit IDs. Available operatators: `*`, `/`, `^`.
+
+### Example
+
+**Correct UnitsExpr**: `mg`, `g/mole`, `1/h`, `kg/m2`, `kg/m^2`
+
+**Wrong UnitsExpr:** `g/(mole*L)`, `5*g`, `km + kg`
+
+## ProcessExpr
+
+ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) devided two parts: influx (left) and outflux (right). Stoichiometry coefficients are shown by numbers. 
+
+### Example
+
+**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B`.
+
+## MathExpr
+
+Mathematical expressions in string format. Available operators: `+`, `-`, `*`, `/`, `^`. See detailes in [Expressions and math](expressions)
+
+## Example
+
+**Correct MathExpr:** `x*y*pow(x,y)`
