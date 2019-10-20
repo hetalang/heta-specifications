@@ -16,7 +16,7 @@ In no statement is written the default statement is `#upsert`.
 - [delete](#delete)
 - [import](#import)
 
-## Insert
+## insert
 
 Insert adds a new component to the platform. 
 If the element with the same index already exist it will be replaced by the new one. 
@@ -53,7 +53,7 @@ This statement should throw the error because class is unknown.
 
 ## update
 
-Update only change the properties of existed component without creating a new one.
+The update only change the properties of existed component without creating a new one.
 
 ### Example 1
 ```heta
@@ -82,7 +82,7 @@ The result of two statements
 
 The statement throws error because the component with index one::S has not been created before.
 
-## Upsert
+## upsert
 
 The upsert statement is the default action and acts as `#insert` when class is stated and as `#update` otherwice.
 
@@ -96,7 +96,7 @@ The upsert statement is the default action and acts as `#insert` when class is s
 k1 = 3; // this acts as #upsert -> #update
 ```
 
-## Delete
+## delete
 
 The delete action erase the element with the index. If the component with the index is not exist this throws the error.
 
@@ -106,11 +106,11 @@ The delete action erase the element with the index. If the component with the in
 #delete k1; // deletes k1 if it is exist
 ```
 
-## Import
+## import
 
 The Import action works at [module](./modules) level. It does not create or update the component but load the another module insude the current one.
 
-It uses the virtual properties to set the another files and formats.
+It uses the virtual properties to set the different files and formats.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
