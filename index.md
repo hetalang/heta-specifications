@@ -10,10 +10,8 @@
 - [Syntax](syntax)
 - [Classes](classes)
 - [Actions](actions)
-- ~~[Declarative heta](heta-declarative)~~
+- [Namespaces](namespaces)
 - ~~[Heta modules](modules)~~
-- ~~[Other modules](other-modules)~~
-- ~~[Namespaces](namespaces)~~
 - ~~[Expressions and math](expressions)~~
 - [Cases](cases)
 - [Heta interpretation workflow](workflow)
