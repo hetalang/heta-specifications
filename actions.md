@@ -37,7 +37,7 @@ The result of two statements will be
 ```json
 {
     "one::c1" : {
-        "title": second,
+        "title": "second",
         "assignment": {} 
     } 
 }
@@ -68,7 +68,7 @@ The result of two statements
 ```json
 [{
     "one::c1" : {
-        "title": second,
+        "title": "second",
         "assignment": { "ode_": 1 } 
     } 
 }]
