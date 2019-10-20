@@ -1,7 +1,7 @@
 # Heta modules
 
 Heta modules is designed for two objectives:
-- split the whole platform to subfiles for better code menagement;
+- split the whole platform to subfiles for better code management;
 - allow whiting code in various formats.
 
 1. In the current version of Heta the module is approximately the same as file. The identifier of the module is the absolute path of file in file system. For example:  `y:/the-platform/src/index.heta`.

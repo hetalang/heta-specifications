@@ -12,7 +12,7 @@
 - [Actions](actions)
 - [Namespaces](namespaces)
 - [Heta modules](modules)
-- ~~[Expressions and math](expressions)~~
+- [Math expressions](math)
 - [Heta interpretation workflow](workflow)
 - [Cases](cases)
 

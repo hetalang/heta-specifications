@@ -496,7 +496,7 @@ ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`-
 
 ## MathExpr
 
-Mathematical expressions in string format. Available operators: `+`, `-`, `*`, `/`, `^`. See detailes in [Expressions and math](expressions)
+Mathematical expressions in string format. Available operators: `+`, `-`, `*`, `/`, `^`. See detailes in [Math expressions](./math)
 
 ## Example
 
