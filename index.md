@@ -9,7 +9,7 @@
 
 - [Syntax](syntax)
 - [Classes](classes)
-- ~~[Actions](actions)~~
+- [Actions](actions)
 - ~~[Declarative heta](heta-declarative)~~
 - ~~[Heta modules](modules)~~
 - ~~[Other modules](other-modules)~~

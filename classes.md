@@ -4,28 +4,28 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 
 ## Class list
 
-- [_Simple](#_Simple)
-- [_Scoped](#_Scoped)
-- [Page](#Page)
-- [UnitDefinition](#UnitDefinition)
-- [FunctionDefinition](#FunctionDefinition)
-- [_Export](#_Export)
-- [SBMLExport](#SBMLExport)
-- [Record](#Record)
-- [Process](#Process)
-- [Compartment](#Compartment)
-- [Species](#Species)
-- [Reaction](#Reaction)
-- [_Switcher](#Switcher)
-- [TimeSwitcher](#TimeSwitcher)
-- [ContinuousSwitcher](#ContinuousSwitcher)
-- [SimpleTask](#SimpleTask)
+- [_Simple](#_simple)
+- [_Scoped](#_scoped)
+- [Page](#page)
+- [UnitDefinition](#unitdefinition)
+- [FunctionDefinition](#functiondefinition)
+- [_Export](#_export)
+- [SBMLExport](#sbmlexport)
+- [Record](#record)
+- [Process](#process)
+- [Compartment](#compartment)
+- [Species](#species)
+- [Reaction](#reaction)
+- [_Switcher](#switcher)
+- [TimeSwitcher](#timeswitcher)
+- [ContinuousSwitcher](#continuousswitcher)
+- [SimpleTask](#simpletask)
 
 ## String types
-- [ID](#ID)
-- [UnitsExpr](#UnitsExpr)
-- [ProcessExpr](#ProcessExpr)
-- [MathExpr](#MathExpr)~~
+- [ID](#id)
+- [UnitsExpr](#unitsexpr)
+- [ProcessExpr](#processexpr)
+- [MathExpr](#mathexpr)
 
 ## UML diagram
 
@@ -115,7 +115,7 @@ This is **unscoped** class.
 | ---------|------|----------|---------|-----|-------------|
 | num | number | true | | | Numerical value or starting value for identification. |
 | free | boolean | | | | If true the constant is unknown and can be evaluated based on experimental data.|
-| units | UnitsExpr | | | | String in specific [UnitsExpr](#UnitsExpr) syntax. |
+| units | UnitsExpr | | | | String in specific [UnitsExpr](#unitsexpr) syntax. |
 
 ### Example
 ```heta
@@ -156,7 +156,7 @@ pg_authors @Page 'Authors' { content: "
 
 **Parent:** [_Simple](#_simple)
 
-This is class for implementation of a definition of unit to use it in [UnitsExpr](#UnitsExpr).
+This is class for implementation of a definition of unit to use it in [UnitsExpr](#unitsexpr).
 
 This is **unscoped** class.
 
@@ -188,7 +188,7 @@ kDa @UnitDefinition { components: [
 
 **Parent:** [_Simple](#_simple)
 
-This is class describing user defined mathematical functions. See [MathExpr](#MathExpr).
+This is class describing user defined mathematical functions. See [MathExpr](#mathexpr).
 
 This is **unscoped** class.
 
@@ -218,7 +218,7 @@ This is **unscoped** and **abstract** class.
 
 ## SBMLExport
 
-**Parent:** [_Export](#_Export)
+**Parent:** [_Export](#_export)
 
 Export to SBML format.
 
@@ -232,16 +232,16 @@ This is **unscoped** class.
 
 ## Record
 
-**Parent:** [_Scoped](#_Scoped)
+**Parent:** [_Scoped](#_scoped)
 
-Record instances describes the dynamic values (variable) which can be changed in time. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
+Record instances describes the dynamic values (variable) which can be changed in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
 
 This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | assignments | object | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
-| units | UnitsExpr | | | | String in specific [UnitsExpr](#UnitsExpr) syntax. |
+| units | UnitsExpr | | | | String in specific [UnitsExpr](#unitsexpr) syntax. |
 | boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
 
 ### Example
@@ -271,11 +271,11 @@ Assignment dictionary describes a set of assignments which is used to change the
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| [switcherId] | string/number/object | true | | | [MathExpr](#MathExpr) or number or object in format { expr: \<MathExpr\> } |
+| [switcherId] | string/number/object | true | | | [MathExpr](#mathexpr) or number or object in format { expr: \<MathExpr\> } |
 
 ## Process
 
-**Parent:** [Record](#Record)
+**Parent:** [Record](#record)
 
 Process instances changes the other `Record` instances indirectly through the ordinary differential equations. Process is like flux that increase or decrease values over time.
 
@@ -283,7 +283,7 @@ This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| actors | Actor[]/string | | [] | | [ProcessExpr](#ProcessExpr) or array of objects of format { target: \<ID\>, stoichiometry: \<number\> } |
+| actors | Actor[]/string | | [] | | [ProcessExpr](#processexpr) or array of objects of format.  { target: \<ID\>, stoichiometry: \<number\> }. The rules for dynamic components which describes how they will be included to ODE including stoichiometry. |
 
 ### Example
 
@@ -308,7 +308,7 @@ one::pr1 @Process { actors: [
 
 ### Actor
 
-**Parent:** [Effector](#Effector)
+**Parent:** [Effector](#effector)
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -316,7 +316,9 @@ one::pr1 @Process { actors: [
 
 ## Compartment
 
-**Parent:** [Record](#Record)
+**Parent:** [Record](#record)
+
+`Compartment` is class describing volumes where `Species` instances are located. The variable means the volume size.
 
 This is **scoped** class.
 
@@ -329,13 +331,15 @@ one::comp1 @Compartment = 5.3 { units: L };
 
 ## Species
 
-**Parent:** [Record](#Record)
+**Parent:** [Record](#record)
+
+`Species` is class describing molecules in some location. The variable value can mean amount of molecules or concentration depending on `isAmount` property.
 
 This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| compartment | ID | true | | `Compartment` | Describes the wolume where species is located. |
+| compartment | ID | true | | `Compartment` | Reference to compartment id where the molecule is located. |
 | isAmount | boolean | | | | If `true` the value is an amount not concentration. |
 
 ### Example
@@ -350,7 +354,7 @@ one::S .= 10;
 
 ## Reaction
 
-**Parent:** [Process](#Process)
+**Parent:** [Process](#process)
 
 The same as Process, but all target references should be Species.
 
@@ -359,7 +363,7 @@ This is **scoped** class.
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | actors | Reactant[]/string | | [] | | [process string](#process-string) or array of objects in format { target: \<ID\>, stoichiometry: \<number\> where target is the reference to `Species`} |
-| modifiers | Modifiers[] / ID[] | | [] | | List of references to `Species`. Array of references or array of objects in format {target: \<ID\>} |
+| modifiers | Modifiers[] / ID[] | | [] | | List of references to `Species`. Array of references or array of objects in format {target: \<ID\>}. set of components which are not included to ODE but can affect to it. |
 
 ### Example
 
@@ -373,7 +377,7 @@ one::r1 := k1*A*comp1;
 
 ## _Switcher
 
-**Parent:** [_Scoped](#_Scoped)
+**Parent:** [_Scoped](#_scoped)
 
 This is **scoped** class.
 
@@ -381,7 +385,7 @@ This is **scoped** class.
 
 ## TimeSwitcher
 
-**Parent:** [_Switcher](#_Switcher)
+**Parent:** [_Switcher](#_switcher)
 
 This is **scoped** class.
 
@@ -402,7 +406,7 @@ one::sw1 @TimeSwitcher {
 ```
 ## ContinuousSwitcher
 
-**Parent:** [_Switcher](#_Switcher)
+**Parent:** [_Switcher](#_switcher)
 
 This is **scoped** class.
 
@@ -420,9 +424,9 @@ one::sw2 @ContinuousSwitcher {
 
 ## SimpleTask
 
-**Parent:** [_Simple](#_Simple)
+**Parent:** [_Scoped](#_scoped)
 
-This is **unscoped** class.
+This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
