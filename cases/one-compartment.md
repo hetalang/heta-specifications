@@ -10,7 +10,7 @@ dose @Const = 10;
 kabs @Const = 1e-2;
 kel @Const = 1.2e-3;
 
-block $one begin
+namespace one begin
   gut @Compartment .= 1;
   Vd @Compartment .= 5;
   a0 @Species {
