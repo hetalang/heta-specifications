@@ -8,6 +8,14 @@
 
 This repository stores the specifications for Heta language which are available on [GitHub Pages](https://hetalang.github.io/).
 
+## Versions
+
+The **latest** published version of Heta standard is stored in **master** branch and can be seen on [web site](https://hetalang.github.io/).
+
+The version under development is in **dev** branch.
+
+The previous versions are stored as **tags**.
+
 ## Author
 
 Evgeny Metelkin

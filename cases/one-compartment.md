@@ -4,7 +4,7 @@
 file: `one-compartment.heta`
 
 ```heta
-// global objects are available for any namespace
+// global objects are available inside any namespace
 F @Const = 0.97;
 dose @Const = 10;
 kabs @Const = 1e-2;
@@ -29,6 +29,6 @@ namespace one begin
   r_el := kel * c1 * Vd;
 end
 
-// this creates SBML formatted file based on "one" namespace
-sbml @SBMLExport { model: one };
+// this creates SBML formatted file based on namespace "one".
+one::sbml @SBMLExport;
 ```

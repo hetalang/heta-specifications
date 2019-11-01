@@ -4,13 +4,10 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 
 ## Class list
 
-- [_Simple](#_simple)
-- [_Scoped](#_scoped)
+- [_Component](#_component)
 - [Page](#page)
 - [UnitDefinition](#unitdefinition)
 - [FunctionDefinition](#functiondefinition)
-- [_Export](#_export)
-- [SBMLExport](#sbmlexport)
 - [Record](#record)
 - [Process](#process)
 - [Compartment](#compartment)
@@ -20,6 +17,13 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 - [TimeSwitcher](#timeswitcher)
 - [ContinuousSwitcher](#continuousswitcher)
 - [SimpleTask](#simpletask)
+- [_Export](#_export)
+- [SBMLExport](#sbmlexport)
+- [SLVExport](#slvexport)
+- [MrgsolveExport](#mrgsolveexport)
+- [SimbioExport](#simbioexport)
+- [JSONExport](#jsonexport)
+- [YAMLExport](#yamlexport)
 
 ## String types
 - [ID](#id)
@@ -33,83 +37,62 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 
 ## Basics
 
-1. Classes describes the available properties of their instances, their types checking rules and the default values. Trying to include the undeclarated properties is not an error but just will be ignored.
+1. Classes define the properties of their instances, their types checking rules and the default values. Trying to include the undeclarated properties is not an error but will be ignored.
     ```heta
     one::pr1 @Process { compartment: comp1 };
     ```
     will be interpreted as 
     ```heta
-    one::pr1 @Process { }; // because compartment property is not declared for @Process
+    one::pr1 @Process { };
     ```
+    because `compartment` property is not declared for `Process` class.
 
-1. There are some specific checking rules in classes, e.g. required properties. They will be checked only after all components from the code is loaded, see [workflow](./workflow). For example, `@Const` class has required numeric property `num`:
+1. There are some specific checking rules in classes, e.g. required properties. They will be checked only after all components from the code is loaded, see [workflow](./workflow). For example, `Const` class has required numeric property `num`:
     ```heta
     k1 @Const; // thes case doesn't throw error
-    k1 = 1;    // because num property is set later
+    k1 { num: 1 };    // because num property is set here
+    ```
+1. Any component of Heta language can be associated with anonimous (global) or local [namespace](./namespaces).
+    ```heta
+    // association with no namespace (anonimous)
+    p1 @Record .= 5;
+    ```
+    ```heta
+    // association with "one" namespace
+    one::p1 @Record .= 5;
     ```
 
-1. Some properties of the components are the references to other components, furthermore they should be referenced to instances of specific classes. The checking of references will be after loading all the code. For example `@Species` class must have the property compartment which is the reference to a `@Compartment` instance.
+1. Some properties of the components are the references to other components, furthermore they should be referenced to instances of specific classes. The checking of references will be after loading all the code. For example a `Species` instance must have the property `compartment` which is the reference to a `Compartment` instance.
     ```heta
     one::S @Species { compartment: comp1 } .= 0;
     ```
-    The code above throws an error because there is no element with id `comp1` in `one` namespace.
+    The code above throws an error because there is no element with id `comp1` neither in `one` namespace nor in anonimous namespace.
     ```heta
     one::S @Species { compartment: comp1 } .= 0;
     one::comp1 @Compartment .= 1;
     ```
     The code above is OK because for the moment of reference checking the compartment has already been loaded.
 
-1. The current version of Heta language uses classes the instances of which can be associated with either global (anonimous) or local [namespace](./namespaces). For example `@Const` class instances can be only global (**unscoped class**). The direct indication of namespace is not the error, but the namespace will be anonimous.
-    ```heta
-    x @Const = 1;
-    nmsps1::y @Const = 0;
-    ```
-    will be interpreted as
-    ```heta
-    x @Const = 1;
-    y @Const = 0;
-    ```
-    Component of **scoped class** like `@Compartment` must have namespace indicated directly or by namespace block. Zero namespace throws an error.
-    ```heta
-    nmsps1::comp1 @Compartment; // OK
-    comp1 @Compartment; // throws error
-    ```
+1. `_Component` is the top class, i.e. all other Heta components inherits from `_Component`. 
 
-1. `_Simple` is the top class, i.e. all other Heta classes inherits from `_Simple`. 
-
-
-## _Simple
+## _Component
 
 **Parent:** *no*
 
 This is top class for all Heta components. Includes properties for component annotation.
 
-This is **unscoped** and **abstract** class.
-
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| title | string | | | | Additional human readable name for a component. |
-| notes | string | | | | Arbitrary text for Element annotation. Support markdown for text decoration. |
+| title | string | | | | Additional non-unique human readable identifier for a component. |
+| notes | string | | | | Arbitrary text for component annotation. It can potentially support markdown for text decoration. |
 | tags | string[] | | [ ] | | Array of strings tagging components. Can be used for grouping components. |
-| aux | object | | | | User defined auxilary structures (key:value) with any complexity. This can be used to store additional information and annotation. |
-
-## _Scoped
-
-**Parent:** [_Simple](#_simple)
-
-This is top class for all scoped components.
-
-This is **scoped** and **abstract** class.
-
-*No additional properties.*
+| aux | object | | { } | | User defined auxilary structures ( key: value pair) with any complexity. This can be used to store additional information and annotation. |
 
 ## Const
 
-**Parent:** [_Simple](#_simple)
+**Parent:** [_Component](#_Component)
 
 This is class for numerical values which do not change in simulation time.
-
-This is **unscoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -132,11 +115,9 @@ kabs = 1.4e-6 { free: true, units: 1/h };
 
 ## Page
 
-**Parent:** [_Simple](#_simple)
+**Parent:** [_Component](#_Component)
 
 This is class for any arbitrary text page which can be helpful for the whole platform annotation or documentation writing.
-
-This is **unscoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -154,11 +135,9 @@ pg_authors @Page 'Authors' { content: "
 
 ## UnitDefinition
 
-**Parent:** [_Simple](#_simple)
+**Parent:** [_Component](#_Component)
 
 This is class for implementation of a definition of unit to use it in [UnitsExpr](#unitsexpr).
-
-This is **unscoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -186,11 +165,9 @@ kDa @UnitDefinition { components: [
 
 ## FunctionDefinition
 
-**Parent:** [_Simple](#_simple)
+**Parent:** [_Component](#_Component)
 
 This is class describing user defined mathematical functions. See [MathExpr](#mathexpr).
-
-This is **unscoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -206,37 +183,11 @@ logit10 @FunctionDefinition {
 };
 ```
 
-## _Export
-
-**Parent:** [_Simple](#_simple)
-
-This is top class for the components describing transformations to other modeling formats: SBML, Simbiology, etc.
-
-This is **unscoped** and **abstract** class.
-
-*No additional properties.*
-
-## SBMLExport
-
-**Parent:** [_Export](#_export)
-
-Export to SBML format.
-
-This is **unscoped** class.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| version | string | | L2V4 | | SBML version. One of the values: `L2V1`, `L2V3`, etc. |
-| model | ID | true | | | namespace id to create the SBML model from |
-| skipMathChecking | boolean | | | | `true` means that the model builder will not check MathExprs |
-
 ## Record
 
-**Parent:** [_Scoped](#_scoped)
+**Parent:** [_Component](#_component)
 
 Record instances describes the dynamic values (variable) which can be changed in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
-
-This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -279,8 +230,6 @@ Assignment dictionary describes a set of assignments which is used to change the
 
 Process instances changes the other `Record` instances indirectly through the ordinary differential equations. Process is like flux that increase or decrease values over time.
 
-This is **scoped** class.
-
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | actors | Actor[]/string | | [] | | [ProcessExpr](#processexpr) or array of objects of format.  { target: \<ID\>, stoichiometry: \<number\> }. The rules for dynamic components which describes how they will be included to ODE including stoichiometry. |
@@ -320,8 +269,6 @@ one::pr1 @Process { actors: [
 
 `Compartment` is class describing volumes where `Species` instances are located. The variable means the volume size.
 
-This is **scoped** class.
-
 *no specific properties*
 
 ### Example
@@ -334,8 +281,6 @@ one::comp1 @Compartment = 5.3 { units: L };
 **Parent:** [Record](#record)
 
 `Species` is class describing molecules in some location. The variable value can mean amount of molecules or concentration depending on `isAmount` property.
-
-This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -358,8 +303,6 @@ one::S .= 10;
 
 The same as Process, but all target references should be Species.
 
-This is **scoped** class.
-
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | actors | Reactant[]/string | | [] | | [process string](#process-string) or array of objects in format { target: \<ID\>, stoichiometry: \<number\> where target is the reference to `Species`} |
@@ -377,17 +320,13 @@ one::r1 := k1*A*comp1;
 
 ## _Switcher
 
-**Parent:** [_Scoped](#_scoped)
-
-This is **scoped** class.
+**Parent:** [_Component](#_component)
 
 *no specific properties*
 
 ## TimeSwitcher
 
 **Parent:** [_Switcher](#_switcher)
-
-This is **scoped** class.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -424,9 +363,7 @@ one::sw2 @ContinuousSwitcher {
 
 ## SimpleTask
 
-**Parent:** [_Scoped](#_scoped)
-
-This is **scoped** class.
+**Parent:** [_Component](#_component)
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -458,15 +395,84 @@ st1 @SimpleTask {
 };
 ```
 
+## _Export
+
+**Parent:** [_Component](#_Component)
+
+This is top class for the components describing transformations to other modeling formats: SBML, Simbiology, etc.
+
+*No additional properties.*
+
+## SBMLExport
+
+**Parent:** [_Export](#_export)
+
+Export to SBML format.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| version | string | | L2V4 | | SBML version. One of the values: `L2V1`, `L2V3`, etc. |
+| skipRefChecking | boolean | | | | `true` means that the model builder will ignore reference errors |
+
+## SLVExport
+
+**Parent:** [_Export](#_export)
+
+Export to SLV format (DBSolveOptimum).
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| eventsOff | boolean | | | | if `eventsOff = true` the switchers will be ignored in export. |
+
+## MrgsolveExport
+
+**Parent:** [_Export](#_export)
+
+Export to mrgsolve model format (cpp file).
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+*No additional properties.*
+
+## SimbioExport
+
+**Parent:** [_Export](#_export)
+
+Export to Simbiology/Matlab code (m file). The code can be run to create simbiology project.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+*No additional properties.*
+
+## JSONExport
+
+**Parent:** [_Export](#_export)
+
+Export to JSON structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](workflow) format.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+*No additional properties.*
+
+## YAMLExport
+
+**Parent:** [_Export](#_export)
+
+Export to YAML structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](workflow) format.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+*No additional properties.*
+
 ## ID
 
-ID describes the string type which is used for idexing Heta components. ID type can be used for namespaces and identifiers.
+ID describes the string type which is used for idexing Heta components. ID type can be used for namespaces, identifiers and references.
 
 The rules for ID is the following:
 
 1. First symbol should be letter or underscore.
 1. Second and other elements should be letter, number or underscore.
-1. Depriction: the last symbol should not be underscore.
+1. Deprication: the last symbol should not be underscore.
 
 ### Example
 
@@ -478,7 +484,7 @@ The rules for ID is the following:
 
 ## UnitsExpr
 
-UnitsExpr strings represent the complex units combined from the predefined unit IDs. Available operatators: `*`, `/`, `^`.
+UnitsExpr strings represent the complex units combined from the predefined unit IDs. Available operatators: `*`, `/`, `^`, `1/`.
 
 ### Example
 
@@ -488,11 +494,11 @@ UnitsExpr strings represent the complex units combined from the predefined unit 
 
 ## ProcessExpr
 
-ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) devided two parts: influx (left) and outflux (right). Stoichiometry coefficients are shown by numbers. 
+ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) devided two parts: influx (left) and outflux (right). Plus symbol divide two or more actors. Stoichiometry coefficients are shown by numbers before reference. Asterix symbol is optional.
 
 ### Example
 
-**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B`.
+**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B + C`.
 
 ## MathExpr
 
