@@ -26,16 +26,16 @@ Structures in example are shown in JSON notation.
 
 file: `index.heta`
 ```heta
-s1::one @Species { compartment: comp0 };
+one::s1 @Species { compartment: comp0 };
 
 #import { source: ./addon.heta, type: heta };
 ```
 
 file: `addon.heta`
 ```
-s1::one 'Species number one';
+one::s1 'Species number one';
 
-sbml @SBMLExport { model: one };
+one::sbml @SBMLExport;
 ```
 
 **Step 2. Modules collection**
@@ -66,7 +66,7 @@ sbml @SBMLExport { model: one };
         {
             "action": "upsert",
             "id": "sbml",
-            "model": "one"
+            "space": "one"
         }
     ]
 }
@@ -93,7 +93,7 @@ sbml @SBMLExport { model: one };
         "action": "upsert",
         "class": "SBMLExport",
         "id": "sbml",
-        "model": "one"
+        "space": "one"
     }
 ]
 ```
@@ -107,9 +107,8 @@ sbml @SBMLExport { model: one };
         "compartment": "comp0",
         "title": "Species number one"
     },
-    "sbml": {
-        "class": "SBMLExport",
-        "model": "one"
+    "one::sbml": {
+        "class": "SBMLExport"
     }
 }
 ```
@@ -123,9 +122,8 @@ sbml @SBMLExport { model: one };
         "title": "Species number one",
         "compartmentObj": {...}
     },
-    "sbml": {
-        "class": "SBMLExport",
-        "model": "one"
+    "one::sbml": {
+        "class": "SBMLExport"
     }
 ```
 
