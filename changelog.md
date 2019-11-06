@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.2.1
+
+- more details to actions chapter
+- update versions table
+- rename "transformation workflow" to "compilation steps" and extend description.
+
 ## 0.2.0
 
 - all classes instances can be in anonimous and in non-anonimous space;

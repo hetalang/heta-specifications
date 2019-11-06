@@ -14,13 +14,13 @@
 - [Namespaces](namespaces)
 - [Heta modules](modules)
 - [Math expressions](math)
-- [Heta interpretation workflow](workflow)
+- [Compilation steps](compilation)
 - [Cases](cases)
 - [Versions](versions)
 - [Change Log](changelog)
 
 ## Features and philosophy
-Heta language is a domain-specific programming language (DSL) for dynamic quantitative models used in quantitative systems pharmacology (QSP) and systems biology (SB). It describes the biological systems as the components of QSP/SB modeling platform. The scenarios, annotation and configuration are parts of the platform.
+Heta language is a domain-specific programming language (DSL) for dynamic quantitative models used in quantitative systems pharmacology (QSP) and systems biology (SB). It describes the biological systems as the components of QSP/SB modeling platform. The scenarios, annotation and configuration files are parts of the platform.
 
 Heta language represent the dynamic model as a set of interacting components which describe states, rates and associated components. The most native representation of Heta code is ordinary differential equations (ODEs) or set of ODEs but Heta does require writing ODE system manualy. The differential equations are compiled "on fly" when it is required.
 
@@ -30,10 +30,10 @@ The key idea of Heta language is the development and editing the bio-mathematica
 -	Describe components but not the algorithms;
 -	Annotation matters.
 
-The important features of the language are:
+The important requrements to the language are:
 
 -	Human-readable/writable code can be used for model creation, modification or integration.
--	Easy code parsing for potential implementation into different tools and frameworks.
+-	Easy code parsing and transformation for potential implementation into different tools and frameworks.
 -	Modularity: QSP platform can be subdivided into several modules for better project management.
 -	Shared model parts and datasets are helpful for the development of modeling platforms and parameter identification.
 -	Reach annotation capabilities for better code revision and reporting.
@@ -42,7 +42,7 @@ The important features of the language are:
 ## Hello world example with explanations
 *A set of additional examples can be found in [Cases page](cases).*
 
-The model describes a simple model with two species and one mass-action reaction. The following code definitely describes the model and can be translated to SBML, simbiology and mrgsolve code. The model is published on GitHub: <https://github.com/insysbio/heta-case-mini> as an example of open-source modeling platform.
+The model describes a simple model with two species and one mass-action reaction. The following code definitely describes the model and can be translated to SBML, simbiology and mrgsolve code. The model is published on GitHub: <https://github.com/insysbio/heta-case-mini> as an example of open-source QSP modeling platform.
 
 ```Heta
 // Hello world! example
@@ -100,7 +100,7 @@ Currently the version **v0.2.0** of the standard is published on Github-pages <h
 A series of tools supporting Heta language has been developed:
 - Syntax highlighting VSCode: [heta-highlight-vscode](https://github.com/insysbio/heta-highlight-vscode) (published on GitHub )
 - Syntax highlighting Atom editor: [heta-highlight-atom](https://github.com/insysbio/heta-highlight-atom) (published on GitHub)
-- JavaScript framework with Heta support has been developed and tested: qs3p-js v0.4.0 (will be published soon)
+- JavaScript framework with Heta support has been developed and tested: qs3p-js v0.4.2 (will be published soon)
 
 The examples of Heta-based QSP platforms with CI/CD capabilitiew are shared on gitlab: 
 - <https://github.com/insysbio/heta-case-mini> 

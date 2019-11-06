@@ -1,28 +1,32 @@
-# Heta transformation workflow
+# Compilation steps
 
 Heta code is transformed by the following steps:
 
-1. **Parsing.** Heta language [code](syntax) from text files is translated to the      collection of [Modules](modules). 
+1. **Parsing.** **Heta language code** from text files is translated to the      collection of [Modules](modules). 
 
-    Parsing starts from single *index* file, than other files is added recursively  based on `#import` actions. Each file represents one module.
+    Parsing starts from single *index* file (it can have any name), then other files are added recursively based on `#import` actions. Each file represents one module.
 
-    Syntax checking can be performed on this step.
+    The errors that happend at the stage will be of type `ParsingError`.
 
-1. **Modules integration.** Collection of modules are combined into single list (sequence) of [Actions](actions) (array-like format).
+1. **Modules integration.** Collection of modules are combined into a single structure **queue** which is sequence of queries for platform storage based on [Actions](actions). The modules must not have circular references.
 
-    Modules must not have circular references.
+    The errors that happend at the stage will be of type `ModuleError`.
 
-1. **Translation.** Actions are translated sequentially to form [declarative Heta](heta-declarative) structures (dictionary-like format).
+1. **Translation.** Queue is translated sequentially to create diclarative Heta structure (key-value format). The keys are the indexes of components, values is the components. The properties must satisfy the requirements for its classes.
 
-1. **Binding.** Binding Heta components based on internal cross references. 
+    The errors that happend at the stage will be of types `QueueError`, `ValidationError`.
 
-    Check references. Check required properties.
+1. **Binding.** Binding Heta components based on internal cross references. Checking references. Checking required properties.
+
+    The errors that happend at the stage will be of types `BindingError`.
+
+1. **Other steps.** The next steps depends on components in storage and setting of Heta-based builder. For example it is expected that `_Export` classes induce the creation of code for export.
 
 ## Example
 
-Structures in example are shown in JSON notation.
+Structures in example are shown in Heta and JSON notation.
 
-**Step 1. Heta code**
+**Structure 1. Heta language code**
 
 file: `index.heta`
 ```heta
@@ -38,7 +42,7 @@ one::s1 'Species number one';
 one::sbml @SBMLExport;
 ```
 
-**Step 2. Modules collection**
+**Structure 2. Collection of modules**
 
 ```json
 {
@@ -65,6 +69,7 @@ one::sbml @SBMLExport;
         },
         {
             "action": "upsert",
+            "class": "SBMLExport",
             "id": "sbml",
             "space": "one"
         }
@@ -72,7 +77,7 @@ one::sbml @SBMLExport;
 }
 ```
 
-**Step 3. Action sequence**
+**Structure 3. Queue**
 
 ```json
 [
@@ -98,10 +103,11 @@ one::sbml @SBMLExport;
 ]
 ```
 
-**Step 4. Declarative Heta**
+**Structure 4. Declarative Heta**
 
 ```json
 {
+    ...
     "one::s1": {
         "class": "Species",
         "compartment": "comp0",
@@ -113,21 +119,23 @@ one::sbml @SBMLExport;
 }
 ```
 
-**Step 5. References**
+**Structure 5. Declarative Heta (bound)**
 
 ```json
+{
+    ...
     "one::s1": {
         "class": "Species",
         "compartment": "comp0",
         "title": "Species number one",
-        "compartmentObj": {...}
+        "compartmentObj": {...} // if compartment exists in "declarative Heta"
     },
     "one::sbml": {
         "class": "SBMLExport"
     }
 ```
 
-**Step 5. Export**
+**Output formats.**
 
 file: `sbml.xml`
 
@@ -137,6 +145,7 @@ file: `sbml.xml`
     xmlns = "http://www.sbml.org/sbml/level2/version4"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     level="2" version="4">
+    ...
     <listOfSpecies>
         <species
             id = "s1"

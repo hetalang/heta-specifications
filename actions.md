@@ -1,12 +1,12 @@
 # Actions
 
-The format of modeling platform (or model) which is developed with Heta code is a kind of declarative language (scheme). Nevertheless Heta is not actually a declarative language because it sequentially updates and changes the platform.
+The format of heta-based modeling platform is a kind of declarative language (scheme). Nevertheless Heta is not actually a declarative language because it sequentially updates and changes the platform.
 
 The "action" is term used in Heta language to clarify what platform should do with a statement. Some of actions like `#import` works at modules level.
 
 Action is designated by `#` symbol before the action type and can be used in any statement.
 
-In no statement is written the default statement is `#upsert`.
+If no statement is written the default statement is `#upsert`.
 
 ## Action list
 
@@ -18,7 +18,7 @@ In no statement is written the default statement is `#upsert`.
 
 ## insert
 
-Insert adds a new component to the platform. 
+The `insert` action adds a new component to the platform. 
 If the element with the same index already exist it will be replaced by the new one. 
 When applying `insert` the class should be stated directly.
 
@@ -31,7 +31,7 @@ When applying `insert` the class should be stated directly.
 // second insert with the same index
 #insert  one::c1 @Compartment {title: second};
 ```
-The compartment with the title `one::c1` will be replaced by the another compartment.
+The compartment with the index `one::c1` will be replaced by the another compartment.
 The result of two statements will be
 
 ```json
@@ -49,11 +49,13 @@ The result of two statements will be
 #insert one::S { compartment: comp1 };
 ```
 
-This statement should throw the error because class is unknown.
+This statement should throw the error because class is not indicated.
 
 ## update
 
-The update only change the properties of existed component without creating a new one.
+The `update` action only changes the properties of existed component without creating a new one.
+
+If an updated property exists it will be rewritten by a new value. The current version of standard makes an exception for assignment property in `Record` instances. For these updates the subproperty will be added to the assignment dictionary.
 
 ### Example 1
 ```heta
@@ -82,9 +84,49 @@ The result of two statements
 
 The statement throws error because the component with index one::S has not been created before.
 
+### Example 3
+
+```heta
+k1 @Const = 1.2 { aux: {group: one} };
+k1 { aux: {human: true}};
+```
+
+This result will not include `{group: one}` because of property update rules:
+```json
+{
+    "k1": {
+        "class": "Const",
+        "num": 1.2,
+        "aux": { "human": true }
+    }
+}
+```
+
+### Example 4
+
+```heta
+p1 @Record { assignments: {start_: 0} };
+p1 { assignments: {ode_: x*y}};
+p1 [sw]= 0;
+```
+The result will include all assignments because it it an exception for assignments:
+
+```json
+{
+    "p1": {
+        "class": "Record",
+        "assignments": {
+            "start_": "0",
+            "ode_": "x*y",
+            "sw": "0"
+        }
+    }
+}
+```
+
 ## upsert
 
-The upsert statement is the default action and acts as `#insert` when class is stated and as `#update` otherwice.
+The `upsert` action is the default action and works as `#insert` when class is stated and as `#update` otherwice.
 
 ### Example
 
@@ -98,12 +140,13 @@ k1 = 3; // this acts as #upsert -> #update
 
 ## delete
 
-The delete action erase the element with the index. If the component with the index is not exist this throws the error.
+The `delete` action erase the element with the index. If the component with the index is not exist this throws the error.
 
 ### Example
 
 ```heta
-#delete k1; // deletes k1 if it is exist
+#insert k1 @Const = 1;
+#delete k1; // deletes k1
 ```
 
 ## import
