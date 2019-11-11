@@ -2,25 +2,27 @@
 
 Heta code is transformed by the following steps:
 
-1. **Parsing.** **Heta language code** from text files is translated to the      collection of [Modules](modules). 
+1. **Parsing.** **Heta language code** from text files is translated to the collection of [Modules](modules). 
 
     Parsing starts from single *index* file (it can have any name), then other files are added recursively based on `#import` actions. Each file represents one module.
 
-    The errors that happend at the stage will be of type `ParsingError`.
+    The errors which happen at the stage will be of types: `FileSystemError`, `ParsingError`.
 
 1. **Modules integration.** Collection of modules are combined into a single structure **queue** which is sequence of queries for platform storage based on [Actions](actions). The modules must not have circular references.
 
-    The errors that happend at the stage will be of type `ModuleError`.
+    The errors which happen at the stage will be of type `ModuleError`.
 
 1. **Translation.** Queue is translated sequentially to create diclarative Heta structure (key-value format). The keys are the indexes of components, values is the components. The properties must satisfy the requirements for its classes.
 
-    The errors that happend at the stage will be of types `QueueError`, `ValidationError`.
+    The errors which happen at the stage will be of types: `QueueError`, `ValidationError`.
 
 1. **Binding.** Binding Heta components based on internal cross references. Checking references. Checking required properties.
 
-    The errors that happend at the stage will be of types `BindingError`.
+    The errors which happen at the stage will be of types: `BindingError`, `ValidationError`.
 
 1. **Other steps.** The next steps depends on components in storage and setting of Heta-based builder. For example it is expected that `_Export` classes induce the creation of code for export.
+
+    The errors which happen at the stage will be of types: `ExportError`.
 
 ## Example
 

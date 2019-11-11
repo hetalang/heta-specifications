@@ -158,7 +158,7 @@ It uses the virtual properties to set the different files and formats.
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | source | string | true | | filepath | Relative or absolute path to a file. |
-| type | string | | heta | | Type of module. Possible values are: "heta", "json", "yaml", "xlsx", "md" |
+| type | string | | `heta` | | Type of module. Possible values are: "heta", "json", "yaml", "xlsx", "md" |
 | ... | | | | | The other settings depending on `type` |
 
 ### Example

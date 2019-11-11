@@ -5,6 +5,7 @@
 - more details to actions chapter
 - update versions table
 - rename "transformation workflow" to "compilation steps" and extend description.
+- add error names
 
 ## 0.2.0
 
