@@ -6,7 +6,7 @@
 
 **Heta language** is a domain specific programming language (not general-purpose) for dynamic quantitative models used in quantitative systems pharmacology and systems biology.
 
-## Language specification v0.2.0
+## Language specification v0.2.1
 
 - [Syntax](syntax)
 - [Classes](classes)
@@ -95,12 +95,12 @@ k1 @Record .= 0.01;
 This creates a component that can be described by number and sets the initial value 0.01 at the same line.
 
 ## Current state and implementation
-Currently the version **v0.2.0** of the standard is published on Github-pages <https://hetalang.github.io/>
+Currently the standard is published on Github-pages <https://hetalang.github.io/>
 
 A series of tools supporting Heta language has been developed:
 - Syntax highlighting VSCode: [heta-highlight-vscode](https://github.com/insysbio/heta-highlight-vscode) (published on GitHub )
 - Syntax highlighting Atom editor: [heta-highlight-atom](https://github.com/insysbio/heta-highlight-atom) (published on GitHub)
-- JavaScript framework with Heta support has been developed and tested: qs3p-js v0.4.2 (will be published soon)
+- JavaScript framework with Heta support has been developed and tested: qs3p-js v0.4.3 (will be published soon)
 
 The examples of Heta-based QSP platforms with CI/CD capabilitiew are shared on gitlab: 
 - <https://github.com/insysbio/heta-case-mini> 
