@@ -1,5 +1,9 @@
 # Change Log
 
+# 0.2.2
+
+- mark namespace as experimental (unstable) feature
+
 ## 0.2.1
 
 - more details to actions chapter
