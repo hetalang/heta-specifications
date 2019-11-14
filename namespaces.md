@@ -1,5 +1,7 @@
 # Namespaces
 
+*Namespaces in Heta is the experimental feature and should not be used for the production*
+
 1. Heta uses simple not-nested spaces of names.
 
 1. Using namespaces is **optional** and intended for:

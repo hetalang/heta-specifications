@@ -10,25 +10,23 @@ dose @Const = 10;
 kabs @Const = 1e-2;
 kel @Const = 1.2e-3;
 
-namespace one begin
-  gut @Compartment .= 1;
-  Vd @Compartment .= 5;
-  a0 @Species {
-      compartment: gut,
-      isAmount: true
-  };
-  c1 @Species {
-      compartment: central
-  };
-  r_abs @Reaction { actors: a0 => c1 };
-  r_el @Reaction { actors: c1 => };
+gut @Compartment .= 1;
+Vd @Compartment .= 5;
+a0 @Species {
+    compartment: gut,
+    isAmount: true
+};
+c1 @Species {
+    compartment: central
+};
+r_abs @Reaction { actors: a0 => c1 };
+r_el @Reaction { actors: c1 => };
 
-  a0 .= F * dose;
-  c1 .= 0;
-  r_abs := kabs * a0;
-  r_el := kel * c1 * Vd;
-end
+a0 .= F * dose;
+c1 .= 0;
+r_abs := kabs * a0;
+r_el := kel * c1 * Vd;
 
-// this creates SBML formatted file based on namespace "one".
-one::sbml @SBMLExport;
+// this creates SBML formatted file
+sbml @SBMLExport;
 ```

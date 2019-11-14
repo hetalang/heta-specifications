@@ -26,17 +26,17 @@ When applying `insert` the class should be stated directly.
 
 ```heta
 // first insert
-#insert  one::c1 @Compartment {title: first} := 1;
+#insert  c1 @Compartment {title: first} := 1;
 
 // second insert with the same index
-#insert  one::c1 @Compartment {title: second};
+#insert  c1 @Compartment {title: second};
 ```
-The compartment with the index `one::c1` will be replaced by the another compartment.
+The compartment with the index `c1` will be replaced by the another compartment.
 The result of two statements will be
 
 ```json
 {
-    "one::c1" : {
+    "c1" : {
         "title": "second",
         "assignment": {} 
     } 
@@ -46,7 +46,7 @@ The result of two statements will be
 ### Example 2
 
 ```heta
-#insert one::S { compartment: comp1 };
+#insert S { compartment: comp1 };
 ```
 
 This statement should throw the error because class is not indicated.
@@ -60,16 +60,16 @@ If an updated property exists it will be rewritten by a new value. The current v
 ### Example 1
 ```heta
 // first insert
-#insert  one::c1 @Compartment {title: first} := 1;
+#insert  c1 @Compartment {title: first} := 1;
 
 // second insert with the same index
-#update  one::c1 { title: second };
+#update  c1 { title: second };
 ```
 
 The result of two statements
 ```json
 [{
-    "one::c1" : {
+    "c1" : {
         "title": "second",
         "assignment": { "ode_": 1 } 
     } 
@@ -79,10 +79,10 @@ The result of two statements
 ### Example 2
 
 ```heta
-#update one::S @Species { compartment: c1 };
+#update S @Species { compartment: c1 };
 ```
 
-The statement throws error because the component with index one::S has not been created before.
+The statement throws error because the component with index `S` has not been created before.
 
 ### Example 3
 

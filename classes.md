@@ -39,11 +39,11 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 
 1. Classes define the properties of their instances, their types checking rules and the default values. Trying to include the undeclarated properties is not an error but will be ignored.
     ```heta
-    one::pr1 @Process { compartment: comp1 };
+    pr1 @Process { compartment: comp1 };
     ```
     will be interpreted as 
     ```heta
-    one::pr1 @Process { };
+    pr1 @Process { };
     ```
     because `compartment` property is not declared for `Process` class.
 
@@ -52,24 +52,15 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
     k1 @Const; // thes case doesn't throw error
     k1 { num: 1 };    // because num property is set here
     ```
-1. Any component of Heta language can be associated with anonimous (global) or local [namespace](./namespaces).
-    ```heta
-    // association with no namespace (anonimous)
-    p1 @Record .= 5;
-    ```
-    ```heta
-    // association with "one" namespace
-    one::p1 @Record .= 5;
-    ```
 
 1. Some properties of the components are the references to other components, furthermore they should be referenced to instances of specific classes. The checking of references will be after loading all the code. For example a `Species` instance must have the property `compartment` which is the reference to a `Compartment` instance.
     ```heta
-    one::S @Species { compartment: comp1 } .= 0;
+    S @Species { compartment: comp1 } .= 0;
     ```
-    The code above throws an error because there is no element with id `comp1` neither in `one` namespace nor in anonimous namespace.
+    The code above throws an error because there is no element with id `comp1`.
     ```heta
-    one::S @Species { compartment: comp1 } .= 0;
-    one::comp1 @Compartment .= 1;
+    S @Species { compartment: comp1 } .= 0;
+    comp1 @Compartment .= 1;
     ```
     The code above is OK because for the moment of reference checking the compartment has already been loaded.
 
@@ -86,7 +77,7 @@ This is top class for all Heta components. Includes properties for component ann
 | title | string | | | | Additional non-unique human readable identifier for a component. |
 | notes | string | | | | Arbitrary text for component annotation. It can potentially support markdown for text decoration. |
 | tags | string[] | | [ ] | | Array of strings tagging components. Can be used for grouping components. |
-| aux | object | | { } | | User defined auxilary structures ( key: value pair) with any complexity. This can be used to store additional information and annotation. |
+| aux | object | | { } | | User defined auxilary structures { key: value pair } with any complexity. This can be used to store additional information and annotation. |
 
 ## Const
 
@@ -198,13 +189,13 @@ Record instances describes the dynamic values (variable) which can be changed in
 ### Example
 
 ```heta
-one::p1 @Record { boundary: true, units: kg/L };
-one::p1 .= x*y;
-one::p1 [sw1]= 0;
+p1 @Record { boundary: true, units: kg/L };
+p1 .= x*y;
+p1 [sw1]= 0;
 
 // equivalent to this code
 /*
-one::p1 {
+p1 {
     class: Record.
     boundary: true,
     units: kg/L,
@@ -237,10 +228,10 @@ Process instances changes the other `Record` instances indirectly through the or
 ### Example
 
 ```heta
-one::pr1 @Process { actors: p1 => 2*p2 };
+pr1 @Process { actors: p1 => 2*p2 };
 
 /* equivalent to 
-one::pr1 @Process { actors: [
+pr1 @Process { actors: [
     { target: p1, stoichiometry: -1 },
     { target: p2, stoichiometry: 2 }
 ]};
@@ -273,7 +264,7 @@ one::pr1 @Process { actors: [
 
 ### Example
 ```heta
-one::comp1 @Compartment = 5.3 { units: L };
+comp1 @Compartment = 5.3 { units: L };
 ```
 
 ## Species
@@ -290,11 +281,11 @@ one::comp1 @Compartment = 5.3 { units: L };
 ### Example
 
 ```heta
-one::S @Species {
+S @Species {
     compartment: comp1,
     isAmount: false
 };
-one::S .= 10;
+S .= 10;
 ```
 
 ## Reaction
@@ -311,11 +302,11 @@ The same as Process, but all target references should be Species.
 ### Example
 
 ```heta
-one::r1 @Reaction {
+r1 @Reaction {
     actors: S -> P,
     modifiers: [ E ]
 };
-one::r1 := k1*A*comp1;
+r1 := k1*A*comp1;
 ```
 
 ## _Switcher
@@ -337,7 +328,7 @@ one::r1 := k1*A*comp1;
 ### Example
 
 ```heta
-one::sw1 @TimeSwitcher {
+sw1 @TimeSwitcher {
     start: 0,
     period: 24,
     repeatCount: 4
@@ -356,7 +347,7 @@ This is **scoped** class.
 ### Example
 
 ```heta
-one::sw2 @ContinuousSwitcher {
+sw2 @ContinuousSwitcher {
     condition: evt1
 };
 ```

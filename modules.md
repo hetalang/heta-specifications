@@ -20,12 +20,12 @@ Heta modules is designed for two objectives:
 
 k1 @Const = 1e-3;
 
-sbml @SBMLExport { model: one };
+sbml @SBMLExport { };
 ```
 
 **file:** `1.heta`
 ```heta
-one:c1 @Compartment .= 1;
+c1 @Compartment .= 1;
 ```
 
 **file:** `2.json`
@@ -34,7 +34,6 @@ one:c1 @Compartment .= 1;
     {
         "class": "Species",
         "id": "S",
-        "space": "one",
         "assignments": {
             "start_": 0
         }
@@ -46,13 +45,13 @@ The final result in the platform will be
 
 ```json
 {
-    "one::c1": {
+    "c1": {
         "class": "Compartment",
         "assignments": {
             "start_": 1
         }
     },
-    "one::S": {
+    "S": {
         "class": "Species",
         "assignments": {
             "start_": 0
@@ -63,8 +62,7 @@ The final result in the platform will be
         "num": 1e-3
     },
     "sbml": {
-        "class": "SBMLExport",
-        "model": "one"
+        "class": "SBMLExport"
     }
 }
 ```

@@ -32,7 +32,7 @@ The Heta code represents the sequence of statements which create and modify elem
     { prop1: value 1, prop2: value 2, ...};
     ```
 
-    The **property** is always string without spaces. The properties must be uniues withing dictionary. The **value** can have one of five types: String, Number, Boolean, Dictionary or Array.
+    The **property** is always string without spaces. The properties must be unique withing dictionary. The **value** can have one of five types: String, Number, Boolean, Dictionary or Array.
 
     Example:
     ```heta
@@ -94,9 +94,9 @@ The Heta code represents the sequence of statements which create and modify elem
 
 ## Syntactic sugar parts
 
-1. To simplify code reading/writing there are several types of statement parts. They describes the commonly used properties in compact form. See [Classes](./classes) description.
+1. To simplify code reading/writing there are several types of statement parts. They describe the commonly used properties in compact form. See [Classes](./classes) description.
 
-1. The **Index** describes identifiers: `id` and `space` of elements. The synatax can be described by the example: `space::id` or `id` for global (anonimous) space.
+1. The **Index** describes identifiers: `id` and `space` of elements. The syntax can be described by the example: `space::id` or `id` for anonimous space.
 
     Example:
     ```heta
@@ -104,7 +104,7 @@ The Heta code represents the sequence of statements which create and modify elem
     ```
     Which is equivalent to 
     ```heta
-    { space: one, id: k1 , prop1: some text };
+    { space: one, id: k1, prop1: some text };
     ```
 
 1. The **Class** part sets the `class` property. Class defines a list of properties which can be set. This property is denoted by `@` symbol. List of possible classes can be found in [Classes](./classes) description. Classes names always starts from uppercase symbol. When you use Class symbol the parser will replace the first lowercase symbol for the capital one.
@@ -175,19 +175,17 @@ The Heta code represents the sequence of statements which create and modify elem
 
     Example:
     ```heta
-    one::s @Record .= 10;
-    one::p @Species []= 0;
+    s @Record .= 10;
+    p @Species []= 0;
     ```
     Which is equivalent to 
     ```heta
     {
-        space: one,
         id: s,
         class: Record,
         assignments: { start_: 10 }
     };
     {
-        space: one,
         id: p,
         class: Species,
         assignments: { start_: 0 }
@@ -198,12 +196,11 @@ The Heta code represents the sequence of statements which create and modify elem
 
     Example:
     ```heta
-    one::rule1 @Record := x*y;
+    rule1 @Record := x*y;
     ```
     Which is equivalent to 
     ```heta
     {
-        space: one,
         id: rule1,
         class: Record,
         assignments: { ode_: x*y }
@@ -214,12 +211,11 @@ The Heta code represents the sequence of statements which create and modify elem
 
     Example:
     ```heta
-    one::s [dose_switch_1]= 0.1;
+    s [dose_switch_1]= 0.1;
     ```
     Which is equivalent to
     ```heta
     {
-        space: one,
         id: s,
         assignments: { dose_switch_1: 0.1 }
     };
@@ -271,7 +267,7 @@ The Heta code represents the sequence of statements which create and modify elem
 
     Example:
     ```heta
-    one::a @Const = 5; // This is global constant
+    a @Const = 5;
     ```
 
 1. Multiline comment starts with `/*` and ends with `*/`.

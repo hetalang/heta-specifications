@@ -12,7 +12,8 @@ All numbers in "math expression" are double. You can use any form of number: `0.
 
 ## Identifiers
 
-The identifiers inside expressions should be interpreted as references to the values of `Record` or `Const` instances. The math expression `one::p1 .= 1*y` implies there is constant or record in anonimous or `one` namespace with the id `y`.
+The identifiers inside expressions should be interpreted as references to the values of `Record` or `Const` instances. 
+The math expression `p1 .= 1*y` implies there is constant or record with the id `y`.
 
 ## Operators
 

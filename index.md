@@ -11,7 +11,7 @@
 - [Syntax](syntax)
 - [Classes](classes)
 - [Actions](actions)
-- [Namespaces](namespaces)
+- [Namespaces](namespaces) (*experimental*)
 - [Heta modules](modules)
 - [Math expressions](math)
 - [Compilation steps](compilation)
@@ -42,7 +42,7 @@ The important requrements to the language are:
 ## Hello world example with explanations
 *A set of additional examples can be found in [Cases page](cases).*
 
-The model describes a simple model with two species and one mass-action reaction. The following code definitely describes the model and can be translated to SBML, simbiology and mrgsolve code. The model is published on GitHub: <https://github.com/insysbio/heta-case-mini> as an example of open-source QSP modeling platform.
+The example describes a simple model with two species and one mass-action reaction. The following code definitely describes the model and can be translated to SBML, simbiology and mrgsolve code. The model is published on GitHub: <https://github.com/insysbio/heta-case-mini> as an example of open-source QSP modeling platform.
 
 ```Heta
 // Hello world! example

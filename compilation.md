@@ -32,16 +32,16 @@ Structures in example are shown in Heta and JSON notation.
 
 file: `index.heta`
 ```heta
-one::s1 @Species { compartment: comp0 };
+s1 @Species { compartment: comp0 };
 
 #import { source: ./addon.heta, type: heta };
 ```
 
 file: `addon.heta`
 ```
-one::s1 'Species number one';
+s1 'Species number one';
 
-one::sbml @SBMLExport;
+sbml @SBMLExport;
 ```
 
 **Structure 2. Collection of modules**
@@ -53,7 +53,6 @@ one::sbml @SBMLExport;
             "action": "upsert",
             "class": "Species",
             "id": "s1",
-            "space": "one",
             "compartment": "comp0"
         },
         {
@@ -66,14 +65,12 @@ one::sbml @SBMLExport;
         {
             "action": "upsert",
             "id": "s1",
-            "space": "one",
             "title": "Species number one"
         },
         {
             "action": "upsert",
             "class": "SBMLExport",
-            "id": "sbml",
-            "space": "one"
+            "id": "sbml"
         }
     ]
 }
@@ -87,20 +84,17 @@ one::sbml @SBMLExport;
         "action": "upsert",
         "class": "Species",
         "id": "s1",
-        "space": "one",
         "compartment": "comp0"
     },
     {
         "action": "upsert",
         "id": "s1",
-        "space": "one",
         "title": "Species number one"
     },
     {
         "action": "upsert",
         "class": "SBMLExport",
-        "id": "sbml",
-        "space": "one"
+        "id": "sbml"
     }
 ]
 ```
@@ -110,12 +104,12 @@ one::sbml @SBMLExport;
 ```json
 {
     ...
-    "one::s1": {
+    "s1": {
         "class": "Species",
         "compartment": "comp0",
         "title": "Species number one"
     },
-    "one::sbml": {
+    "sbml": {
         "class": "SBMLExport"
     }
 }
@@ -126,13 +120,13 @@ one::sbml @SBMLExport;
 ```json
 {
     ...
-    "one::s1": {
+    ":s1": {
         "class": "Species",
         "compartment": "comp0",
         "title": "Species number one",
         "compartmentObj": {...} // if compartment exists in "declarative Heta"
     },
-    "one::sbml": {
+    "sbml": {
         "class": "SBMLExport"
     }
 ```
@@ -151,7 +145,7 @@ file: `sbml.xml`
     <listOfSpecies>
         <species
             id = "s1"
-            metaid = "one::s1"
+            metaid = "s1"
             compartment = "comp0"
             name = "Species number one"
             boundaryCondition = "false"
