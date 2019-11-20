@@ -8,7 +8,7 @@ Heta code is transformed by the following steps:
 
     The errors which happen at the stage will be of types: `FileSystemError`, `ParsingError`.
 
-1. **Modules integration.** Collection of modules are combined into a single structure **queue** which is sequence of queries for platform storage based on [Actions](actions). The modules must not have circular references.
+1. **Files integration.** Collection of heta files are combined into a single structure **queue** which is sequence of queries for platform storage based on [include](include). The include must not have circular references.
 
     The errors which happen at the stage will be of type `ModuleError`.
 
@@ -34,7 +34,7 @@ file: `index.heta`
 ```heta
 s1 @Species { compartment: comp0 };
 
-#import { source: ./addon.heta, type: heta };
+include ./addon.heta type heta
 ```
 
 file: `addon.heta`

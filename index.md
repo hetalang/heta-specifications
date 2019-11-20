@@ -6,13 +6,13 @@
 
 **Heta language** is a domain specific programming language (not general-purpose) for dynamic quantitative models used in quantitative systems pharmacology and systems biology.
 
-## Language specification v0.2.2
+## Language specification v0.2.3
 
 - [Syntax](syntax)
 - [Classes](classes)
 - [Actions](actions)
 - [Namespaces](namespaces) (*experimental*)
-- [Heta modules](modules)
+- [Include statement](include)
 - [Math expressions](math)
 - [Compilation steps](compilation)
 - [Cases](cases)
@@ -34,7 +34,7 @@ The important requrements to the language are:
 
 -	Human-readable/writable code can be used for model creation, modification or integration.
 -	Easy code parsing and transformation for potential implementation into different tools and frameworks.
--	Modularity: QSP platform can be subdivided into several modules for better project management.
+-	Modularity: QSP platform can be subdivided into several files and spaces for better project management.
 -	Shared model parts and datasets are helpful for the development of modeling platforms and parameter identification.
 -	Reach annotation capabilities for better code revision and reporting.
 -	Easy transformation from/to different formats of platforms and models currently used in practice: sbml, dbsolve, excel spreadsheets, mrgsolve, simbiology, mrgsolve, etc.

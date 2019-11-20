@@ -17,7 +17,7 @@ a0 @Species {
     isAmount: true
 };
 c1 @Species {
-    compartment: central
+    compartment: Vd
 };
 r_abs @Reaction { actors: a0 => c1 };
 r_el @Reaction { actors: c1 => };

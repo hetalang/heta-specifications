@@ -2,7 +2,7 @@
 
 The format of heta-based modeling platform is a kind of declarative language (scheme). Nevertheless Heta is not actually a declarative language because it sequentially updates and changes the platform.
 
-The "action" is term used in Heta language to clarify what platform should do with a statement. Some of actions like `#import` works at modules level.
+The "action" is term used in Heta language to clarify what platform should do with a statement. Some of actions like `#include` works at file level.
 
 Action is designated by `#` symbol before the action type and can be used in any statement.
 
@@ -14,7 +14,7 @@ If no statement is written the default statement is `#upsert`.
 - [update](#update)
 - [upsert](#upsert)
 - [delete](#delete)
-- [import](#import)
+- [include](#include)
 
 ## insert
 
@@ -149,21 +149,23 @@ The `delete` action erase the element with the index. If the component with the 
 #delete k1; // deletes k1
 ```
 
-## import
+## include
 
-The Import action works at [module](./modules) level. It does not create or update the component but load the another module insude the current one.
+*Include action is not recommended. Use include statement instead.*
+
+The Include action works at files level. It does not create or update the component but load the another file inside the current one.
 
 It uses the virtual properties to set the different files and formats.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | source | string | true | | filepath | Relative or absolute path to a file. |
-| type | string | | `heta` | | Type of module. Possible values are: "heta", "json", "yaml", "xlsx", "md" |
+| type | string | | `heta` | | Type of include. Possible values are: "heta", "json", "yaml", "xlsx", "md" |
 | ... | | | | | The other settings depending on `type` |
 
 ### Example
 
 ```heta
-#import { source: ./pk.heta, type: heta };
-#import { source: ./annotation.xlsx, type: xlsx };
+#include { source: ./pk.heta, type: heta };
+#include { source: ./annotation.xlsx, type: xlsx };
 ```

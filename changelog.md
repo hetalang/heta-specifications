@@ -1,5 +1,9 @@
 # Change Log
 
+# 0.2.3
+
+- add `include` statement instead of `import` action
+
 # 0.2.2
 
 - mark namespace as experimental (unstable) feature

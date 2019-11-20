@@ -221,6 +221,14 @@ The Heta code represents the sequence of statements which create and modify elem
     };
     ```
 
+## Include statement
+
+1. `include` statement describes which files should be included to the current one.
+
+    ```heta
+    include ./addon.heta type heta
+    ```
+
 ## Namespace block
 
 1. Several base statements can be groupped by namespace. The block is organized in the following manner.

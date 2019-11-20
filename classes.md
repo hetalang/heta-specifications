@@ -13,7 +13,7 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 - [Compartment](#compartment)
 - [Species](#species)
 - [Reaction](#reaction)
-- [_Switcher](#switcher)
+- [_Switcher](#_switcher)
 - [TimeSwitcher](#timeswitcher)
 - [ContinuousSwitcher](#continuousswitcher)
 - [SimpleTask](#simpletask)
@@ -423,6 +423,8 @@ Export to mrgsolve model format (cpp file).
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
+|||
+
 *No additional properties.*
 
 ## SimbioExport
@@ -433,6 +435,8 @@ Export to Simbiology/Matlab code (m file). The code can be run to create simbiol
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
+|||
+
 *No additional properties.*
 
 ## JSONExport
@@ -443,6 +447,8 @@ Export to JSON structure (array) representing the content of platform. The struc
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
+|||
+
 *No additional properties.*
 
 ## YAMLExport
@@ -453,6 +459,8 @@ Export to YAML structure (array) representing the content of platform. The struc
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
+|||
+
 *No additional properties.*
 
 ## ID

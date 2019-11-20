@@ -37,4 +37,4 @@ end;
 
 // import
 
-#import { source: module1.heta, type: heta };
+include module1.heta type heta
