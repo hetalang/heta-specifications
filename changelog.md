@@ -2,7 +2,7 @@
 
 # 0.2.3
 
-- add `include` statement instead of `import` action
+- add `include file.heta type heta with {}` statement instead of `import` action
 
 # 0.2.2
 
