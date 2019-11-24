@@ -1,4 +1,90 @@
 
+// Component
+// Base element annotation
+{
+  id: <ID>,
+  space: <ID>,
+  class: <String>, // class of component
+  title: <String>, // Human readable name of component
+  notes: <String>, // any notes, supports Markdown
+  tags: <String[]>, // tags for component
+  aux: <Dict>, // Any user defined properties
+  ...
+};
+
+''' Notes '''
+sp1::cmd @Component "Title" {
+  tags: [a, b, c],
+  aux: {},
+  ...
+};
+
+// Record <= Component
+// describes value which can change its value in time
+p1 @Record {
+  boundary: <Boolean>,    // if true it cannot be changed by @Process or @Reaction
+  units: <UnitExpr>,      // units describing the value
+  assignments: {
+    [<ID>]: <MathExpr>,   // any number of key/value pairs describing value changes
+    ...
+  }
+};
+
+// record assignments
+p1 .= <MathExpr>;         // calculated at start, uses start_ switcher
+p1 := <MathExpr>;         // calculated at each time point, uses ode_ switcher
+p1 [sw1]= <MathExpr>;     // calculated at sw1 switcher
+p1 []= <MathExpr>;        // the same as .=
+
+// Process <= Record 
+// change record values using ODEs
+pr1 @Process {
+  actors: <ProcessExpr>/<Actor[]> // describes records to change
+};
+
+// correct ProcessExpr
+1*A = 2*B + 3*C
+A => 2B + 3C      // mark as irreversible
+A <=> B + B + 3C  // mark as reversible
+
+// TimeSwitcher <= Component
+// run reassignment of records at specific time points
+sw1 @TimeSwitcher {
+  start: <Number>, // required, when switcher is called
+  period: <Integer>, // >0, if set, the switcher will be called with period
+  repeatCount: <Integer> // >=0, if set the switche will be called (repeatCount + 1) times
+};
+
+// Const <= Component
+// numerical value which does not change in time
+k1 @Const {
+  units: <UnitExpr>,      // units describing the value
+  num: <Number>,          // required, constant value
+  free: <Boolean>         // if true the value is marked for fitting
+};
+
+// Compartment <= Record <= Component
+// describes volumes where Species instances are located
+comp1 @Compartment {
+  // no specific properties
+};
+
+// Species <= Record <= Component
+// describes particles in some location
+s @Species {
+  isAmount: <Boolean>, // 
+  compartment: <ID> // required, reference to Compartment
+};
+
+// Reaction <= Process <= Record
+// The same as Process, but all target references should be Species
+r1 @Reaction {
+  actors: <ProcessExpr>/<Reactant[]>,   // 
+  modifiers: <Modifier[]>/<Id[]>        // array of references to Species
+};
+
+// ===
+
 pmid @ReferenceDefinition {
   prefix: "https://pubmed.org",
   suffix: /
@@ -13,44 +99,6 @@ kDa @UnitDefinition {components: [
   {kind: g, multiplier: 1e3, exponent: 1},
   {kind: mole, exponent: -1}
 ]};
-
-avogadro @Const {
-  num: 6e23,
-  free: false
-};
-
-x @Record {
-  title: "This is x title",
-  units: items/mole,
-  boundary: true,
-  assignments: {
-    start_: 1
-  }
-};
-
-s @Species {
-  units: mM,
-  isAmount: false,
-  boundary: false,
-  assignments: {
-    start_: 0
-  },
-  compartment: comp1
-};
-comp1 @Compartment {
-  units: L,
-  assignments: {
-    start_: 5.3
-  }
-};
-r1 @Reaction {
-  units: mmole/min
-  assignments: {
-    ode_: k1*comp1*s
-  }
-  actors: 'a=>',
-  modifiers: ['b']
-};
 
 // simulations
 

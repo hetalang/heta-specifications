@@ -313,6 +313,9 @@ r1 := k1*A*comp1;
 
 **Parent:** [_Component](#_component)
 
+Run reassignment of records for some contions.
+Switcher id can be used as key in assignments dictionary.
+
 *no specific properties*
 
 ## TimeSwitcher
