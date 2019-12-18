@@ -6,8 +6,10 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 
 - [_Component](#_component)
 - [Page](#page)
-- [UnitDefinition](#unitdefinition)
+- [UnitDef](#unitdef)
 - [FunctionDefinition](#functiondefinition)
+- [_Size](#_size)
+- [Const](#const)
 - [Record](#record)
 - [Process](#process)
 - [Compartment](#compartment)
@@ -79,31 +81,6 @@ This is top class for all Heta components. Includes properties for component ann
 | tags | string[] | | [ ] | | Array of strings tagging components. Can be used for grouping components. |
 | aux | object | | { } | | User defined auxilary structures { key: value pair } with any complexity. This can be used to store additional information and annotation. |
 
-## Const
-
-**Parent:** [_Component](#_Component)
-
-This is class for numerical values which do not change in simulation time.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| num | number | true | | | Numerical value or starting value for identification. |
-| free | boolean | | | | If true the constant is unknown and can be evaluated based on experimental data.|
-| units | UnitsExpr | | | | String in specific [UnitsExpr](#unitsexpr) syntax. |
-
-### Example
-```heta
-''' Absorption constant describing transport from **GUT** to **BLOOD** '''
-kabs @Const 'Constant of absorption' {
-    tags: ['pk', 'human'],
-    aux: { references: { 
-            pmid: [ 11111111, 22222222 ], 
-            wiki: ['Pharmacokinetics#Compartmental_analysis'] 
-    }}
-};
-kabs = 1.4e-6 { free: true, units: 1/h };
-```
-
 ## Page
 
 **Parent:** [_Component](#_Component)
@@ -124,7 +101,7 @@ pg_authors @Page 'Authors' { content: "
 "};
 ```
 
-## UnitDefinition
+## UnitDef
 
 **Parent:** [_Component](#_Component)
 
@@ -132,25 +109,25 @@ This is class for implementation of a definition of unit to use it in [UnitsExpr
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| components | UnitDefinitionComponent[] | true | [] | | Array of objects, representing multiplyers to create a new unit. |
+| components | UnitDefComponent[] | true | [] | | Array of objects, representing multiplyers to create a new unit. |
 
 
 ### Example
 ```heta
 ''' kDa = (1e3*g)^1 * (1*mole)^-1 '''
-kDa @UnitDefinition { components: [
+kDa @UnitDef { components: [
     { kind: g, multiplier: 1e3, exponent: 1 },
     { kind: mole, exponent: -1 }
 ]};
 ```
 
-### UnitDefinitionComponent
+### UnitDefComponent
 
 **Parent:** *none*
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| kind | ID | true | | UnitDefinition | The reference id to the default set of UnitDefinitions |
+| kind | ID | true | | UnitDef | The reference id to the default set of UnitDef |
 | multiplier | numeric | true | 1 | | Multiplier |
 | exponent | numeric | true | 1 | | Power |
 
@@ -174,16 +151,49 @@ logit10 @FunctionDefinition {
 };
 ```
 
-## Record
+## _Size
 
 **Parent:** [_Component](#_component)
+
+This is abstract class for all numeric all values which can have units.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| units | UnitsExpr | | | | String in specific [UnitsExpr](#unitsexpr) syntax. |
+
+## Const
+
+**Parent:** [_Size](#_size)
+
+This is class for numerical values which do not change in simulation time.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| num | number | true | | | Numerical value or starting value for identification. |
+| free | boolean | | | | If true the constant is unknown and can be evaluated based on experimental data.|
+
+### Example
+```heta
+''' Absorption constant describing transport from **GUT** to **BLOOD** '''
+kabs @Const 'Constant of absorption' {
+    tags: ['pk', 'human'],
+    aux: { references: { 
+            pmid: [ 11111111, 22222222 ], 
+            wiki: ['Pharmacokinetics#Compartmental_analysis'] 
+    }}
+};
+kabs = 1.4e-6 { free: true, units: 1/h };
+```
+
+## Record
+
+**Parent:** [_Size](#_size)
 
 Record instances describes the dynamic values (variable) which can be changed in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | assignments | object | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
-| units | UnitsExpr | | | | String in specific [UnitsExpr](#unitsexpr) syntax. |
 | boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
 
 ### Example

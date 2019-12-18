@@ -21,8 +21,6 @@ There are 5 operators in MathExpr: `+`, `-`, `*`, `/`, `^`.
 
 ## Functions
 
-The function names is very close to C language.
-
 Additional functions can be added by user. See [@FunctionDefinition](./classes#functiondefinition)
 
 ### Arithmetic function list

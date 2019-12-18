@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.0
+
+- Rename UnitDefinition to UnitDef class
+- Add class _Size
+
 ## 0.2.4
 
 - update list of core math functions

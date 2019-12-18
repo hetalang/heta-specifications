@@ -22,8 +22,6 @@ It is designed for two objectives:
     }
     ```
 
-1. If you use another file type: `xlsx`, `dbsolve`, `sbml`, this means the code from the files will be parsed and transformed to heta format and can be used as regular Heta code. See [workflow](./workflow).
-
 ## type heta
 
 The default include type.
