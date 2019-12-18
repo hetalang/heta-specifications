@@ -4,7 +4,6 @@
 file: `one-compartment.heta`
 
 ```heta
-// global objects are available inside any namespace
 F @Const = 0.97;
 dose @Const = 10;
 kabs @Const = 1e-2;

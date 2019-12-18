@@ -11,22 +11,35 @@ It is designed for two objectives:
 
 1. A file can be loaded also by `include` action, but it is not recommended. See [actions](./actions#include).
 
-1. `include` has `type` property. The default type is `heta` and it means the file includes just regular Heta code.
+1. `include` statement has `type` property. The default type is `heta` and it means the file includes just regular Heta code.
 
 1. `include` can set additional parameters after `with` keyword in dictionary format
 
     ```heta
     include file.xlsx type xlsx with {
-        options: { sheetNum: [1, 2], omitRows: 3 }
+        sheet: 2,
+        omitRows: 3
     }
     ```
 
-1. If you use another file type: `xlsx`, `dbsolve`, this means the code from the files will be parsed and transformed to heta format and can be used as regular Heta code. See [workflow](./workflow).
+1. If you use another file type: `xlsx`, `dbsolve`, `sbml`, this means the code from the files will be parsed and transformed to heta format and can be used as regular Heta code. See [workflow](./workflow).
+
+## type heta
+
+The default include type.
+
+## type xlsx
+
+Transforms singe XSLX sheet to heta module.
+
+## type json
+
+## type yaml
 
 ## Example 1
 **file:** `index.heta`
 ```heta
-include ./1.heta type heta
+include ./1.heta
 include ./2.json type json
 
 k1 @Const = 1e-3;

@@ -151,7 +151,7 @@ The `delete` action erase the element with the index. If the component with the 
 
 ## include
 
-*Include action is not recommended. Use include statement instead.*
+*Include **action** is not recommended. Use [include statement](./include) instead.*
 
 The Include action works at files level. It does not create or update the component but load the another file inside the current one.
 
@@ -167,5 +167,5 @@ It uses the virtual properties to set the different files and formats.
 
 ```heta
 #include { source: ./pk.heta, type: heta };
-#include { source: ./annotation.xlsx, type: xlsx };
+#include { source: ./annotation.xlsx, type: xlsx, sheet: 2 };
 ```
