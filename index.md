@@ -6,7 +6,7 @@
 
 **Heta language** is a domain specific programming language (not general-purpose) for dynamic quantitative models used in quantitative systems pharmacology and systems biology.
 
-## Language specification v0.2.3
+## Language specification v0.2.4
 
 - [Syntax](syntax)
 - [Classes](classes)

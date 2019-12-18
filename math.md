@@ -28,14 +28,14 @@ Additional functions can be added by user. See [@FunctionDefinition](./classes#f
 ### Arithmetic function list
 
 | id | explanation |
-|----|-------------| 
+|----|-------------|
 | abs(x) | The absolute value of a number.|
 | add(x, y) | Add two or more values, x + y.|
-| ceil(x) | Round a value towards plus infinity. |
+| ceil(x) | Round a value towards plus. |
 | cube(x) | The cube of a value, x * x * x. |
 | divide(x, y)| Divide two values, x / y. |
 | exp(x) | The exponent of a value. |
-| floor(x) | Round a value towards minus infinity. |
+| floor(x) | Round a value towards minus. |
 | ln(x) | Natural logarithm of a value |
 | log(x) | Natural logarithm of a value |
 | log(x, base) | The logarithm of a value with base. |
@@ -43,15 +43,17 @@ Additional functions can be added by user. See [@FunctionDefinition](./classes#f
 | log2(x) | The 2-base of a value. |
 | multiply(x, y)| Multiply two or more values, x * y. |
 | pow(x, y)	| The power of x to y, x ^ y. |
-| round(x) | Round a value towards the nearest integer. |
-| round(x, n) | Round a value towards the nearest integer with n digits after point. |
 | sign(x) | Compute the sign of a value. |
 | sqrt(x) | Calculate the square root of a value. |
 | square(x)| Compute the square of a value, x * x. |
 | subtract(x, y) | Subtract two values, x - y. |
-| unaryMinus(x) | Inverse the sign of a value, apply a unary minus operation. |
+| max(x, y) | Maximum from two numbers |
+| max(x, y, z) | Maximum from 3 numbers |
 | min(x, y) | Minimum from two numbers |
 | min(x, y, z) | Minimum from 3 numbers |
+| ifg(x, y1, y2) | If grater, if x>0 than y1 else y2 |
+| ife(x, y1, y2) | If equal, if x==0 than y1 else y2 |
+| ifge(x, y1, y2) | If grater or equal, if x>=0 than y1 else y2 |
 
 ## Trigonometric functions
 

@@ -16,3 +16,4 @@ Each substantial change in Heta syntax or interpretation will update the MINOR n
 | 0.2.1 | v0.4.3 | ^0.4 |
 | 0.2.2 | v0.4.4 | ^0.4 |
 | 0.2.3 | v0.4.5 | ^0.4.5 |
+| 0.2.4 | v0.4.10 | ^v0.4.10 |

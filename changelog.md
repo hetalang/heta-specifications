@@ -1,10 +1,15 @@
 # Change Log
 
-# 0.2.3
+## 0.2.4
+
+- update list of core math functions
+- add sheet (number) option in include statement
+
+## 0.2.3
 
 - add `include file.heta type heta with {}` statement instead of `import` action
 
-# 0.2.2
+## 0.2.2
 
 - mark namespace as experimental (unstable) feature
 
