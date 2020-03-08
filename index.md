@@ -1,7 +1,6 @@
 
-[![Gitter](https://badges.gitter.im/hetalang/community.svg)](https://gitter.im/hetalang/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![GitHub release](https://img.shields.io/github/release/hetalang/hetalang.github.io.svg)](https://github.com/hetalang/hetalang.github.io/releases/)
-[![GitHub issues](https://img.shields.io/github/issues/hetalang/hetalang.github.io.svg)](https://GitHub.com/hetalang/hetalang.github.io/issues/)
+[![GitHub release](https://img.shields.io/github/release/hetalang/heta-specifications.svg)](https://github.com/hetalang/heta-specifications/releases/)
+[![GitHub issues](https://img.shields.io/github/issues/hetalang/heta-specifications.svg)](https://GitHub.com/hetalang/heta-specifications/issues/)
 [![DOI:10.13140/RG.2.2.18935.06563](https://zenodo.org/badge/DOI/10.13140/RG.2.2.14881.35682.svg)](https://doi.org/10.13140/RG.2.2.14881.35682)
 
 **Heta language** is a domain specific programming language (not general-purpose) for dynamic quantitative models used in quantitative systems pharmacology and systems biology.
@@ -11,7 +10,7 @@
 - [Syntax](syntax)
 - [Classes](classes)
 - [Actions](actions)
-- [Namespaces](namespaces) (*experimental*)
+- [Namespaces](namespaces)
 - [Include statement](include)
 - [Math expressions](math)
 - [Compilation steps](compilation)
@@ -20,11 +19,13 @@
 - [Change Log](changelog)
 
 ## Features and philosophy
-Heta language is a domain-specific programming language (DSL) for dynamic quantitative models used in quantitative systems pharmacology (QSP) and systems biology (SB). It describes the biological systems as the components of QSP/SB modeling platform. The scenarios, annotation and configuration files are parts of the platform.
+**Heta** language is a domain-specific programming language (DSL) for dynamic quantitative models used in quantitative systems pharmacology (QSP) and systems biology (SB). It describes the biological systems as the components of QSP/SB modeling platform. The scenarios, annotation and configuration files are parts of the platform.
 
-Heta language represent the dynamic model as a set of interacting components which describe states, rates and associated components. The most native representation of Heta code is ordinary differential equations (ODEs) or set of ODEs but Heta does require writing ODE system manualy. The differential equations are compiled "on fly" when it is required.
+Heta language represents the dynamic model as a set of interacting components which describe volumes, concentrations, amounts, rates and other components. The most native representation of Heta code is ordinary differential equations (ODEs) but Heta does not require writing ODE system manualy. The differential equations are compiled "on fly" when they are required.
 
-The key idea of Heta language is the development and editing the bio-mathematical models as expressive programming code which gives us the benefits of programming languages like: compact and human readable format, modularity, code reuse etc. as well as using version control systems or CI/CD tools. The development of Heta language was based on the following ideas:
+The key idea of Heta language is the development and editing the bio-mathematical models as expressive programming code which gives us the benefits of programming languages like: compact and human readable format, modularity, code reuse, etc. The model development can be easily organized as workflow inside group. Heta code is friendly for version control systems and different continuous integration and continuous integration (CI/CD) tools can be used to reach maximal productivity.
+
+The development of Heta language was based on the following ideas:
 
 -	Everything is code; model, tasks and experimental observations are also the code;
 -	Describe components but not the algorithms;
@@ -35,7 +36,7 @@ The important requrements to the language are:
 -	Human-readable/writable code can be used for model creation, modification or integration.
 -	Easy code parsing and transformation for potential implementation into different tools and frameworks.
 -	Modularity: QSP platform can be subdivided into several files and spaces for better project management.
--	Shared model parts and datasets are helpful for the development of modeling platforms and parameter identification.
+-	Reused models and datasets are helpful for the development of modeling platforms and increase efficiency.
 -	Reach annotation capabilities for better code revision and reporting.
 -	Easy transformation from/to different formats of platforms and models currently used in practice: sbml, dbsolve, excel spreadsheets, mrgsolve, simbiology, mrgsolve, etc.
 
@@ -50,13 +51,12 @@ comp1 @Compartment;
 A @Species { compartment: comp1 };
 B @Species { compartment: comp1 };
 r1 @Reaction { actors: A->B };
-k1 @Record;
 
 comp1 .= 1;
 A .= 10;
 B .= 0;
 r1 := k1*A*comp1;
-k1 .= 0.01;
+k1 @Const = 0.01;
 ```
 ### Explanations
 ```
@@ -66,7 +66,7 @@ Comments are denoted by double slash.
 ```heta
 comp1 @Compartment;
 ```
-This creates compartment with id "comp1" in anonimous namespace.
+This creates compartment with id "comp1" in nameless namespace.
 ```
 A @Species { compartment: comp1 };
 B @Species { compartment: comp1 };
@@ -90,9 +90,9 @@ r1 := k1*A*comp1;
 ```
 This line sets reaction rule.
 ```
-k1 @Record .= 0.01;
+k1 @Const = 0.01;
 ```
-This creates a component that can be described by number and sets the initial value 0.01 at the same line.
+This creates a component that can be described by number and sets the value 0.01 at the same line.
 
 ## Current state and implementation
 Currently the standard is published on Github-pages <https://hetalang.github.io/>
@@ -123,4 +123,4 @@ The Heta language specification is licensed under a <a rel="license" href="">[Cr
 
 [![Creative Commons License](https://i.creativecommons.org/l/by-nd/4.0/80x15.png)](http://creativecommons.org/licenses/by-nd/4.0/)
 
-InSysBio, 2018-2019
+InSysBio, 2018-2020

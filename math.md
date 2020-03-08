@@ -43,15 +43,18 @@ Additional functions can be added by user. See [@FunctionDefinition](./classes#f
 | pow(x, y)	| The power of x to y, x ^ y. |
 | sign(x) | Compute the sign of a value. |
 | sqrt(x) | Calculate the square root of a value. |
+| nthRoot(x) | 2d root of x |
+| nthRoot(x, n) | n-th root of x |
 | square(x)| Compute the square of a value, x * x. |
 | subtract(x, y) | Subtract two values, x - y. |
 | max(x, y) | Maximum from two numbers |
 | max(x, y, z) | Maximum from 3 numbers |
 | min(x, y) | Minimum from two numbers |
 | min(x, y, z) | Minimum from 3 numbers |
-| ifg(x, y1, y2) | If grater, if x>0 than y1 else y2 |
-| ife(x, y1, y2) | If equal, if x==0 than y1 else y2 |
-| ifge(x, y1, y2) | If grater or equal, if x>=0 than y1 else y2 |
+| factorial(n) | Factorial of number |
+| ifg0(x, y1, y2) | If grater, if x>0 than y1 else y2 |
+| ife0(x, y1, y2) | If equal, if x==0 than y1 else y2 |
+| ifge0(x, y1, y2) | If grater or equal, if x>=0 than y1 else y2 |
 
 ## Trigonometric functions
 
