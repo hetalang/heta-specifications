@@ -45,7 +45,7 @@ The Heta code represents the sequence of statements which create and modify elem
     };
     ```
 
-2. The **String** value inside Dictionary starts from first non-space symbol and ends with non-space symbol before stop-list: ", } ] @ # ' \` " ". If you want to use symbols from stop list inside stop list, use parentheses `"` .
+2. The **String** value inside Dictionary starts from first non-space symbol and ends with non-space symbol before stop-list: ", } ] @ # ' \` " ". If you want to use symbols from stop list inside value, use parentheses `"` .
 
     Example:
     ```heta
@@ -96,7 +96,7 @@ The Heta code represents the sequence of statements which create and modify elem
 
 1. To simplify code reading/writing there are several types of statement parts. They describe the commonly used properties in compact form. See [Classes](./classes) description.
 
-1. The **Index** describes identifiers: `id` and `space` of elements. The syntax can be described by the example: `space::id` or `id` for anonimous space.
+1. The **Index** describes identifiers: `id` and `space` of elements. The syntax can be described by the example: `space::id` or `id` for nameless space.
 
     Example:
     ```heta
@@ -107,7 +107,7 @@ The Heta code represents the sequence of statements which create and modify elem
     { space: one, id: k1, prop1: some text };
     ```
 
-1. The **Class** part sets the `class` property. Class defines a list of properties which can be set. This property is denoted by `@` symbol. List of possible classes can be found in [Classes](./classes) description. Classes names always starts from uppercase symbol. When you use Class symbol the parser will replace the first lowercase symbol for the capital one.
+1. **Class** part sets `class` property. Particular Class defines a list of properties which can be set. This property is denoted by `@` symbol. List of possible classes can be found in [Classes](./classes) description. Classes names always starts from uppercase symbol. When you use Class symbol `@` the parser will replace the first lowercase symbol for the capital one.
 
     Example:
     ```heta
@@ -118,7 +118,7 @@ The Heta code represents the sequence of statements which create and modify elem
     { id: k2, class: Const, num: 1.3 };
     ```
 
-1. The **Action** part sets the `action` property. Action describe what to do with the statement. See [Actions](./actions). This property is denoted by `#` symbol. Action statement is required property, but it has default value `upsert`.
+1. **Action** part sets `action` property. Action describe what to do with the statement. See [Actions](./actions). This property is denoted by `#` symbol. Action statement is required property, but it has default value `upsert`.
 
     Example:
     ```heta
@@ -131,7 +131,7 @@ The Heta code represents the sequence of statements which create and modify elem
     { action: upsert, id: k3, num: 1 };
     ```
 
-1. The **Title** part sets the `title` property. It is denoted by single quotes `'`.
+1. **Title** part sets `title` property. It is denoted by single quotes `'`.
 
     Example:
     ```heta
@@ -142,7 +142,7 @@ The Heta code represents the sequence of statements which create and modify elem
     { id: a, title: Some title };
     ```
 
-1. The **Notes** part sets the `notes` property. It is denoted by three single quotes `'''`
+1. **Notes** part sets `notes` property. It is denoted by three single quotes `'''`. Notes part is located usually before the other parts.
 
     Example:
     ```heta
@@ -156,7 +156,7 @@ The Heta code represents the sequence of statements which create and modify elem
 
 ## Assignments part
 
-1. The **Const assignment** sets the `num` property and designed only for @Const class. The symbol `=` is used to mark the assignment.
+1. **Const assignment** sets `num` property and designed only for `@Const` class. The symbol `=` is used to mark the assignment.
 
     Example:
     ```heta
@@ -171,7 +171,7 @@ The Heta code represents the sequence of statements which create and modify elem
     };
     ```
 
-1. The **Start assignment** sets the initial assignment for the @Record instances. The symbol group `.=` or `[]=` can be used.
+1. **Start assignment** sets the initial assignment for the `@Record` instances. The symbol group `.=` or `[]=` can be used.
 
     Example:
     ```heta
@@ -192,7 +192,7 @@ The Heta code represents the sequence of statements which create and modify elem
     };
     ```
 
-1. The **Rule assignment** sets the ode assignment for the @Record instances. The symbol group `:=` can be used.
+1. **Rule assignment** sets the `ode_` assignment for `@Record` instances. The symbol group `:=` can be used.
 
     Example:
     ```heta
@@ -207,7 +207,7 @@ The Heta code represents the sequence of statements which create and modify elem
     };
     ```
 
-1. The **Switcher assignment** sets the assignment when model switches. The symbol group `[<switcher id>]=` can be used.
+1. **Switcher assignment** sets the assignment when model switches. The symbol group `[<switcher id>]=` can be used.
 
     Example:
     ```heta
@@ -223,7 +223,7 @@ The Heta code represents the sequence of statements which create and modify elem
 
 ## Include statement
 
-1. `include` statement describes which files should be included to the current one.
+1. `include` statement describes modules. The simplest explanation how this works is that the file content should be included to the current one. It consist of reserved word `include` followed by relative or absolute filepath. After that reserved word `type` and one of possible types afterthat. See [include](include) description.
 
     ```heta
     include ./addon.heta type heta
@@ -231,7 +231,13 @@ The Heta code represents the sequence of statements which create and modify elem
 
 ## Namespace block
 
-1. Several base statements can be groupped by namespace. The block is organized in the following manner.
+1. Several base statements can be groupped by namespace. For more details about namespaces see on the page [namespaces](namespaces).
+
+1. First use of Namespace block with new space name initializes namespace implicitly by `#setNS` action.
+
+1. To clarify the type of namespace one of the reserved words: `abstract`, `concrete` should be used. The default type is `concrete`.
+
+1. The block is organized in the following manner.
 
     ```heta
     namespace <space id> begin
@@ -248,11 +254,17 @@ The Heta code represents the sequence of statements which create and modify elem
     ```
     Which is equivalent to 
     ```heta
+    #setNS { space: one, type: concrete };
     one::rec @Record .= 1;
     one::comp @Compartment .= 10;
     ```
     or equivalent to
     ```heta
+    {
+        space: one,
+        type: concrete,
+        action: setNS
+    };
     {
         space: one,
         id: rec,

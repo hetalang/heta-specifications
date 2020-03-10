@@ -1,11 +1,11 @@
 theme: jekyll-theme-cayman
 
-title: Heta language
+title: Heta specifications
 email: dev@insysbio.com
 description: >-
   Domain specific programming language for QSP and SB modeling
 baseurl: / # the subpath of your site, e.g. /blog
-url: "https://insysbio.github.io"
+url: "https://hetalang.github.io/heta-specifications/"
 logo: /assets/img/logo.png
 
 plugins:
@@ -20,3 +20,5 @@ social:
     - https://www.facebook.com/insysbio
     - https://www.linkedin.com/insysbio
     - https://github.com/insysbio
+    - https://hetalang.github.io/
+    
