@@ -1,6 +1,6 @@
 # Syntax
 
-The Heta code represents the sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system. See [workflow](./workflow). There are many ways to write the same modeling system using Heta code. A developer has flexibility to make his code nice and readable.
+The Heta code represents the sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system. See [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has flexibility to make his code nice and readable.
 
 ## Base statements
 

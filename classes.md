@@ -2,13 +2,11 @@
 
 Heta classes describes hierarchical types of Heta components. Abstract classes (classes without instances) denoted by underscore before the first symbol.
 
-## Class list
+**Class list**
 
 - [_Component](#_component)
-- [Page](#page)
-- [UnitDef](#unitdef)
-- [FunctionDefinition](#functiondefinition)
 - [_Size](#_size)
+- [UnitDef](#unitdef)
 - [Const](#const)
 - [Record](#record)
 - [Process](#process)
@@ -17,29 +15,36 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 - [Reaction](#reaction)
 - [_Switcher](#_switcher)
 - [TimeSwitcher](#timeswitcher)
-- [ContinuousSwitcher](#continuousswitcher)
+- [CondSwitcher](#condswitcher)
 - [SimpleTask](#simpletask)
+
+**_Export classes**
+
 - [_Export](#_export)
-- [SBMLExport](#sbmlexport)
 - [SLVExport](#slvexport)
-- [MrgsolveExport](#mrgsolveexport)
-- [SimbioExport](#simbioexport)
 - [JSONExport](#jsonexport)
 - [YAMLExport](#yamlexport)
+- [SBMLExport](#sbmlexport)
+- [SimbioExport](#simbioexport)
+- [MrgsolveExport](#mrgsolveexport)
+- [XLSXExport](#xlsxexport)
+- [JuliaExport](#juliaexport)
+- [MatlabExport](#matlabexport)
 
-## String types
+**Simple types**
 - [ID](#id)
+- [Filepath](#filepath)
 - [UnitsExpr](#unitsexpr)
-- [ProcessExpr](#processexpr)
 - [MathExpr](#mathexpr)
+- [ProcessExpr](#processexpr)
 
 ## UML diagram
 
 [![Classes UML](./heta.uml.png)](./heta.uml.png)
 
-## Basics
+## About Heta classes
 
-1. Classes define the properties of their instances, their types checking rules and the default values. Trying to include the undeclarated properties is not an error but will be ignored.
+1. Classes define the meaning of platform (model) part. A class declares properties of their instances, their types checking rules and the default values. Trying to include the undeclarated properties is not an error but the property will be ignored.
     ```heta
     pr1 @Process { compartment: comp1 };
     ```
@@ -49,7 +54,7 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
     ```
     because `compartment` property is not declared for `Process` class.
 
-1. There are some specific checking rules in classes, e.g. required properties. They will be checked only after all components from the code is loaded, see [workflow](./workflow). For example, `Const` class has required numeric property `num`:
+1. There are some specific checking rules in classes, e.g. required properties. They will be checked only after all components from the code is loaded, see [compilation](./compilation) steps. For example, `Const` class has required numeric property `num`:
     ```heta
     k1 @Const; // thes case doesn't throw error
     k1 { num: 1 };    // because num property is set here
@@ -72,7 +77,7 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 
 **Parent:** *no*
 
-This is top class for all Heta components. Includes properties for component annotation.
+This is the top class for all Heta components. Includes properties for component's annotation.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -81,91 +86,48 @@ This is top class for all Heta components. Includes properties for component ann
 | tags | string[] | | [ ] | | Array of strings tagging components. Can be used for grouping components. |
 | aux | object | | { } | | User defined auxilary structures { key: value pair } with any complexity. This can be used to store additional information and annotation. |
 
-## Page
+## _Size
 
-**Parent:** [_Component](#_Component)
+**Parent:** [_Component](#_component)
 
-This is class for any arbitrary text page which can be helpful for the whole platform annotation or documentation writing.
+This is an abstract class for all values which can have units.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| content | string | true | | | Any arbitrary text with markdown. |
-
-### Example
-
-```heta
-pg_authors @Page 'Authors' { content: "
-    This platform was developed by:
-    - Vasily Pupkin;
-    - Viktor Pipiskin;
-"};
-```
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | String describing components of complex units or array of complex unit components. |
 
 ## UnitDef
 
 **Parent:** [_Component](#_Component)
 
-This is class for implementation of a definition of unit to use it in [UnitsExpr](#unitsexpr).
+This is class for implementation of a definition of unit to use it inside [UnitsExpr](#unitsexpr). Units property can be undefined which means this is basic unit and cannot be expressed in terms of other units like meter, second, etc.
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| components | UnitDefComponent[] | true | [] | | Array of objects, representing multiplyers to create a new unit. |
-
+*no specific properties*
 
 ### Example
 ```heta
-''' kDa = (1e3*g)^1 * (1*mole)^-1 '''
-kDa @UnitDef { components: [
+kDa @UnitDef { units: [
     { kind: g, multiplier: 1e3, exponent: 1 },
     { kind: mole, exponent: -1 }
 ]};
+Da @UnitDef { units: g/mole };
 ```
 
-### UnitDefComponent
+### UnitsComponent
 
-**Parent:** *none*
+**Parent:** [_Size](#_size)
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| kind | ID | true | | UnitDef | The reference id to the default set of UnitDef |
+| kind | ID | true | | UnitDef | The reference id to UnitDef.|
 | multiplier | numeric | true | 1 | | Multiplier |
 | exponent | numeric | true | 1 | | Power |
-
-## FunctionDefinition
-
-**Parent:** [_Component](#_Component)
-
-This is class describing user defined mathematical functions. See [MathExpr](#mathexpr).
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| args | string[] | | [] | | Array of function arguments. |
-| expr | string | true | | | Math epression describing the function.|
-
-### Example
-
-```heta
-logit10 @FunctionDefinition {
-    args: [x],
-    expr: log10(x / (1 - x))
-};
-```
-
-## _Size
-
-**Parent:** [_Component](#_component)
-
-This is abstract class for all numeric all values which can have units.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| units | UnitsExpr | | | | String in specific [UnitsExpr](#unitsexpr) syntax. |
 
 ## Const
 
 **Parent:** [_Size](#_size)
 
-This is class for numerical values which do not change in simulation time.
+This is class for numerical values which do not change in simulation time. This represents modeling inputs.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -189,11 +151,11 @@ kabs = 1.4e-6 { free: true, units: 1/h };
 
 **Parent:** [_Size](#_size)
 
-Record instances describes the dynamic values (variable) which can be changed in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
+Record instances describes the dynamic values (variable) which can change in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| assignments | object | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
+| assignments | Dictionary{ID, MathExpr} | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
 | boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
 
 ### Example
@@ -217,23 +179,15 @@ p1 {
 */
 ```
 
-### Assignment dictionary
-
-Assignment dictionary describes a set of assignments which is used to change the `Record` value directly. The keys corresponds to existed switchers id or default switcher like start_, ode_.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| [switcherId] | string/number/object | true | | | [MathExpr](#mathexpr) or number or object in format { expr: \<MathExpr\> } |
-
 ## Process
 
 **Parent:** [Record](#record)
 
-Process instances changes the other `Record` instances indirectly through the ordinary differential equations. Process is like flux that increase or decrease values over time.
+Process instances changes the other `Record` instances indirectly through the rate of Record change. Process is like flux that increase or decrease values over time.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| actors | Actor[]/string | | [] | | [ProcessExpr](#processexpr) or array of objects of format.  { target: \<ID\>, stoichiometry: \<number\> }. The rules for dynamic components which describes how they will be included to ODE including stoichiometry. |
+| actors | ProcessExpr/Actor[] | | [] | | [ProcessExpr](#processexpr) or array of objects of format.  { target: \<ID\>, stoichiometry: \<number\> }. The rules for dynamic components which describes how they will be included to ODE including stoichiometry. |
 
 ### Example
 
@@ -281,7 +235,7 @@ comp1 @Compartment = 5.3 { units: L };
 
 **Parent:** [Record](#record)
 
-`Species` is class describing molecules in some location. The variable value can mean amount of molecules or concentration depending on `isAmount` property.
+`Species` is class describing molecules or other items in some location (volume). The variable value can mean amount of molecules or concentration depending on `isAmount` property.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -302,12 +256,12 @@ S .= 10;
 
 **Parent:** [Process](#process)
 
-The same as Process, but all target references should be Species.
+The same as Process, but all target references should be Species. The numerical value must be expressed in amount rates per time unit.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| actors | Reactant[]/string | | [] | | [process string](#process-string) or array of objects in format { target: \<ID\>, stoichiometry: \<number\> where target is the reference to `Species`} |
-| modifiers | Modifiers[] / ID[] | | [] | | List of references to `Species`. Array of references or array of objects in format {target: \<ID\>}. set of components which are not included to ODE but can affect to it. |
+| actors | ProcessExpr/Reactant[] | | [] | | [ProcessExpr](#processexpr) or array of objects in format { target: \<ID\>, stoichiometry: \<number\> where target is the reference to `Species`} |
+| modifiers | ID[]/Modifiers[]  | | [] | | List of references to `Species`. Array of references or array of objects in format {target: \<ID\>}. set of components which are not included to ODE but can affect to it. |
 
 ### Example
 
@@ -332,11 +286,23 @@ Switcher id can be used as key in assignments dictionary.
 
 **Parent:** [_Switcher](#_switcher)
 
+`TimeSwitcher` decribes the switching asignment depending only on time. If `period` property > 0 the switching will be periodical. `repeatCount` and `stop` work together to estimate the latest switching.
+
+Number of switching is based on the following rules:
+
+- `if (repeatCount < 0 || stop < start) return 0`;
+- `if (period <= 0 || 0 <= repeatCount < 1 || 0 <= (stop-start)/period < 1) return 1`;
+- `if (period > 0 && 1 <= repeatCount && 1 <= (stop-start)/period) return min(repeatCount, (stop-start)/period) + 1`;
+- `if (period > 0 && repeatCount === Infinity/undefined && stop === Infinity/undefined) return Infinity`;
+
+Based on rules to describe **one** switching use only `start` property. To use indefinite repeat use `start` and `period` properties. To use several repeats use 
+
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| start | number | true | | | first switch |
-| period | number | | | | > 0 |
-| repeatCount | number | | 0 | | >= 0 |
+| start | Number/ID | | 0 | - / `Const` | time to run the first switch |
+| period | Number/ID | | | - / `Const` | period of repeated switching |
+| repeatCount | Number/ID | | | - / `Const` | number of |
+| stop | Number/ID | | | - / `Const` | time to turn off switch |
 
 ### Example
 
@@ -345,22 +311,28 @@ sw1 @TimeSwitcher {
     start: 0,
     period: 24,
     repeatCount: 4
-}; 
+};
+
+sw2 @TimeSwitcher {
+    start: starting_time, // ref to Const
+    period: period,
+    stop: stop_time
+};
 ```
-## ContinuousSwitcher
+## CondSwitcher
 
 **Parent:** [_Switcher](#_switcher)
 
-This is **scoped** class.
+`CondSwitcher` (conditional switcher) switches based on record reffered in `condition` property. The switcher is triggered when the value of the record hits 0 changing from negative to positive value.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| condition | ID | true | | `Record` |  |
+| condition | ID | true | | `Record` | Reference to identifier of Record to estimate the moment of switching |
 
 ### Example
 
 ```heta
-sw2 @ContinuousSwitcher {
+sw2 @CondSwitcher {
     condition: evt1
 };
 ```
@@ -368,6 +340,8 @@ sw2 @ContinuousSwitcher {
 ## SimpleTask
 
 **Parent:** [_Component](#_component)
+
+*This is experimental and not supported in most exports*
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -403,7 +377,36 @@ st1 @SimpleTask {
 
 **Parent:** [_Component](#_Component)
 
-This is top class for the components describing transformations to other modeling formats: SBML, Simbiology, etc.
+This is top class for the components describing transformations to other modeling formats: SBML, Simbiology, etc. Depending on class and properties this generates a set of files in specific format.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| filepath | [Filepath](filepath) | true | | | Relative or absolute path to store generated directory or file. |
+| powTransform | "keep" / "operator" / "function" | | "keep" | | This is option describing if the transformation of x^y and pow(x, y) is required. |
+
+## SLVExport
+
+**Parent:** [_Export](#_export)
+
+Export to SLV format (DBSolveOptimum).
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| eventsOff | boolean | | | | if `eventsOff = true` the switchers will not be exported to DBSolve events. |
+
+## JSONExport
+
+**Parent:** [_Export](#_export)
+
+Export to JSON structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](compilation) format.
+
+*No additional properties.*
+
+## YAMLExport
+
+**Parent:** [_Export](#_export)
+
+Export to YAML structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](compilation) format.
 
 *No additional properties.*
 
@@ -415,30 +418,7 @@ Export to SBML format.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| version | string | | L2V4 | | SBML version. One of the values: `L2V1`, `L2V3`, etc. |
-| skipRefChecking | boolean | | | | `true` means that the model builder will ignore reference errors |
-
-## SLVExport
-
-**Parent:** [_Export](#_export)
-
-Export to SLV format (DBSolveOptimum).
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| eventsOff | boolean | | | | if `eventsOff = true` the switchers will be ignored in export. |
-
-## MrgsolveExport
-
-**Parent:** [_Export](#_export)
-
-Export to mrgsolve model format (cpp file).
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-|||
-
-*No additional properties.*
+| version | string | | L2V4 | | SBML version. Currently supported only: `L2V4` |
 
 ## SimbioExport
 
@@ -446,35 +426,38 @@ Export to mrgsolve model format (cpp file).
 
 Export to Simbiology/Matlab code (m file). The code can be run to create simbiology project.
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-|||
-
 *No additional properties.*
 
-## JSONExport
+## MrgsolveExport
 
 **Parent:** [_Export](#_export)
 
-Export to JSON structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](workflow) format.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-|||
+Export to mrgsolve model format (cpp file).
 
 *No additional properties.*
 
-## YAMLExport
+## XLSXExport
 
 **Parent:** [_Export](#_export)
 
-Export to YAML structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](workflow) format.
+Creation of Excel file (.xlsx) which contains components of namespace.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-|||
+| omitRows | Number | | | | If set this creates empty rows in output sheets. |
+| splitByClass | Boolean | | | | If `true` the components will be splitted by class and saved as several sheets: one sheet per on Class. |
 
-*No additional properties.*
+## JuliaExport
+
+**Parent:** [_Export](#_export)
+
+Creation of Julia files (.jl) supported by SimSolver.
+
+## MatlabExport
+
+**Parent:** [_Export](#_export)
+
+Creation of Matlab files (.m) which represent ODE and code to run ODE.
 
 ## ID
 
@@ -494,6 +477,14 @@ The rules for ID is the following:
 
 **Depricated ID:** `"_"`, `"x12_"`
 
+## Filepath
+
+String representing relative or absolute path.
+
+### Examples
+
+`output`, `./output`, `../output`
+
 ## UnitsExpr
 
 UnitsExpr strings represent the complex units combined from the predefined unit IDs. Available operatators: `*`, `/`, `^`, `1/`.
@@ -504,14 +495,6 @@ UnitsExpr strings represent the complex units combined from the predefined unit 
 
 **Wrong UnitsExpr:** `g/(mole*L)`, `5*g`, `km + kg`
 
-## ProcessExpr
-
-ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) devided two parts: influx (left) and outflux (right). Plus symbol divide two or more actors. Stoichiometry coefficients are shown by numbers before reference. Asterix symbol is optional.
-
-### Example
-
-**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B + C`.
-
 ## MathExpr
 
 Mathematical expressions in string format. Available operators: `+`, `-`, `*`, `/`, `^`. See detailes in [Math expressions](./math)
@@ -519,3 +502,11 @@ Mathematical expressions in string format. Available operators: `+`, `-`, `*`, `
 ## Example
 
 **Correct MathExpr:** `x*y*pow(x,y)`
+
+## ProcessExpr
+
+ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) devided two parts: influx (left) and outflux (right). Plus symbol divide two or more actors. Stoichiometry coefficients are shown by numbers before reference. Asterix symbol is optional.
+
+### Example
+
+**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B + C`.
