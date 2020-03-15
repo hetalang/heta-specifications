@@ -27,5 +27,5 @@ r_abs := kabs * a0;
 r_el := kel * c1 * Vd;
 
 // this creates SBML formatted file
-sbml @SBMLExport;
+sbml @SBMLExport { filepath: sbml_output };
 ```

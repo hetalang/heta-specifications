@@ -2,13 +2,13 @@
 
 Heta code is transformed by the following steps:
 
-1. **Parsing.** **Heta language code** from text files is translated to the collection of [Modules](modules). 
+1. **Parsing.** **Heta modules** are translated to the collection of components. 
 
-    Parsing starts from single *index* file (it can have any name), then other files are added recursively based on `#import` actions. Each file represents one module.
+    Parsing starts from single *index* file (it can have any name), then other files are added recursively based on `#include` actions. Each file represents one module.
 
     The errors which happen at the stage will be of types: `FileSystemError`, `ParsingError`.
 
-1. **Files integration.** Collection of heta files are combined into a single structure **queue** which is sequence of queries for platform storage based on [include](include). The include must not have circular references.
+1. **Files integration.** Collection of Heta modules are combined into a single structure **queue** which is sequence of queries for platform storage based on [include](include) statement. The include must not have circular references.
 
     The errors which happen at the stage will be of type `ModuleError`.
 
@@ -18,9 +18,9 @@ Heta code is transformed by the following steps:
 
 1. **Binding.** Binding Heta components based on internal cross references. Checking references. Checking required properties.
 
-    The errors which happen at the stage will be of types: `BindingError`, `ValidationError`.
+    The errors which happen at the stage will be of types: `BindingError`.
 
-1. **Other steps.** The next steps depends on components in storage and setting of Heta-based builder. For example it is expected that `_Export` classes induce the creation of code for export.
+1. **Other steps.** The next steps depends on components in storage and setting of **Heta compiler**. For example it is expected that `_Export` classes induce the creation of code for export.
 
     The errors which happen at the stage will be of types: `ExportError`.
 
@@ -99,7 +99,7 @@ sbml @SBMLExport;
 ]
 ```
 
-**Structure 4. Declarative Heta**
+**Structure 4. Declarative Heta structure**
 
 ```json
 {
@@ -120,7 +120,7 @@ sbml @SBMLExport;
 ```json
 {
     ...
-    ":s1": {
+    "s1": {
         "class": "Species",
         "compartment": "comp0",
         "title": "Species number one",

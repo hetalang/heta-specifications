@@ -2,6 +2,14 @@
 
 The Heta code represents the sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system. See [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has flexibility to make his code nice and readable.
 
+## Reserved words
+
+There is a list of words which cannot be used as identifiers because the are reserved for statements or specific object names.
+
+`nameless`, 
+`NaN`, `Infinity`, `e`, `E`, `pi`, `PI`, 
+`include`, `block`, `namespace`, `abstract`, `concrete`, `begin`, `end`
+
 ## Base statements
 
 1. Base statements are divided by semicolons. The line breakes do not matter but can be used for code decoration.

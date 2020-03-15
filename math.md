@@ -1,6 +1,6 @@
 # Math expressions
 
-All [@Record](./classes#record) instances includes `assimptions` property which is set of assignments for different cases: initial assignment `start_`, ode assignment `ode_` and any number of switcher assignments.
+All [@Record](./classes#record) instances include `assimptions` property which is set of assignments for different cases: initial assignment `start_`, rule assignment `ode_` and any number of switcher assignments.
 
 The right hand side (RHS) of assignments is string of specific format [MathExpr](./classes#mathexpr).
 
@@ -9,6 +9,17 @@ Expression may include: numbers, identifiers, operators, functions, parentheses.
 ## Numbers
 
 All numbers in "math expression" are double. You can use any form of number: `0.001`, `1e-3`, `1E-3`, `1.0e-3`, etc.
+
+The another possible values of double are:
+- `Infinity` which means infinite value.
+- `-Infinity` which negative infinit value.
+- `NaN` which means infinite or negative infinite, i.e. `0/0`.
+
+## Pre defined constants
+
+There is a set of identifiers which can be used in `MathExpr` but they are not components of platform.
+- `e` is the Euler's number, i.e. `exp(0)`.
+- `pi` is &pi;=3.141592... number.
 
 ## Identifiers
 

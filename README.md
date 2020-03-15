@@ -49,7 +49,7 @@ The example describes a simple model with two species and one mass-action reacti
 comp1 @Compartment;
 A @Species { compartment: comp1 };
 B @Species { compartment: comp1 };
-r1 @Reaction { actors: A->B };
+r1 @Reaction { actors: A -> 2B };
 
 comp1 .= 1;
 A .= 10;
@@ -72,9 +72,9 @@ B @Species { compartment: comp1 };
 ```
 This code creates two species: "A", "B" inside "comp1".
 ```heta  
-r1 @Reaction { actors: A->B };
+r1 @Reaction { actors: A -> 2B };
 ```
-This code creates reaction A->B
+This code creates reaction A -> 2B, where one molecule of A transforms to two molecules of B.
 ```
 comp1 .= 1;
 ```

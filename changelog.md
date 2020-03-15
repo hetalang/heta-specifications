@@ -5,6 +5,8 @@
 - Rename UnitDefinition to UnitDef class
 - Add class _Size
 - Clarify namespaces usage: `#setNS`, `#importNS`, `#import`. Explain `abstact` namespace.
+- Extend classes description
+- add cases
 - Multiple text corrections
 
 ## 0.2.4
