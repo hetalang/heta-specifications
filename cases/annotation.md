@@ -2,6 +2,7 @@
 
 Annotation of components in Michaelis-Menten model.
 
+file: `annotation.heta`
 ```Heta
 include ./qsp-units.heta
 
@@ -25,5 +26,5 @@ r1 := Vmax*S/(Km+S)*default_comp; // S is used here but assigned below
 S .= 10; // S should be initialialized after creation
 P .= 0;
 
-mm_sbml @SBMLExport 'Exported mm model' { filepath: sbml };
+#export { format: SBML, filepath: sbml };
 ```

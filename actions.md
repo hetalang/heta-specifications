@@ -1,10 +1,10 @@
 # Actions
 
-The format of heta-based modeling platform is a kind of declarative language. Nevertheless Heta is not actually a declarative language because it sequentially updates and changes the platform.
+The format of Heta-based modeling platform is a kind of declarative language. Nevertheless Heta is not actually a declarative language because it sequentially updates and changes the platform.
 
 The "action" is term used in Heta language to clarify what platform should do with a statement. Some of actions like `#include` works at module level.
 
-Action is designated by `#` symbol before the action type and can be used in any statement.
+Action is designated by `#` symbol before the action name and can be used in any statement.
 
 If no statement is written the default statement is `#upsert`.
 
@@ -18,21 +18,22 @@ If no statement is written the default statement is `#upsert`.
 - [setNS](#setns)
 - [importNS](#importns)
 - [import](#import)
+- [export](#export)
 
 ## insert
 
 `insert` action adds a new component to the platform. 
-If the element with the same index already exists it will be replaced by the new one. 
+If the component with the same index already exists it will be replaced by the new one. 
 When applying `insert` the class should be stated directly.
 
 ### Example 1
 
 ```heta
 // first insert
-#insert  c1 @Compartment { title: first } := 1;
+#insert c1 @Compartment { title: first } := 1;
 
 // second insert with the same index
-#insert  c1 @Compartment { title: second };
+#insert c1 @Compartment { title: second };
 ```
 The compartment with the index `c1` will be replaced by the another compartment.
 The result of two statements will be equivalent to the following
@@ -56,16 +57,16 @@ This statement should throw the error because class is not indicated.
 
 ## update
 
-`update` action only changes the properties of existed component without creating a new one.
+`update` action changes only the properties of existed component without creating a new one.
 
 If an updated property exists it will be rewritten by a new value. The current version of standard makes an exception for assignment property in `Record` instances. For these updates the subproperty will be added to the assignment dictionary.
 
 ### Example 1
 ```heta
-// first insert
+// create a new component by #insert
 #insert c1 @Compartment { title: first } := 1;
 
-// second insert with the same index
+// update "title" property
 #update c1 { title: second };
 ```
 
@@ -75,7 +76,7 @@ The result of two statements
     id: c1,
     class: Compartment,
     title: second,
-    assignment: { ode_: 1 } 
+    assignments: { ode_: 1 } 
 };
 ```
 
@@ -85,7 +86,7 @@ The result of two statements
 #update S @Species { compartment: c1 };
 ```
 
-The statement throws error because the component with index `S` has not been created before.
+The statement throws error because the component with index `S` was not created before.
 
 ### Example 3
 
@@ -94,7 +95,7 @@ k1 @Const = 1.2 { aux: { group: one } };
 k1 { aux: { human: true } };
 ```
 
-This result will not include `{ group: one }` because of property update rules:
+This result will not include `{ group: one }` because new "aux" property rewrites all the content
 ```heta
 {
     id: k1,
@@ -136,25 +137,25 @@ The result will include all assignments because it it an exception for assignmen
 
 #upsert k1 = 2; // this works as #update
 
-k1 = 3; // this acts as #upsert -> #update
+k1 = 3; // this acts as #upsert (default) -> #update
 ```
 
 ## delete
 
-`delete` action erases the element with the index. If the component with the index is not exist this wil throw an error.
+`delete` action erases the element with the index. If the component with the index is not exist this will throw an error.
 
 ### Example
 
 ```heta
 #insert k1 @Const = 1;
-#delete k1; // deletes k1
+#delete k1; // deletes k1 from namespace
 ```
 
 ## include
 
-*Include **action** is not recommended. Use [include statement](./include) instead.*
+*Include **action** is an alternative to [include statement](./include).*
 
-The Include action works at mudules level. It does not create or update the component but load the another file inside the current one.
+The Include action works at modules level. It does not create or update the component but load the another file inside the current one.
 
 It uses the virtual properties to set the different files and formats.
 
@@ -173,7 +174,9 @@ It uses the virtual properties to set the different files and formats.
 
 ## setNS
 
-`setNS` action initialize namespace or update [namespaces](namespaces) properties.
+`#setNS` action initializes namespace or updates [namespaces](namespaces) properties.
+
+Before the first use of a component in some namespace `#setNS` must be used or alternatively `namespace` statement can be applied, see [namespace statement](syntax#namespace-block-statement).
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -182,13 +185,13 @@ It uses the virtual properties to set the different files and formats.
 
 ## importNS
 
-1. `importNS` clones all content of the namespace to the another one. This acting on allows share components between different namespaces.
+1. `importNS` clones all content of the namespace to the another one. This action allows sharing components between different namespaces.
 
-1. When using `import` the namespaces declared in `space` and `fromSpace` must exist.
+1. When using `importNS` both namespaces declared in `space` and `fromSpace` must exist.
 
-1. If no `prefix`, `suffix`, `rename` is declared the ids remain the same.
+1. The ids of components can be changed using `prefix`, `suffix`, `rename` properties. If no `prefix`, `suffix`, `rename` is declared the ids remain the same.
 
-1. If `prefix` or `suffix` are declared (for example as `pref`, `suf`) the id updates follows the rules: `old_id` => `prefold_idsuf`. `prefix` and `suffix` do not work for component of classes: `unitDef`.
+1. If `prefix` or `suffix` are declared (for example as `pref_`, `_suf`) the id updates follows the rules: `old_id` => `pref_old_id_suf`. `prefix` and `suffix` do not work for component of classes: `unitDef`.
 
 1. `rename` states the rename rule directly. If `rename` set rule for id, `suffix` and `prefix` not used for the particular id.
 
@@ -291,3 +294,26 @@ end
 | prefix | string | | "" | | prefix of new ids |
 | suffix | string | | "" | | suffix of new ids|
 | rename | Dictionary | | {} | | id matching table |
+
+## export
+
+1. `#export` action describes what and how the output files will be created.
+
+1. List of formats and available options depends on the compiler of Heta code. Read the documentaion of a compiler.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| format | string | true | | | one of declared formats: 'JSON', 'SBML', etc. |
+| filepath | Filepath | true | | | path to target file to create |
+| ... | | | | | other options depending of format |
+
+**Example**
+The example of exporting the platform content to SBML available in [Heta compiler](https://hetalang.github.io/#/heta-compiler/)
+
+```heta
+comp1 @Compartment .= 5.5;
+s1 @Species {compartment: comp1} .= 0;
+
+// export "nameless" namespace to SBML format
+#export { format: SBML, filepath: sbml_output };
+```

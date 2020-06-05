@@ -9,7 +9,7 @@ It is designed for two objectives:
 
 1. The identifier of the heta-file is the absolute path of file in file system. For example:  `y:/the-platform/src/index.heta`.
 
-1. A file can be loaded also by `include` action, but it is not recommended. See [actions](./actions#include).
+1. A file can be loaded also by `include` action, see [actions](./actions#include).
 
 1. `include` statement has `type` property. The default type is `heta` and it means the file includes just regular Heta code.
 

@@ -13,7 +13,7 @@
 };
 
 ''' Notes '''
-sp1::cmd @Component "Title" {
+sp1::cmd @Component 'Title' {
   tags: [a, b, c],
   aux: {},
   ...

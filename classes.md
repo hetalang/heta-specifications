@@ -1,10 +1,10 @@
 # Heta classes
 
-Heta classes describes hierarchical types of Heta components. Abstract classes (classes without instances) denoted by underscore before the first symbol.
+Heta classes describes hierarchical types of Heta components.
 
 **Class list**
 
-- [_Component](#_component)
+- [Component](#component)
 - [_Size](#_size)
 - [UnitDef](#unitdef)
 - [Const](#const)
@@ -15,23 +15,11 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
 - [Reaction](#reaction)
 - [_Switcher](#_switcher)
 - [TimeSwitcher](#timeswitcher)
-- [CondSwitcher](#condswitcher)
-- [SimpleTask](#simpletask)
-
-**_Export classes**
-
-- [_Export](#_export)
-- [SLVExport](#slvexport)
-- [JSONExport](#jsonexport)
-- [YAMLExport](#yamlexport)
-- [SBMLExport](#sbmlexport)
-- [SimbioExport](#simbioexport)
-- [MrgsolveExport](#mrgsolveexport)
-- [XLSXExport](#xlsxexport)
-- [JuliaExport](#juliaexport)
-- [MatlabExport](#matlabexport)
+- [CondSwitcher](#condswitcher) (experimental)
+- [SimpleTask](#simpletask) (experimental)
 
 **Simple types**
+
 - [ID](#id)
 - [Filepath](#filepath)
 - [UnitsExpr](#unitsexpr)
@@ -71,9 +59,9 @@ Heta classes describes hierarchical types of Heta components. Abstract classes (
     ```
     The code above is OK because for the moment of reference checking the compartment has already been loaded.
 
-1. `_Component` is the top class, i.e. all other Heta components inherits from `_Component`. 
+1. `Component` is the top class, i.e. all other Heta components inherits from `Component`. 
 
-## _Component
+## Component
 
 **Parent:** *no*
 
@@ -88,9 +76,9 @@ This is the top class for all Heta components. Includes properties for component
 
 ## _Size
 
-**Parent:** [_Component](#_component)
+**Parent:** [Component](#component)
 
-This is an abstract class for all values which can have units.
+This is a class for all components which can have units. See more detailes on [units](units) page.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -98,7 +86,7 @@ This is an abstract class for all values which can have units.
 
 ## UnitDef
 
-**Parent:** [_Component](#_Component)
+**Parent:** [Component](#Component)
 
 This is class for implementation of a definition of unit to use it inside [UnitsExpr](#unitsexpr). Units property can be undefined which means this is basic unit and cannot be expressed in terms of other units like meter, second, etc.
 
@@ -115,7 +103,7 @@ Da @UnitDef { units: g/mole };
 
 ### UnitsComponent
 
-**Parent:** [_Size](#_size)
+**Parent:** no
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -151,7 +139,7 @@ kabs = 1.4e-6 { free: true, units: 1/h };
 
 **Parent:** [_Size](#_size)
 
-Record instances describes the dynamic values (variable) which can change in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
+Record instances describes the values (variables) which can change in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -275,7 +263,7 @@ r1 := k1*A*comp1;
 
 ## _Switcher
 
-**Parent:** [_Component](#_component)
+**Parent:** [Component](#component)
 
 Run reassignment of records for some contions.
 Switcher id can be used as key in assignments dictionary.
@@ -290,12 +278,12 @@ Switcher id can be used as key in assignments dictionary.
 
 Number of switching is based on the following rules:
 
-- `if (repeatCount < 0 || stop < start) return 0`;
-- `if (period <= 0 || 0 <= repeatCount < 1 || 0 <= (stop-start)/period < 1) return 1`;
+- `if (repeatCount < 0 OR stop < start) return 0`;
+- `if (period <= 0 OR 0 <= repeatCount < 1 OR 0 <= (stop-start)/period < 1) return 1`;
 - `if (period > 0 && 1 <= repeatCount && 1 <= (stop-start)/period) return min(repeatCount, (stop-start)/period) + 1`;
 - `if (period > 0 && repeatCount === Infinity/undefined && stop === Infinity/undefined) return Infinity`;
 
-Based on rules to describe **one** switching use only `start` property. To use indefinite repeat use `start` and `period` properties. To use several repeats use 
+Based on rules to describe **one** switching use only `start` property. To use infinite repeat use `start` and `period` properties. To use several repeats add `repeatCount` or `stop`.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -321,6 +309,8 @@ sw2 @TimeSwitcher {
 ```
 ## CondSwitcher
 
+*This is experimental feature*
+
 **Parent:** [_Switcher](#_switcher)
 
 `CondSwitcher` (conditional switcher) switches based on record reffered in `condition` property. The switcher is triggered when the value of the record hits 0 changing from negative to positive value.
@@ -339,9 +329,11 @@ sw2 @CondSwitcher {
 
 ## SimpleTask
 
-**Parent:** [_Component](#_component)
+**Parent:** [Component](#component)
 
 *This is experimental and not supported in most exports*
+
+`@SimpleTask` describes settings for simulation of the model based on particular namespace.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -373,92 +365,6 @@ st1 @SimpleTask {
 };
 ```
 
-## _Export
-
-**Parent:** [_Component](#_Component)
-
-This is top class for the components describing transformations to other modeling formats: SBML, Simbiology, etc. Depending on class and properties this generates a set of files in specific format.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| filepath | [Filepath](filepath) | true | | | Relative or absolute path to store generated directory or file. |
-| powTransform | "keep" / "operator" / "function" | | "keep" | | This is option describing if the transformation of x^y and pow(x, y) is required. |
-
-## SLVExport
-
-**Parent:** [_Export](#_export)
-
-Export to SLV format (DBSolveOptimum).
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| eventsOff | boolean | | | | if `eventsOff = true` the switchers will not be exported to DBSolve events. |
-
-## JSONExport
-
-**Parent:** [_Export](#_export)
-
-Export to JSON structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](compilation) format.
-
-*No additional properties.*
-
-## YAMLExport
-
-**Parent:** [_Export](#_export)
-
-Export to YAML structure (array) representing the content of platform. The structure of elements corresponds to [action sequence](compilation) format.
-
-*No additional properties.*
-
-## SBMLExport
-
-**Parent:** [_Export](#_export)
-
-Export to SBML format.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| version | string | | L2V4 | | SBML version. Currently supported only: `L2V4` |
-
-## SimbioExport
-
-**Parent:** [_Export](#_export)
-
-Export to Simbiology/Matlab code (m file). The code can be run to create simbiology project.
-
-*No additional properties.*
-
-## MrgsolveExport
-
-**Parent:** [_Export](#_export)
-
-Export to mrgsolve model format (cpp file).
-
-*No additional properties.*
-
-## XLSXExport
-
-**Parent:** [_Export](#_export)
-
-Creation of Excel file (.xlsx) which contains components of namespace.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| omitRows | Number | | | | If set this creates empty rows in output sheets. |
-| splitByClass | Boolean | | | | If `true` the components will be splitted by class and saved as several sheets: one sheet per on Class. |
-
-## JuliaExport
-
-**Parent:** [_Export](#_export)
-
-Creation of Julia files (.jl) supported by SimSolver.
-
-## MatlabExport
-
-**Parent:** [_Export](#_export)
-
-Creation of Matlab files (.m) which represent ODE and code to run ODE.
-
 ## ID
 
 ID describes the string type which is used for idexing Heta components. ID type can be used for namespaces, identifiers and references.
@@ -483,11 +389,13 @@ String representing relative or absolute path.
 
 ### Examples
 
-`output`, `./output`, `../output`
+`output`, `./output`, `../output`, `Y:/my-platform/src/module1/model.heta`
 
 ## UnitsExpr
 
 UnitsExpr strings represent the complex units combined from the predefined unit IDs. Available operatators: `*`, `/`, `^`, `1/`.
+
+See more detailes on [units](units) page.
 
 ### Example
 
@@ -509,4 +417,4 @@ ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`-
 
 ### Example
 
-**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B + C`.
+**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B + C`, `2 A <=> 3 * B + C`.

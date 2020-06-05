@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.3.0
+
+- replace @Export class by #export action
+- add units page
+- add modules case
+- add AUC case
+- remove abstract classes: no abstract classes at all
+- text corrections
+
 ## 0.2.5
 
 - Rename UnitDefinition to UnitDef class
@@ -32,7 +41,7 @@
 ## 0.2.0
 
 - all classes instances can be in nameless and in non-nameless space;
-- remove _Simple ans _Scoped class, use _Component as top class for all indexed components;
+- remove _Simple ans _Scoped class, use Component as top class for all indexed components;
 - change the properties of _Export class: remove "model" property;
 - allow nameless namespace elements for exports;
 - add description for _Export classes: SLVExport, JSONExport, YAMLExport, SimbioExport, MrgsolveExport.

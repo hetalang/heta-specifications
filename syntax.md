@@ -1,10 +1,10 @@
 # Syntax
 
-The Heta code represents the sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system. See [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has flexibility to make his code nice and readable.
+The Heta code can be represented as the sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has a freedom to make his code nice and readable.
 
 ## Reserved words
 
-There is a list of words which cannot be used as identifiers because the are reserved for statements or specific object names.
+There are some words which cannot be used as identifiers because they are reserved for statements or specific object names.
 
 `nameless`, 
 `NaN`, `Infinity`, `e`, `E`, `pi`, `PI`, 
@@ -12,7 +12,7 @@ There is a list of words which cannot be used as identifiers because the are res
 
 ## Base statements
 
-1. Base statements are divided by semicolons. The line breakes do not matter but can be used for code decoration.
+1. Base statements are divided by semicolons. The line breakes between and inside statements do not matter but can be used for code decoration.
 
     ```heta
     <statement one>; <statement two>;
@@ -21,7 +21,7 @@ There is a list of words which cannot be used as identifiers because the are res
     ...
     ```
 
-1. Single statement consists of any number of parts which differentiated lexically. The parts have the following priority rule: the subsequent part has the higher priority. List of part types are:
+1. Single base statement consists of any number of parts which differentiated lexically. The parts have the following priority rule: the subsequent part has the higher priority. List of part types are:
 
     - Dictionary
     - Index
@@ -53,7 +53,7 @@ There is a list of words which cannot be used as identifiers because the are res
     };
     ```
 
-2. The **String** value inside Dictionary starts from first non-space symbol and ends with non-space symbol before stop-list: ", } ] @ # ' \` " ". If you want to use symbols from stop list inside value, use parentheses `"` .
+2. The **String** value inside Dictionary starts from first non-space symbol and ends with non-space symbol before stop-list: ", } ] @ # ' \` " ". If you want to use symbols from stop list inside string value, use parentheses `"` .
 
     Example:
     ```heta
@@ -75,7 +75,7 @@ There is a list of words which cannot be used as identifiers because the are res
     };
     ```
 
-4. The **Boolean** value inside Dictionary may have two values: `true`, `false`
+4. The **Boolean** value inside Dictionary may have two values: `true`, `false`. If you want to use string with value true, false use parentheses `"true"`, `"false"`
 
     Example:
     ```heta
@@ -86,6 +86,13 @@ There is a list of words which cannot be used as identifiers because the are res
     ```
 
 5. The **Dictionary** value follows the same rules as Dictionary part of statement and can be nested.
+
+    Example:
+    ```heta
+    {
+        prop: { nestedProp: { nextLevel: Hello! } } 
+    };
+    ```
 
 6. The **Array** value represents the sequence of numbered elements divided by commas.
 
@@ -102,9 +109,9 @@ There is a list of words which cannot be used as identifiers because the are res
 
 ## Syntactic sugar parts
 
-1. To simplify code reading/writing there are several types of statement parts. They describe the commonly used properties in compact form. See [Classes](./classes) description.
+1. To simplify code reading/writing there are several types of statement parts. They describe the commonly used properties in compact form, see [Classes](./classes) description.
 
-1. The **Index** describes identifiers: `id` and `space` of elements. The syntax can be described by the example: `space::id` or `id` for nameless space.
+1. The **Index** describes identifiers: `id` and `space` of elements. The example if indexes are: `space::id` or `id` for nameless space.
 
     Example:
     ```heta
@@ -113,6 +120,16 @@ There is a list of words which cannot be used as identifiers because the are res
     Which is equivalent to 
     ```heta
     { space: one, id: k1, prop1: some text };
+    ```
+    The specific form of index is "star index" which is helpful for some actions. This can be used when you do not want to state id.
+
+    Example:
+    ```heta
+    #importNS target_ns::* { fromSpace: source_ns };
+    ```
+    which is equivalent to the following
+    ```heta
+    #importNS {space: target_ns, fromSpace: source_ns };
     ```
 
 1. **Class** part sets `class` property. Particular Class defines a list of properties which can be set. This property is denoted by `@` symbol. List of possible classes can be found in [Classes](./classes) description. Classes names always starts from uppercase symbol. When you use Class symbol `@` the parser will replace the first lowercase symbol for the capital one.
@@ -126,7 +143,7 @@ There is a list of words which cannot be used as identifiers because the are res
     { id: k2, class: Const, num: 1.3 };
     ```
 
-1. **Action** part sets `action` property. Action describe what to do with the statement. See [Actions](./actions). This property is denoted by `#` symbol. Action statement is required property, but it has default value `upsert`.
+1. **Action** part sets `action` property. Action describe what to do with the statement, see [Actions](./actions). This property is denoted by `#` symbol. Action statement is required property in base statement, but it has default value `upsert`.
 
     Example:
     ```heta
@@ -215,7 +232,7 @@ There is a list of words which cannot be used as identifiers because the are res
     };
     ```
 
-1. **Switcher assignment** sets the assignment when model switches. The symbol group `[<switcher id>]=` can be used.
+1. **Switcher assignment** sets the re-assignment of records value managed by Switcher. The symbol group `[<switcher id>]=` can be used.
 
     Example:
     ```heta
@@ -231,15 +248,22 @@ There is a list of words which cannot be used as identifiers because the are res
 
 ## Include statement
 
-1. `include` statement describes modules. The simplest explanation how this works is that the file content should be included to the current one. It consist of reserved word `include` followed by relative or absolute filepath. After that reserved word `type` and one of possible types afterthat. See [include](include) description.
+1. `include` statement describes modules loading. The simplest explanation how this works is that the file content should be included to the current one.
 
+1. The statement consists of reserved word `include` followed by relative or absolute filepath. Full form of the statement can be presented in the following manner: 
     ```heta
-    include ./addon.heta type heta
+    include <filepath> type <module type> {...}
     ```
+    where `<module type>` is one of supported modules and `{...}` is dictionary to set additional options. See more details on the [include page](include).
 
-## Namespace block
+Example:
+```heta
+include ./addon.heta type heta
+```
 
-1. Several base statements can be groupped by namespace. For more details about namespaces see on the page [namespaces](namespaces).
+## Namespace block statement
+
+1. Platform components are groupped in namespaces. `namespace` statement can be used for easy work with namespaces. For more details about namespaces see on the page [namespaces](namespaces).
 
 1. First use of Namespace block with new space name initializes namespace implicitly by `#setNS` action.
 
@@ -249,7 +273,7 @@ There is a list of words which cannot be used as identifiers because the are res
 
     ```heta
     namespace <space id> begin
-        <statement without space>;
+        <base statement>;
         ...
     end
     ```
@@ -281,7 +305,7 @@ There is a list of words which cannot be used as identifiers because the are res
     };
     {
         space: one,
-        id: rcomp,
+        id: comp,
         class: Compartment,
         assignments: { start_: 10}
     };
@@ -289,7 +313,7 @@ There is a list of words which cannot be used as identifiers because the are res
 
 ## Comments
 
-1. Comments is the part of the code which is not parsed and used only for annotation of code.
+1. Comments is the part of the code which is not compiled and used only for annotation of code.
 
 1. **One line comment** starts with `//` symbols and ends with line breaks.
 
@@ -298,7 +322,7 @@ There is a list of words which cannot be used as identifiers because the are res
     a @Const = 5;
     ```
 
-1. Multiline comment starts with `/*` and ends with `*/`.
+1. Multiline comment starts with `/*` and ends with `*/` or end of file.
 
     Example:
     ```heta

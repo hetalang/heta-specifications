@@ -2,6 +2,7 @@
 
 Model describes one-reaction model with periodic event.
 
+file: `time-switcher.heta`
 ```Heta
 /*
   Simple model with one reaction
@@ -33,5 +34,5 @@ evt1 @TimeSwitcher {
 A [evt1]= A + 10;
 
 // exports
-sbml1 @SBMLExport { filepath: sbml1_export };
+#export {format: SBML, filepath: sbml1_export };
 ```

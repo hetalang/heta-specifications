@@ -1,6 +1,6 @@
 # Math expressions
 
-All [@Record](./classes#record) instances include `assimptions` property which is set of assignments for different cases: initial assignment `start_`, rule assignment `ode_` and any number of switcher assignments.
+All [@Record](./classes#record) instances (Species, Process, etc.) include `assimptions` property which is set of assignments for different cases: initial assignment `start_`, rule assignment `ode_` and any number of switcher assignments.
 
 The right hand side (RHS) of assignments is string of specific format [MathExpr](./classes#mathexpr).
 
@@ -12,7 +12,7 @@ All numbers in "math expression" are double. You can use any form of number: `0.
 
 The another possible values of double are:
 - `Infinity` which means infinite value.
-- `-Infinity` which negative infinit value.
+- `-Infinity` which negative infinite value.
 - `NaN` which means infinite or negative infinite, i.e. `0/0`.
 
 ## Pre defined constants
@@ -23,16 +23,12 @@ There is a set of identifiers which can be used in `MathExpr` but they are not c
 
 ## Identifiers
 
-The identifiers inside expressions should be interpreted as references to the values of `Record` or `Const` instances. 
+The identifiers inside expressions should be interpreted as references to the values of `Record` or `Const` instances of the same namespace. 
 The math expression `p1 .= 1*y` implies there is constant or record with the id `y`.
 
 ## Operators
 
 There are 5 operators in MathExpr: `+`, `-`, `*`, `/`, `^`.
-
-## Functions
-
-Additional functions can be added by user. See [@FunctionDefinition](./classes#functiondefinition)
 
 ### Arithmetic function list
 
@@ -73,7 +69,7 @@ acos(x), acot(x), acsc(x), asec(x), asin(x),
 atan(x), cos(x), cot(x), csc(x), sec(x), 
 sin(x), tan(x)
 
-## Hyperbolic fucntions
+## Hyperbolic functions
 
 acosh(x), acoth(x), acsch(x), asech(x), asinh(x),
 atanh(x), cosh(x), coth(x), csch(x), sech(x),

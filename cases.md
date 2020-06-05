@@ -4,13 +4,12 @@
 
 | | |
 |---|---|
-| [one-compartment](cases/one-compartment) | One compartment PK model example. |
+| [one compartment](cases/one-compartment) | One compartment PK model example. |
 | [annotation](cases/annotation) | Annotation of components in MM model. |
-| [time-switcher](cases/time-switcher) | Model describes one-reaction model with periodic event. |
+| [time switcher](cases/time-switcher) | Model describes one-reaction model with periodic event. |
 | ~~[cond-switcher](cases/cond-switcher)~~ | Event with conditional switch |
-| ~~[core units](cases/core-units)~~ | using core units |
-| ~~[qsp units](cases/qsp-units)~~ | using qsp-units module |
-| ~~[modules](cases/modules)~~ | Combining different modules to single platfrom. |
+| [using units](cases/core-units) | using default units and creating another ones |
+| [Heta modules](cases/modules) | Combining Heta type modules in one platform |
 | ~~[namespaces](cases/several)~~ | Using namespaces to write several models in one platforms |
-| ~~[auc](cases/auc)~~ | Using Process to add ODEs |
+| [AUC](cases/auc) | Using Process to simulate area under curve (AUC) |
 |  |  |
