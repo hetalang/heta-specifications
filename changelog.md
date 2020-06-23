@@ -1,8 +1,13 @@
 # Change Log
 
+## 0.3.1
+
+- rename `CondSwitcher` to `CSwitcher` (continuous switcher)
+- add `DSwitcher` class (discrete switcher)
+
 ## 0.3.0
 
-- replace @Export class by #export action
+- replace `@Export` class by `#export` action
 - add units page
 - add modules case
 - add AUC case
@@ -11,7 +16,7 @@
 
 ## 0.2.5
 
-- Rename UnitDefinition to UnitDef class
+- Rename `UnitDefinition` to `UnitDef` class
 - Add class _Size
 - Clarify namespaces usage: `#setNS`, `#importNS`, `#import`. Explain `abstact` namespace.
 - Extend classes description

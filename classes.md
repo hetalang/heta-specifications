@@ -15,7 +15,8 @@ Heta classes describes hierarchical types of Heta components.
 - [Reaction](#reaction)
 - [_Switcher](#_switcher)
 - [TimeSwitcher](#timeswitcher)
-- [CondSwitcher](#condswitcher) (experimental)
+- [DSwitcher](#dswitcher)
+- [CSwitcher](#cswitcher) (experimental)
 - [SimpleTask](#simpletask) (experimental)
 
 **Simple types**
@@ -307,13 +308,34 @@ sw2 @TimeSwitcher {
     stop: stop_time
 };
 ```
-## CondSwitcher
+
+## DSwitcher
 
 *This is experimental feature*
 
 **Parent:** [_Switcher](#_switcher)
 
-`CondSwitcher` (conditional switcher) switches based on record reffered in `condition` property. The switcher is triggered when the value of the record hits 0 changing from negative to positive value.
+`DSwitcher` (discrete switcher) switches based on boolean expression. The switcher is triggered when the value switches from false to true.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| trigger | MathExpr | true | | | Boolean MathExpr to turn on events. |
+
+### Example
+
+```heta
+sw2 @DSwitcher {
+    condition: (x > 1) and (y != x)
+};
+```
+
+## CSwitcher
+
+*This is experimental feature*
+
+**Parent:** [_Switcher](#_switcher)
+
+`CSwitcher` (continuous switcher) switches based on record reffered in `condition` property. The switcher is triggered when the value of the record hits 0 changing from negative to positive value.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -322,7 +344,8 @@ sw2 @TimeSwitcher {
 ### Example
 
 ```heta
-sw2 @CondSwitcher {
+evt1 @Record .= x * y;
+sw2 @CSwitcher {
     condition: evt1
 };
 ```
