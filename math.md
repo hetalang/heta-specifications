@@ -4,7 +4,9 @@ All [@Record](./classes#record) instances (Species, Process, etc.) include `assi
 
 The right hand side (RHS) of assignments is string of specific format [MathExpr](./classes#mathexpr).
 
-Expression may include: numbers, identifiers, operators, functions, parentheses.
+The property `trigger` of [@DSwitcher](./classes#dswitcher) also includes [MathExpr](./classes#mathexpr) but this expression must return boolean result.
+
+`MathExpr` may include: numbers, identifiers, operators, functions, parentheses.
 
 ## Numbers
 
@@ -28,9 +30,18 @@ The math expression `p1 .= 1*y` implies there is constant or record with the id 
 
 ## Operators
 
-There are 5 operators in MathExpr: `+`, `-`, `*`, `/`, `^`.
+There are 5 numeric operators in MathExpr:
+`+`, `-`, `*`, `/`, `^`.
 
-### Arithmetic function list
+There are 4 boolean operators in MathExpr:
+`and`, `or`, `xor`, `not`.
+
+Heta support ternary (conditional) operator in format: `b1 < b2 ? x : y`.
+Here the first operand `b1 < b2` is the boolean expression, then an expression to execute if the condition is `true`, and finally the expression to execute if the condition is `false`.
+
+## List of functions
+
+### Arithmetic functions
 
 | id | explanation |
 |----|-------------|
@@ -63,13 +74,13 @@ There are 5 operators in MathExpr: `+`, `-`, `*`, `/`, `^`.
 | ife0(x, y1, y2) | If equal, if x==0 than y1 else y2 |
 | ifge0(x, y1, y2) | If grater or equal, if x>=0 than y1 else y2 |
 
-## Trigonometric functions
+### Trigonometric functions
 
 acos(x), acot(x), acsc(x), asec(x), asin(x),
 atan(x), cos(x), cot(x), csc(x), sec(x), 
 sin(x), tan(x)
 
-## Hyperbolic functions
+### Hyperbolic functions
 
 acosh(x), acoth(x), acsch(x), asech(x), asinh(x),
 atanh(x), cosh(x), coth(x), csch(x), sech(x),
