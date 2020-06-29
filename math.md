@@ -33,6 +33,9 @@ The math expression `p1 .= 1*y` implies there is constant or record with the id 
 There are 5 numeric operators in MathExpr:
 `+`, `-`, `*`, `/`, `^`.
 
+There are 6 comparison operators in MathExpr:
+`>`, `>=`, `<`, `<=`, `==`, `!=`.
+
 There are 4 boolean operators in MathExpr:
 `and`, `or`, `xor`, `not`.
 
@@ -70,9 +73,11 @@ Here the first operand `b1 < b2` is the boolean expression, then an expression t
 | min(x, y) | Minimum from two numbers |
 | min(x, y, z) | Minimum from 3 numbers |
 | factorial(n) | Factorial of number |
-| ifg0(x, y1, y2) | If grater, if x>0 than y1 else y2 |
-| ife0(x, y1, y2) | If equal, if x==0 than y1 else y2 |
-| ifge0(x, y1, y2) | If grater or equal, if x>=0 than y1 else y2 |
+| ifgt(x, y, z1, z2) | Equivalent to : x > y ? y1 : y2 |
+| ifge(x, y, z1, z2) | Equivalent to : x >= y ? y1 : y2 |
+| iflt(x, y, z1, z2) | Equivalent to : x < y ? y1 : y2 |
+| ifle(x, y, z1, z2) | Equivalent to : x <= y ? y1 : y2 |
+| ifeq(x, y, z1, z2) | Equivalent to : x != y ? y1 : y2 |
 
 ### Trigonometric functions
 
