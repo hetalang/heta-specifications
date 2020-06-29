@@ -17,6 +17,10 @@ The another possible values of double are:
 - `-Infinity` which negative infinite value.
 - `NaN` which means infinite or negative infinite, i.e. `0/0`.
 
+## Boolean values
+
+Boolen constants: `true`, `false` can also be used as part of boolean expressions
+
 ## Pre defined constants
 
 There is a set of identifiers which can be used in `MathExpr` but they are not components of platform.
