@@ -29,7 +29,7 @@ Heta classes describes hierarchical types of Heta components.
 
 ## UML diagram
 
-[![Classes UML](heta.uml.png)](heta.uml.png)
+[![Classes UML](heta.uml.png)](heta.uml.png ':ignore')
 
 ## About Heta classes
 
