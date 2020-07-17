@@ -153,7 +153,7 @@ k1 = 3; // this acts as #upsert (default) -> #update
 
 ## include
 
-*Include **action** is an alternative to [include statement](./include).*
+*Include **action** is an alternative to [include statement](./syntax?id=include-statement).*
 
 The Include action works at modules level. It does not create or update the component but load the another file inside the current one.
 

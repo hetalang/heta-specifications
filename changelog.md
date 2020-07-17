@@ -5,6 +5,7 @@
 - rename `CondSwitcher` to `CSwitcher` (continuous switcher)
 - add `DSwitcher` class (discrete switcher)
 - add ternary operator
+- extend modules discription
 
 ## 0.3.0
 

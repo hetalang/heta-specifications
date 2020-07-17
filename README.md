@@ -15,7 +15,7 @@
 - [Math expressions](math)
 - [Units](units)
 - [Cases](cases)
-- [Include statement](include)
+- [Modules](modules)
 - [Compilation steps](compilation)
 - [Change Log](changelog)
 

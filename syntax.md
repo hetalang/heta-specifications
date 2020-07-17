@@ -254,11 +254,21 @@ There are some words which cannot be used as identifiers because they are reserv
     ```heta
     include <filepath> type <module type> {...}
     ```
-    where `<module type>` is one of supported modules and `{...}` is dictionary to set additional options. See more details on the [include page](include).
+    where `<module type>` is one of supported modules and `{...}` is dictionary to set additional options. See more details on the [modules page](modules).
 
-Example:
+1. `include` statement can set additional parameters after `with` keyword in dictionary format
+
+Example 1:
 ```heta
 include ./addon.heta type heta
+```
+
+Example 2:
+```heta
+include file.xlsx type xlsx with {
+    sheet: 2,
+    omitRows: 3
+}
 ```
 
 ## Namespace block statement

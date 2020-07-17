@@ -9,7 +9,7 @@ Nevertheless when formulating the Heta specification we keep in mind the followi
 
     The errors which happen at the stage will be of types: `FileSystemError`, `ParsingError`.
 
-1. **Files integration.** Collection of Heta modules are combined into a single structure **queue** which is sequence of queries for platform container based on [include](include) statement. The include must not have circular references.
+1. **Files integration.** Collection of Heta modules are combined into a single structure **queue** which is sequence of queries for platform container based on [modules](modules) approach. The modules must not have circular references.
 
     The errors which happen at the stage will be of type `ModuleError`.
 
