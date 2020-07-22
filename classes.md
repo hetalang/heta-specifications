@@ -17,6 +17,7 @@ Heta classes describes hierarchical types of Heta components.
 - [TimeSwitcher](#timeswitcher)
 - [DSwitcher](#dswitcher)
 - [CSwitcher](#cswitcher) (experimental)
+- [Dose](#dose)
 - [SimpleTask](#simpletask) (experimental)
 
 **Simple types**
@@ -122,6 +123,7 @@ This is class for numerical values which do not change in simulation time. This 
 | ---------|------|----------|---------|-----|-------------|
 | num | number | true | | | Numerical value or starting value for identification. |
 | free | boolean | | | | If true the constant is unknown and can be evaluated based on experimental data.|
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of num property |
 
 ### Example
 ```heta
@@ -146,6 +148,7 @@ Record instances describes the values (variables) which can change in time. Usua
 | ---------|------|----------|---------|-----|-------------|
 | assignments | Dictionary{ID, MathExpr} | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
 | boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of assignments part |
 
 ### Example
 
@@ -177,6 +180,7 @@ Process instances changes the other `Record` instances indirectly through the ra
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | actors | ProcessExpr/Actor[] | | [] | | [ProcessExpr](#processexpr) or array of objects of format.  { target: \<ID\>, stoichiometry: \<number\> }. The rules for dynamic components which describes how they will be included to ODE including stoichiometry. |
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of process rate |
 
 ### Example
 
@@ -213,7 +217,9 @@ pr1 @Process { actors: [
 
 `Compartment` is class describing volumes where `Species` instances are located. The variable means the volume size.
 
-*no specific properties*
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of compartment volume |
 
 ### Example
 ```heta
@@ -230,6 +236,7 @@ comp1 @Compartment = 5.3 { units: L };
 | ---------|------|----------|---------|-----|-------------|
 | compartment | ID | true | | `Compartment` | Reference to compartment id where the molecule is located. |
 | isAmount | boolean | | | | If `true` the value is an amount not concentration. |
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of species |
 
 ### Example
 
@@ -251,6 +258,7 @@ The same as Process, but all target references should be Species. The numerical 
 | ---------|------|----------|---------|-----|-------------|
 | actors | ProcessExpr/Reactant[] | | [] | | [ProcessExpr](#processexpr) or array of objects in format { target: \<ID\>, stoichiometry: \<number\> where target is the reference to `Species`} |
 | modifiers | ID[]/Modifiers[]  | | [] | | List of references to `Species`. Array of references or array of objects in format {target: \<ID\>}. set of components which are not included to ODE but can affect to it. |
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of reaction rate |
 
 ### Example
 
@@ -290,7 +298,6 @@ Based on rules to describe **one** switching use only `start` property. To use i
 | ---------|------|----------|---------|-----|-------------|
 | start | Number/ID | | 0 | - / `Const` | time to run the first switch |
 | period | Number/ID | | | - / `Const` | period of repeated switching |
-| repeatCount | Number/ID | | | - / `Const` | number of |
 | stop | Number/ID | | | - / `Const` | time to turn off switch |
 
 ### Example
@@ -347,6 +354,35 @@ sw2 @DSwitcher {
 evt1 @Record .= x * y;
 sw2 @CSwitcher {
     condition: evt1
+};
+```
+
+## Dose
+
+**Parent:** [_Size](#_size)
+
+`Dose` class describe non-periodic and periodic event which add some value to Species.
+It substites partially usage of `TimeSwitcher` and was included to support export to Simbiology and Mrgsolve.
+`amount` property is always in amount units, not concentration. 
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| start | Number/ID | | 0 | - / `Const` | time to run the first switch |
+| period | Number/ID | | | - / `Const` | period of repeated switching |
+| repeatCount | Number/ID | | | - / `Const` | number of dose addition after the first dose |
+| target | ID | true | | Species | traget species to add the dose |
+| amount | Number/ID | true | | - / `Const` | amount which should be added to the reffered species |
+| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of `amount` |
+
+### Example
+
+```heta
+dose1 @Dose {
+  target: A,
+  amount: 100,
+  start: 0,
+  period: 12,
+  repeatCount: 4
 };
 ```
 
