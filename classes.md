@@ -332,7 +332,7 @@ sw2 @TimeSwitcher {
 
 ```heta
 sw2 @DSwitcher {
-    condition: (x > 1) and (y != x)
+    trigger: (x > 1) and (y != x)
 };
 ```
 
@@ -342,18 +342,17 @@ sw2 @DSwitcher {
 
 **Parent:** [_Switcher](#_switcher)
 
-`CSwitcher` (continuous switcher) switches based on record reffered in `condition` property. The switcher is triggered when the value of the record hits 0 changing from negative to positive value.
+`CSwitcher` (continuous switcher) switches based on expression in `trigger` property. The switcher is triggered when the value of the record hits 0 changing from negative to positive value.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| condition | ID | true | | `Record` | Reference to identifier of Record to estimate the moment of switching |
+| trigger | MathExpr | true | | | Expression to estimate the moment of switching |
 
 ### Example
 
 ```heta
-evt1 @Record .= x * y;
 sw2 @CSwitcher {
-    condition: evt1
+    trigger: x * y
 };
 ```
 
@@ -370,7 +369,7 @@ It substites partially usage of `TimeSwitcher` and was included to support expor
 | start | Number/ID | | 0 | - / `Const` | time to run the first switch |
 | period | Number/ID | | | - / `Const` | period of repeated switching |
 | repeatCount | Number/ID | | | - / `Const` | number of dose addition after the first dose |
-| target | ID | true | | Species | traget species to add the dose |
+| target | ID | true | | Species | target species to add the dose |
 | amount | Number/ID | true | | - / `Const` | amount which should be added to the reffered species |
 | units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of `amount` |
 

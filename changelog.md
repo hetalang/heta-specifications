@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.2
+
+- use `trigger` property with MathExpr in `CSwitcher` (continuous switcher) instead of condition reffered to Record
+
 ## 0.3.1
 
 - rename `CondSwitcher` to `CSwitcher` (continuous switcher)
