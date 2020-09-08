@@ -1,12 +1,12 @@
 # Actions
 
 Heta is not a declarative language because it sequentially updates and changes the platform.
-The `action` property inside "action statement" clarifies what platform should do with a statement.
-Some of actions like `#include` works at module level. The other actions like `#export` works at export step, and they does not modify the platform.
+The `action` property inside an "action statement" clarifies what platform should do with a statement.
+Some of the actions like `#include` work at the module level. The other actions like `#export` work at the export step and they do not modify the platform.
 
-Action shortend is designated by `#` symbol before the action name.
+The action shortened is designated by `#` symbol before the action name.
 
-If no statement is written the default statement is `#upsert` which is equivalent of `#insert` if `class` property is stated or `#update` if not.
+If no statement is written the default statement is `#upsert` which is the equivalent of `#insert` if `class` property is stated or `#update` if not.
 
 ## Action list
 
@@ -26,13 +26,13 @@ If no statement is written the default statement is `#upsert` which is equivalen
 If the component with the same index already exists it will be replaced by the new one. 
 When applying `insert` the `class` and `id` properties should be stated directly.
 
-`insert` action may be skipped in properties because this is default action when `class` property exists. 
+The `insert` action may be skipped in properties because this is the default action when `class` property exists. 
 
 | property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
 | class | string | true | | | Class name of a component, see [classes](classes) |
 | id | ID | true | | | The unique identifier of the component in namespace |
-| space | ID | |  nameless | namespace id | An identifier of namespace. The namespace must be created prior to usage. |
+| space | ID | |  nameless | namespace id | An identifier of a namespace. The namespace must be created before usage. |
 | ... | | | | | The other keys depending on `class` associated properties. |
 
 ### Example 1
@@ -45,7 +45,7 @@ When applying `insert` the `class` and `id` properties should be stated directly
 #insert c1 @Compartment { title: second };
 ```
 The compartment with the index `c1` will be replaced by the second action statement.
-The result of two statements will be equivalent to the following
+The result of the two statements will be equivalent to the following
 
 ```heta
 {
@@ -69,23 +69,23 @@ This statement should throw the error because `class` property is not indicated.
 ```heta
 #insert space1::x1 @Record .= 0;
 ```
-This statement throws the error because namespace with `id` space1 have not been declared.
+This statement throws the error because namespace with `id` space1 has not been declared.
 
 ## update
 
 The `update` action only changes the properties of a previously created component without creating a new component.
 
-If the updated property exists it will be rewritten by a new value. The current version of Heta standard makes an exception for `assignments` property in `Record` instances. For these updates the subproperty will be added to the assignments dictionary.
+If the updated property exists it will be rewritten by a new value. The current version of the Heta standard makes an exception for `assignments` property in `Record` instances. For these updates, the sub-property will be added to the assignments dictionary.
 
-The `update` action cannot change its `class`. If you need so you have to create a new component using `insert` action.
+The `update` action cannot change its `class`. If you need so you have to create a new component using the `insert` action.
 
-The `update` property may be skipped because this is default action when `class` property is not declared in statement.
+The `update` property may be skipped because this is the default action when `class` property is not declared in a statement.
 
 | property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
 | id | ID | true | | | The unique identifier of the component in namespace |
-| space | ID | |  nameless | namespace id | An identifier of namespace where the component is located. |
-| ... | | | | | The other keys depending on `class` of the component. |
+| space | ID | |  nameless | namespace id | An identifier of a namespace where the component is located. |
+| ... | | | | | The other keys depending on the `class` of the component. |
 
 ### Example 1
 
@@ -122,7 +122,7 @@ k1 @Const = 1.2 { aux: { group: one } };
 k1 { aux: { human: true } };
 ```
 
-The result will not include `{ group: one }` because new "aux" property rewrites all the content
+The result will not include `{ group: one }` because new `aux` sup-property rewrites all the content
 ```heta
 {
     id: k1,
@@ -139,7 +139,7 @@ p1 @Record { assignments: { start_: 0 } };
 p1 { assignments: { ode_: x*y } };
 p1 [sw]= 0;
 ```
-The result will include all assignments because it it an exception for assignments:
+The result will include all assignments because it is an exception for assignments:
 
 ```heta
 {
@@ -155,7 +155,7 @@ The result will include all assignments because it it an exception for assignmen
 
 ## upsert
 
-The `upsert` action is the default action and works as `#insert` when class is stated and as `#update` otherwice.
+The `upsert` action is the default action and works as `#insert` when class is stated and as `#update` otherwise.
 
 ### Example
 
@@ -169,12 +169,12 @@ k1 = 3; // this acts as #upsert -> #update
 
 ## delete
 
-The `delete` action erases the element from the namespace. If the component with the index is not exist this throws an error.
+The `delete` action erases the element from the namespace. If the component with the index does not exist this throws an error.
 
 | property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
 | id | ID | true | | | The unique identifier of the component in namespace |
-| space | ID | |  nameless | namespace id | An identifier of namespace where the component is located. |
+| space | ID | |  nameless | namespace id | An identifier of a namespace where the component is located. |
 
 ### Example
 
@@ -187,9 +187,9 @@ The `delete` action erases the element from the namespace. If the component with
 
 The `include` action is an alternative to [include statement](./syntax?id=include-statement).*
 
-The Include action works at modules level. It does not create or update the component but load the another file inside the current one.
+The Include action works at the modules level. It does not create or update the component but loads another file inside the current one.
 
-It uses the virtual properties to set the different files and formats.
+It uses virtual properties to set different files and formats.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -218,7 +218,7 @@ The `setNS` action (or the `namespace` statement) must be used prior to the crea
 
 ## importNS
 
-1. `importNS` clones all content of the namespace to the another one. This action allows sharing components between different namespaces.
+1. The `importNS` clones all content of the namespace to another one. This action allows us to share components between different namespaces.
 
 1. When using `importNS` both namespaces declared in `space` and `fromSpace` must exist.
 
@@ -228,7 +228,7 @@ The `setNS` action (or the `namespace` statement) must be used prior to the crea
 
 1. `rename` states the rename rule directly. If `rename` set rule for id, `suffix` and `prefix` not used for the particular id.
 
-1. Renaming id rules changes references.
+1. Renaming id rules change references.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -332,7 +332,7 @@ end
 
 1. The `#export` action describes what and how the output files will be created.
 
-1. List of formats and available options depends on the compiler of Heta code. Read the documentaion of a compiler.
+1. A list of formats and available options depends on the compiler of Heta code. Read the documentation of a compiler.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|

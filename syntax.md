@@ -1,6 +1,6 @@
 # Syntax
 
-The Heta code can be represented as the sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has a freedom to make his code nice and readable.
+The Heta code can be represented as a sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has a freedom to make his code nice and readable.
 
 ## Reserved words
 
@@ -10,9 +10,9 @@ There are some words which cannot be used as identifiers because they are reserv
 `NaN`, `Infinity`, `e`, `E`, `pi`, `PI`, 
 `include`, `block`, `namespace`, `abstract`, `concrete`, `begin`, `end`
 
-## Base statements
+## Action statement
 
-1. Base statements are divided by semicolons. The line breakes between and inside statements do not matter but can be used for code decoration.
+1. The action statements are divided by semicolons. The line breakes between and inside statements do not matter but can be used for code decoration.
 
     ```heta
     <statement one>; <statement two>;
@@ -21,7 +21,7 @@ There are some words which cannot be used as identifiers because they are reserv
     ...
     ```
 
-1. Single base statement consists of any number of parts which differentiated lexically. The parts have the following priority rule: the subsequent part has the higher priority. List of part types are:
+1. The action statement consists of dictinary part and a set of shortened properties. The parts have the following priority rule: the subsequent part has the higher priority. List of part types are:
 
     - Dictionary
     - Index
@@ -31,16 +31,16 @@ There are some words which cannot be used as identifiers because they are reserv
     - Notes
     - Assignments (several subtypes)
 
-## Dictionary part
+## Action dictionary
 
-1. The **Dictionary** part is the most general type. It begins with `{` symbol and ends with `}` symbol. A set of key-value pairs devided with commas `,` can be inside. The syntax of the dictionary is similar to JSON or YAML format.
+1. The **Dictionary** part is the most powerful way to describe action properties. It begins with `{` symbol and ends with `}` symbol. A set of key-value pairs devided with commas `,` can be inside. The syntax of the dictionary is similar to JSON or YAML format.
 
     Example:
     ```heta
     { prop1: value 1, prop2: value 2, ...};
     ```
 
-    The **property** is always string without spaces. The properties must be unique withing dictionary. The **value** can have one of five types: String, Number, Boolean, Dictionary or Array.
+    The **property** is always string without spaces. The properties must be unique withing dictionary. The **value** can have one of five types: String, Number, Boolean, Dictionary or Array. The dictionary and array values might include other types. 
 
     Example:
     ```heta
@@ -81,11 +81,12 @@ There are some words which cannot be used as identifiers because they are reserv
     ```heta
     {
         prop1: true,
-        prop: false
+        prop2: false,
+        stringProp: "true"
     };
     ```
 
-5. The **Dictionary** value follows the same rules as Dictionary part of statement and can be nested.
+5. The nested **Dictionary** value follows the same rules as the dictionary part of statement and can be nested.
 
     Example:
     ```heta
@@ -94,7 +95,7 @@ There are some words which cannot be used as identifiers because they are reserv
     };
     ```
 
-6. The **Array** value represents the sequence of numbered elements divided by commas.
+6. The **Array** value is a sequence of numbered elements divided by commas. Numeration starts from 0 (zero) index.
 
     Example:
     ```heta
@@ -107,11 +108,11 @@ There are some words which cannot be used as identifiers because they are reserv
     };
     ```
 
-## Syntactic sugar parts
+## Shortened properties 
 
 1. To simplify code reading/writing there are several types of statement parts. They describe the commonly used properties in compact form, see [Classes](./classes) description.
 
-1. The **Index** describes identifiers: `id` and `space` of elements. The example if indexes are: `space::id` or `id` for nameless space.
+1. The **Index** describes identifiers: `id` and `space` of components. The example if indexes are: `space::id` or `id` for nameless space.
 
     Example:
     ```heta
@@ -132,7 +133,7 @@ There are some words which cannot be used as identifiers because they are reserv
     #importNS {space: target_ns, fromSpace: source_ns };
     ```
 
-1. **Class** part sets `class` property. Particular Class defines a list of properties which can be set. This property is denoted by `@` symbol. List of possible classes can be found in [Classes](./classes) description. Classes names always starts from uppercase symbol. When you use Class symbol `@` the parser will replace the first lowercase symbol for the capital one.
+1. The **Class** shortened property sets `class`. Particular Class defines a list of properties which can be set. This property is denoted by `@` symbol. List of possible classes can be found in [Classes](./classes) description. Classes names always starts from uppercase symbol. When you use Class symbol `@` the parser will replace the first lowercase symbol for the capital one.
 
     Example:
     ```heta
@@ -143,7 +144,7 @@ There are some words which cannot be used as identifiers because they are reserv
     { id: k2, class: Const, num: 1.3 };
     ```
 
-1. **Action** part sets `action` property. Action describe what to do with the statement, see [Actions](./actions). This property is denoted by `#` symbol. Action statement is required property in base statement, but it has default value `upsert`.
+1. The **Action** shortened property sets `action`. The `action` describe what to do with the statement, see [Actions](./actions). This shortened is denoted by `#` symbol. The action property is a required property in the base statement, but it has default value `upsert`.
 
     Example:
     ```heta
@@ -156,7 +157,7 @@ There are some words which cannot be used as identifiers because they are reserv
     { action: upsert, id: k3, num: 1 };
     ```
 
-1. **Title** part sets `title` property. It is denoted by single quotes `'`.
+1. The **Title** shortened property sets `title`. It is denoted by single quotes `'`.
 
     Example:
     ```heta
@@ -167,7 +168,7 @@ There are some words which cannot be used as identifiers because they are reserv
     { id: a, title: Some title };
     ```
 
-1. **Notes** part sets `notes` property. It is denoted by three single quotes `'''`. Notes part is located usually before the other parts.
+1. The **Notes** shortened property sets `notes`. It is denoted by three single quotes `'''`. Notes part is located usually before the other parts.
 
     Example:
     ```heta
@@ -179,9 +180,9 @@ There are some words which cannot be used as identifiers because they are reserv
     { id: a, notes: Some notes };
     ```
 
-## Assignments part
+## Shortened assignments
 
-1. **Const assignment** sets `num` property and designed only for `@Const` class. The symbol `=` is used to mark the assignment.
+1. **Const assignment** sets `num` property and designed only for `@Const` class. The symbol `=` is used to mark an assignment.
 
     Example:
     ```heta

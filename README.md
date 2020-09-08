@@ -4,7 +4,7 @@
 [![DOI:10.13140/RG.2.2.18935.06563](https://zenodo.org/badge/DOI/10.13140/RG.2.2.14881.35682.svg)](https://doi.org/10.13140/RG.2.2.14881.35682)
 [![License: CC BY-ND 4.0](https://img.shields.io/badge/License-CC%20BY--ND%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nd/4.0/)
 
-**Heta language** is a domain specific programming language for dynamic quantitative models for quantitative systems pharmacology and systems biology.
+**Heta language** is a programming language for dynamic quantitative models used in quantitative systems pharmacology and systems biology.
 
 ## Language specification
 
@@ -23,24 +23,24 @@
 
 **Heta** language is a domain-specific programming language (DSL) for dynamic quantitative models used in quantitative systems pharmacology (QSP) and systems biology (SB). It describes the biological systems as the components of QSP/SB modeling platform.
 
-Heta language represents the dynamic model as a set of interacting components which describe volumes, concentrations, amounts, rates and others. The Heta code can be represented as ordinary differential equations (ODEs) but Heta does not require writing ODE system manualy. The differential equations are compiled "on fly" when they are required.
+Heta language represents the dynamic model as a set of interacting components that describe volumes, concentrations, amounts, rates, and others. The Heta code can be represented as ordinary differential equations (ODEs) but Heta does not require writing an ODE system manually. The differential equations are compiled "on the fly" when they are required.
 
-The key idea of Heta language is the development and editing the bio-mathematical models as expressive programming code which gives us the benefits of programming languages like: compact and human readable format, modularity, reusability, etc. The model development can be easily organized as workflow inside group. Heta code is friendly for version control systems and different continuous integration and continuous integration (CI/CD) tools can be used to reach maximal productivity.
+The key idea of Heta language is the development and editing of the bio-mathematical models as expressive programming code which gives us the benefits of programming languages like compact and human-readable format, modularity, reusability, etc. The model development can be easily organized as a workflow inside a group. The Heta code is friendly for version control systems and different continuous integration and continuous integration (CI/CD) tools can be used to reach maximal productivity.
 
 The development of Heta language was based on the following ideas:
 
--  Everything is code: model, tasks and experimental observations are also the code;
+-  Everything is code: model, tasks, and experimental observations are also the code;
 -  Describe components but not the algorithms;
 -  Annotation matters.
 
-The important pre-formulated requrements to the language were:
+The important pre-formulated requirements to the language were:
 
--  Human-readable/writable code can be used for model creation, modification or integration.
+-  Human-readable/writable code can be used for model creation, modification, or integration.
 -  Easy code parsing and transformation for potential implementation into different tools and frameworks.
 -  Modularity: QSP platform can be subdivided into several files and spaces for better project management.
 -  Reusability: modeling platforms should be easily extended. Model parts and datasets can be used for other purposes.
 -  Reach annotation capabilities for better code revision and reporting.
--  Easy transformation from/to different formats of platforms and models currently used in practice: SBML, DBSolve, Spreadsheets, mrgsolve, Simbiology, etc.
+-  The easy transformation from/to different formats of platforms and models currently used in practice: SBML, DBSolve, Spreadsheets, databases, mrgsolve, Simbiology, etc.
 
 ## "Hello world!" example
 
@@ -63,12 +63,12 @@ k1 @Const = 0.01;
 ```
 
 ### Explanations
-Comments are denoted by double slash.
+Comments are denoted by a double slash.
 ```
 // Hello world! example
 ```
 
-This creates volume (compartment) with id "comp1" in nameless namespace.
+This creates the volume (compartment) with id "comp1" in the "nameless" namespace.
 ```heta
 comp1 @Compartment;
 ```
@@ -84,12 +84,12 @@ This code creates reaction A -> 2B, where one molecule of A is transformed to tw
 r1 @Reaction { actors: A -> 2B };
 ```
 
-This string sets initial value (assignment at initialization step) for compartment volume.
+This string sets the initial value (assignment at initialization step) for compartment volume.
 ```
 comp1 .= 1;
 ```
 
-This sets the initial values for species concenrations (dynamic values).
+This sets the initial values for species concentrations (dynamic values).
 ```
 A .= 10;
 B .= 0;
@@ -107,7 +107,7 @@ k1 @Const = 0.01;
 
 ## Origin
 
-Heta language was originally developed for internal projects of InSysBio to support development of large-scale QSP modeling platforms and storing them in database-like formats.
+Heta language was originally developed for internal projects of InSysBio to support the development of large-scale QSP modeling platforms and storing them in database-like formats.
 
 ## Maintainers
 
@@ -115,7 +115,7 @@ Heta language was originally developed for internal projects of InSysBio to supp
 
 ## Versions
 
-The **stable version** is published on <https://hetalang.github.io/#/specifications/> and stored as branch [v0.x](https://github.com/hetalang/heta-specifications/tree/v0.x).
+The **stable version** is published on <https://hetalang.github.io/#/specifications/> and stored as git branch [v0.x](https://github.com/hetalang/heta-specifications/tree/v0.x).
 
 The **latest** version of Heta standard is located in **master** branch of the [hetalang/heta-specifications](https://github.com/hetalang/heta-specifications) repository. 
 
