@@ -16,8 +16,8 @@ Heta classes describes hierarchical types of Heta components.
 - [_Switcher](#_switcher)
 - [TimeSwitcher](#timeswitcher)
 - [DSwitcher](#dswitcher)
-- [CSwitcher](#cswitcher) (experimental)
-- [Dose](#dose)
+- [CSwitcher](#cswitcher)
+- [Dose](#dose) (experimental)
 - [SimpleTask](#simpletask) (experimental)
 
 **Simple types**
@@ -318,7 +318,7 @@ sw2 @TimeSwitcher {
 
 ## DSwitcher
 
-*This is experimental feature*
+*This is an experimental feature*
 
 **Parent:** [_Switcher](#_switcher)
 
@@ -338,8 +338,6 @@ sw2 @DSwitcher {
 
 ## CSwitcher
 
-*This is experimental feature*
-
 **Parent:** [_Switcher](#_switcher)
 
 `CSwitcher` (continuous switcher) switches based on expression in `trigger` property. The switcher is triggered when the value of the record hits 0 changing from negative to positive value.
@@ -357,6 +355,8 @@ sw2 @CSwitcher {
 ```
 
 ## Dose
+
+*This is an experimental feature*
 
 **Parent:** [_Size](#_size)
 
@@ -389,7 +389,7 @@ dose1 @Dose {
 
 **Parent:** [Component](#component)
 
-*This is experimental and not supported in most exports*
+*This is an experimental and not supported in most exports*
 
 `@SimpleTask` describes settings for simulation of the model based on particular namespace.
 

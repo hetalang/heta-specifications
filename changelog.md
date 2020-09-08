@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.3
+- set @Dose class as experimental
+- remove experimental from @CSwitcher
+- multiple terminology updates: "action statement" 
+
 ## 0.3.2
 
 - use `trigger` property with MathExpr in `CSwitcher` (continuous switcher) instead of condition reffered to Record

@@ -1,12 +1,12 @@
 # Actions
 
-The format of Heta-based modeling platform is a kind of declarative language. Nevertheless Heta is not actually a declarative language because it sequentially updates and changes the platform.
+Heta is not a declarative language because it sequentially updates and changes the platform.
+The `action` property inside "action statement" clarifies what platform should do with a statement.
+Some of actions like `#include` works at module level. The other actions like `#export` works at export step, and they does not modify the platform.
 
-The "action" is term used in Heta language to clarify what platform should do with a statement. Some of actions like `#include` works at module level.
+Action shortend is designated by `#` symbol before the action name.
 
-Action is designated by `#` symbol before the action name and can be used in any statement.
-
-If no statement is written the default statement is `#upsert`.
+If no statement is written the default statement is `#upsert` which is equivalent of `#insert` if `class` property is stated or `#update` if not.
 
 ## Action list
 
@@ -24,7 +24,16 @@ If no statement is written the default statement is `#upsert`.
 
 `insert` action adds a new component to the platform. 
 If the component with the same index already exists it will be replaced by the new one. 
-When applying `insert` the class should be stated directly.
+When applying `insert` the `class` and `id` properties should be stated directly.
+
+`insert` action may be skipped in properties because this is default action when `class` property exists. 
+
+| property | type | required | default | ref | description |
+| ---------|------|----------|---------|-----|-------------|
+| class | string | true | | | Class name of a component, see [classes](classes) |
+| id | ID | true | | | The unique identifier of the component in namespace |
+| space | ID | |  nameless | namespace id | An identifier of namespace. The namespace must be created prior to usage. |
+| ... | | | | | The other keys depending on `class` associated properties. |
 
 ### Example 1
 
@@ -35,7 +44,7 @@ When applying `insert` the class should be stated directly.
 // second insert with the same index
 #insert c1 @Compartment { title: second };
 ```
-The compartment with the index `c1` will be replaced by the another compartment.
+The compartment with the index `c1` will be replaced by the second action statement.
 The result of two statements will be equivalent to the following
 
 ```heta
@@ -43,7 +52,7 @@ The result of two statements will be equivalent to the following
     id: c1,
     title: second,
     class: Compartment,
-    assignment: {} 
+    assignments: {} 
 };
 ```
 
@@ -53,15 +62,33 @@ The result of two statements will be equivalent to the following
 #insert S { compartment: comp1 };
 ```
 
-This statement should throw the error because class is not indicated.
+This statement should throw the error because `class` property is not indicated.
+
+### Example 3
+
+```heta
+#insert space1::x1 @Record .= 0;
+```
+This statement throws the error because namespace with `id` space1 have not been declared.
 
 ## update
 
-`update` action changes only the properties of existed component without creating a new one.
+The `update` action only changes the properties of a previously created component without creating a new component.
 
-If an updated property exists it will be rewritten by a new value. The current version of standard makes an exception for assignment property in `Record` instances. For these updates the subproperty will be added to the assignment dictionary.
+If the updated property exists it will be rewritten by a new value. The current version of Heta standard makes an exception for `assignments` property in `Record` instances. For these updates the subproperty will be added to the assignments dictionary.
+
+The `update` action cannot change its `class`. If you need so you have to create a new component using `insert` action.
+
+The `update` property may be skipped because this is default action when `class` property is not declared in statement.
+
+| property | type | required | default | ref | description |
+| ---------|------|----------|---------|-----|-------------|
+| id | ID | true | | | The unique identifier of the component in namespace |
+| space | ID | |  nameless | namespace id | An identifier of namespace where the component is located. |
+| ... | | | | | The other keys depending on `class` of the component. |
 
 ### Example 1
+
 ```heta
 // create a new component by #insert
 #insert c1 @Compartment { title: first } := 1;
@@ -86,7 +113,7 @@ The result of two statements
 #update S @Species { compartment: c1 };
 ```
 
-The statement throws error because the component with index `S` was not created before.
+The statement throws the error because the component with index `S` was not created before.
 
 ### Example 3
 
@@ -95,7 +122,7 @@ k1 @Const = 1.2 { aux: { group: one } };
 k1 { aux: { human: true } };
 ```
 
-This result will not include `{ group: one }` because new "aux" property rewrites all the content
+The result will not include `{ group: one }` because new "aux" property rewrites all the content
 ```heta
 {
     id: k1,
@@ -128,7 +155,7 @@ The result will include all assignments because it it an exception for assignmen
 
 ## upsert
 
-`upsert` action is the default action and works as `#insert` when class is stated and as `#update` otherwice.
+The `upsert` action is the default action and works as `#insert` when class is stated and as `#update` otherwice.
 
 ### Example
 
@@ -137,12 +164,17 @@ The result will include all assignments because it it an exception for assignmen
 
 #upsert k1 = 2; // this works as #update
 
-k1 = 3; // this acts as #upsert (default) -> #update
+k1 = 3; // this acts as #upsert -> #update
 ```
 
 ## delete
 
-`delete` action erases the element with the index. If the component with the index is not exist this will throw an error.
+The `delete` action erases the element from the namespace. If the component with the index is not exist this throws an error.
+
+| property | type | required | default | ref | description |
+| ---------|------|----------|---------|-----|-------------|
+| id | ID | true | | | The unique identifier of the component in namespace |
+| space | ID | |  nameless | namespace id | An identifier of namespace where the component is located. |
 
 ### Example
 
@@ -153,7 +185,7 @@ k1 = 3; // this acts as #upsert (default) -> #update
 
 ## include
 
-*Include **action** is an alternative to [include statement](./syntax?id=include-statement).*
+The `include` action is an alternative to [include statement](./syntax?id=include-statement).*
 
 The Include action works at modules level. It does not create or update the component but load the another file inside the current one.
 
@@ -163,7 +195,7 @@ It uses the virtual properties to set the different files and formats.
 | ---------|------|----------|---------|-----|-------------|
 | source | string | true | | filepath | Relative or absolute path to a file. |
 | type | string | | `heta` | | Type of include. Possible values are: "heta", "json", "yaml", "xlsx", "sbml" |
-| ... | | | | | The other settings depending on `type` |
+| ... | | | | | The other properties depending on `type` |
 
 ### Example
 
@@ -174,14 +206,15 @@ It uses the virtual properties to set the different files and formats.
 
 ## setNS
 
-`#setNS` action initializes namespace or updates [namespaces](namespaces) properties.
+The `setNS` action initializes namespace or updates [namespaces](namespaces) properties.
+The alternative to the `setNS` action is the the [namespace statement](syntax#namespace-block-statement).
 
-Before the first use of a component in some namespace `#setNS` must be used or alternatively `namespace` statement can be applied, see [namespace statement](syntax#namespace-block-statement).
+The `setNS` action (or the `namespace` statement) must be used prior to the creation of the first component in the namespace.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | space | string | true | | | Name of created or updated namespace |
-| type | string | | `concrete` | | namespace type |
+| type | string | | `concrete` | | namespace type: "concrete" or "abstract", see [namespaces](namespaces) |
 
 ## importNS
 
@@ -297,7 +330,7 @@ end
 
 ## export
 
-1. `#export` action describes what and how the output files will be created.
+1. The `#export` action describes what and how the output files will be created.
 
 1. List of formats and available options depends on the compiler of Heta code. Read the documentaion of a compiler.
 
@@ -307,7 +340,7 @@ end
 | filepath | Filepath | true | | | path to target file to create |
 | ... | | | | | other options depending of format |
 
-**Example**
+### Example 1
 The example of exporting the platform content to SBML available in [Heta compiler](https://hetalang.github.io/#/heta-compiler/)
 
 ```heta
