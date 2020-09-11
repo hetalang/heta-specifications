@@ -1,10 +1,10 @@
 # Syntax
 
-The Heta code can be represented as a sequence of statements which create and modify elements in modeling platform. The parsing and interpretation of the code results in creation of static (database-like) structure representing the modeling system, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has a freedom to make his code nice and readable.
+The Heta code can be represented as a sequence of statements that create and modify elements in a modeling platform. The parsing and interpretation of the code result in creating of static (database-like) structure representing the modeling system, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has the freedom to make his code nice and readable.
 
 ## Reserved words
 
-There are some words which cannot be used as identifiers because they are reserved for statements or specific object names.
+Some words cannot be used as identifiers because they are reserved for statements or specific object names.
 
 `nameless`, 
 `NaN`, `Infinity`, `e`, `E`, `pi`, `PI`, 
@@ -12,7 +12,7 @@ There are some words which cannot be used as identifiers because they are reserv
 
 ## Action statement
 
-1. The action statements are divided by semicolons. The line breakes between and inside statements do not matter but can be used for code decoration.
+1. The action statements are divided by semicolons. The line breaks between and inside statements do not matter but can be used for code decoration.
 
     ```heta
     <statement one>; <statement two>;
@@ -21,7 +21,7 @@ There are some words which cannot be used as identifiers because they are reserv
     ...
     ```
 
-1. The action statement consists of dictinary part and a set of shortened properties. The parts have the following priority rule: the subsequent part has the higher priority. List of part types are:
+1. The action statement consists of a dictionary part and a set of shortened properties. The parts have the following priority rule: the subsequent part has a higher priority. List of part types are:
 
     - Dictionary
     - Index
@@ -33,14 +33,14 @@ There are some words which cannot be used as identifiers because they are reserv
 
 ## Action dictionary
 
-1. The **Dictionary** part is the most powerful way to describe action properties. It begins with `{` symbol and ends with `}` symbol. A set of key-value pairs devided with commas `,` can be inside. The syntax of the dictionary is similar to JSON or YAML format.
+1. The **Dictionary** part is the most flexible way to describe action properties. It begins with `{` symbol and ends with `}` symbol. A set of key-value pairs divided with commas `,` can be inside. The syntax of the dictionary is similar to JSON or YAML format.
 
     Example:
     ```heta
     { prop1: value 1, prop2: value 2, ...};
     ```
 
-    The **property** is always string without spaces. The properties must be unique withing dictionary. The **value** can have one of five types: String, Number, Boolean, Dictionary or Array. The dictionary and array values might include other types. 
+    The **property** is always string without spaces. The properties must be unique within a dictionary. The **value** can have one of five types: String, Number, Boolean, Dictionary, or Array. The dictionary and array values might include other types. 
 
     Example:
     ```heta
@@ -53,7 +53,7 @@ There are some words which cannot be used as identifiers because they are reserv
     };
     ```
 
-2. The **String** value inside Dictionary starts from first non-space symbol and ends with non-space symbol before stop-list: ", } ] @ # ' \` " ". If you want to use symbols from stop list inside string value, use parentheses `"` .
+2. The **String** value inside Dictionary starts from first non-space symbol and ends with non-space symbol before stop-list: ", } ] @ # ' \` " ". If you want to use symbols from the stop list inside string value, use parentheses `"`.
 
     Example:
     ```heta
@@ -75,7 +75,7 @@ There are some words which cannot be used as identifiers because they are reserv
     };
     ```
 
-4. The **Boolean** value inside Dictionary may have two values: `true`, `false`. If you want to use string with value true, false use parentheses `"true"`, `"false"`
+4. The **Boolean** value inside Dictionary may have two values: `true`, `false`. If you want to use a string with a value equal to `true`, false use parentheses `"true"`, `"false"`
 
     Example:
     ```heta
@@ -86,7 +86,7 @@ There are some words which cannot be used as identifiers because they are reserv
     };
     ```
 
-5. The nested **Dictionary** value follows the same rules as the dictionary part of statement and can be nested.
+5. The nested **Dictionary** value follows the same rules as the dictionary part of the statement and can be nested.
 
     Example:
     ```heta
@@ -133,7 +133,7 @@ There are some words which cannot be used as identifiers because they are reserv
     #importNS {space: target_ns, fromSpace: source_ns };
     ```
 
-1. The **Class** shortened property sets `class`. Particular Class defines a list of properties which can be set. This property is denoted by `@` symbol. List of possible classes can be found in [Classes](./classes) description. Classes names always starts from uppercase symbol. When you use Class symbol `@` the parser will replace the first lowercase symbol for the capital one.
+1. The **Class** shortened property sets `class`. Particular Class defines a list of properties that can be set. This property is denoted by `@` symbol. The list of possible classes can be found in [Classes](./classes) description. Classes' names always start from the uppercase symbol. When you use class shortened property `@` the parser will replace the first lowercase symbol for the capital one.
 
     Example:
     ```heta
@@ -144,7 +144,7 @@ There are some words which cannot be used as identifiers because they are reserv
     { id: k2, class: Const, num: 1.3 };
     ```
 
-1. The **Action** shortened property sets `action`. The `action` describe what to do with the statement, see [Actions](./actions). This shortened is denoted by `#` symbol. The action property is a required property in the base statement, but it has default value `upsert`.
+1. The **Action** shortened property sets `action`. The `action` describe what to do with the statement, see [Actions](./actions). This shortened is denoted by `#` symbol. The action property is a required property in the base statement, but it has a default value `upsert`.
 
     Example:
     ```heta
@@ -168,7 +168,7 @@ There are some words which cannot be used as identifiers because they are reserv
     { id: a, title: Some title };
     ```
 
-1. The **Notes** shortened property sets `notes`. It is denoted by three single quotes `'''`. Notes part is located usually before the other parts.
+1. The **Notes** shortened property sets `notes`. It is denoted by three single quotes `'''`. The `notes` part is located usually before the other parts.
 
     Example:
     ```heta
@@ -182,7 +182,7 @@ There are some words which cannot be used as identifiers because they are reserv
 
 ## Shortened assignments
 
-1. **Const assignment** sets `num` property and designed only for `@Const` class. The symbol `=` is used to mark an assignment.
+1. **Const assignment** sets `num` property and is designed only for `@Const` class. The symbol `=` is used to mark an assignment.
 
     Example:
     ```heta
@@ -249,13 +249,13 @@ There are some words which cannot be used as identifiers because they are reserv
 
 ## Include statement
 
-1. `include` statement describes modules loading. The simplest explanation how this works is that the file content should be included to the current one.
+1. `include` statement describes modules loading. The simplest explanation of how this works is that the file content should be included in the current one.
 
-1. The statement consists of reserved word `include` followed by relative or absolute filepath. Full form of the statement can be presented in the following manner: 
+1. The statement consists of the reserved word `include` followed by a relative or absolute file path. The full form of the statement can be presented in the following manner: 
     ```heta
     include <filepath> type <module type> {...}
     ```
-    where `<module type>` is one of supported modules and `{...}` is dictionary to set additional options. See more details on the [modules page](modules).
+    where `<module type>` is one of the supported modules and `{...}` is a dictionary to set additional options. See more details on the [modules page](modules).
 
 1. `include` statement can set additional parameters after `with` keyword in dictionary format
 
@@ -274,9 +274,9 @@ include file.xlsx type xlsx with {
 
 ## Namespace block statement
 
-1. Platform components are groupped in namespaces. `namespace` statement can be used for easy work with namespaces. For more details about namespaces see on the page [namespaces](namespaces).
+1. Platform components are grouped in namespaces. `namespace` statement can be used for easy work with namespaces. For more details about namespaces see on the page [namespaces](namespaces).
 
-1. First use of Namespace block with new space name initializes namespace implicitly by `#setNS` action.
+1. The first use of Namespace block with a new space name initializes `namespace` implicitly by `#setNS` action.
 
 1. To clarify the type of namespace one of the reserved words: `abstract`, `concrete` should be used. The default type is `concrete`.
 
@@ -324,16 +324,16 @@ include file.xlsx type xlsx with {
 
 ## Comments
 
-1. Comments is the part of the code which is not compiled and used only for annotation of code.
+1. Comments are the part of the code which is not compiled and used only for annotation of code.
 
-1. **One line comment** starts with `//` symbols and ends with line breaks.
+1. A single-line comment starts with `//` symbols and ends with line breaks.
 
     Example:
     ```heta
     a @Const = 5;
     ```
 
-1. Multiline comment starts with `/*` and ends with `*/` or end of file.
+1. A multiline comment starts with `/*` and ends with `*/` or end of the file.
 
     Example:
     ```heta
