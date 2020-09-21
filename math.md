@@ -81,7 +81,7 @@ Here the first operand `b1 < b2` is the boolean expression, then an expression t
 | ifge(x, y, z1, z2) | Equivalent to : x >= y ? z1 : z2 |
 | iflt(x, y, z1, z2) | Equivalent to : x < y ? z1 : z2 |
 | ifle(x, y, z1, z2) | Equivalent to : x <= y ? z1 : z2 |
-| ifeq(x, y, z1, z2) | Equivalent to : x != y ? z1 : z2 |
+| ifeq(x, y, z1, z2) | Equivalent to : x == y ? z1 : z2 |
 
 ### Trigonometric functions
 
