@@ -274,10 +274,12 @@ r1 := k1*A*comp1;
 
 **Parent:** [Component](#component)
 
-Run reassignment of records for some contions.
-Switcher id can be used as key in assignments dictionary.
+Switcher instances state the assignment at specific points and conditions when to start the assignment. 
+id of switcher introduces a new key in assignments dictionary, see [Record](#record).
 
-*no specific properties*
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| atStart | Boolean | | | | `true` if we should check the condition at `start_` scope. |
 
 ## TimeSwitcher
 
@@ -475,4 +477,9 @@ ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`-
 
 ### Example
 
-**Correct ProcessExpr**: `A->B`, `A =>`, `2A <=> 3*B + C`, `2 A <=> 3 * B + C`.
+*Correct ProcessExpr*:
+
+- `A->B`
+- `A =>`
+- `2A <=> 3*B + C`
+- `2 A <=> 3 * B + C`

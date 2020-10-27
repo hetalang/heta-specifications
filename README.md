@@ -4,7 +4,7 @@
 [![DOI:10.13140/RG.2.2.18935.06563](https://zenodo.org/badge/DOI/10.13140/RG.2.2.14881.35682.svg)](https://doi.org/10.13140/RG.2.2.14881.35682)
 [![License: CC BY-ND 4.0](https://img.shields.io/badge/License-CC%20BY--ND%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nd/4.0/)
 
-**Heta language** is a programming language for dynamic quantitative models used in quantitative systems pharmacology and systems biology.
+**Heta** is a modeling language for quantitative systems pharmacology and systems biology.
 
 ## Language specification
 

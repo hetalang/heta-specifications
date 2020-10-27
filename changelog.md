@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.4
+
+- include `atStart` in _Switcher class
+- add cases
+
 ## 0.3.3
 - set @Dose class as experimental
 - remove experimental from @CSwitcher
@@ -24,7 +29,7 @@
 - add AUC case
 - remove abstract classes: no abstract classes at all
 - text corrections
-
+s
 ## 0.2.5
 
 - Rename `UnitDefinition` to `UnitDef` class
