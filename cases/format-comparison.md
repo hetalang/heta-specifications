@@ -6,7 +6,7 @@ See more details in **"Heta tutorial" #2**
 
 ## Figure
 
-![two-compartment](./two-compartment.png)
+![two-compartment](https://raw.githubusercontent.com/hetalang/heta-specifications/v0.x/cases/two-compartment.png)
 
 ## Shortened Heta code without #update
 
