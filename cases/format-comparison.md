@@ -6,7 +6,7 @@ See more details in **"Heta tutorial" #2**
 
 ## Figure
 
-![two-compartment](two-compartment.png)
+![two-compartment](./two-compartment.png)
 
 ## Shortened Heta code without #update
 
