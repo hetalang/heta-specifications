@@ -8,16 +8,16 @@
 
 ## Language specification
 
-- [Syntax](syntax)
-- [Actions](actions)
-- [Classes](classes)
-- [Namespaces](namespaces)
-- [Math expressions](math)
-- [Units](units)
-- [Cases](cases)
-- [Modules](modules)
-- [Compilation steps](compilation)
-- [Change Log](changelog)
+- [Syntax](https://hetalang.github.io/#/specifications/syntax)
+- [Actions](https://hetalang.github.io/#/specifications/actions)
+- [Classes](https://hetalang.github.io/#/specifications/classes)
+- [Namespaces](https://hetalang.github.io/#/specifications/namespaces)
+- [Math expressions](https://hetalang.github.io/#/specifications/math)
+- [Units](https://hetalang.github.io/#/specifications/units)
+- [Cases](https://hetalang.github.io/#/specifications/cases)
+- [Modules](https://hetalang.github.io/#/specifications/modules)
+- [Compilation steps](chttps://hetalang.github.io/#/specifications/ompilation)
+- [Change Log](https://hetalang.github.io/#/specifications/changelog)
 
 ## Features and philosophy
 
@@ -44,7 +44,7 @@ The important pre-formulated requirements to the language were:
 
 ## "Hello world!" example
 
-*See more examples on [Cases page](cases).*
+*See more examples on [Cases page](https://hetalang.github.io/#/specifications/cases).*
 
 The example describes a simple model with two species and one mass-action law reaction.
 
