@@ -34,7 +34,9 @@ Heta classes describes hierarchical types of Heta components.
 
 ## About Heta classes
 
-1. Classes define the meaning of platform (model) part. A class declares properties of their instances, their types checking rules and the default values. Trying to include the undeclarated properties is not an error but the property will be ignored.
+1. Classes define the meaning of platform (model) components. A class declares properties of their instances, their types, checking rules and the default values.
+
+1. Trying to include the undeclarated properties is not an error but the property will be ignored.
     ```heta
     pr1 @Process { compartment: comp1 };
     ```
@@ -117,15 +119,19 @@ Da @UnitDef { units: g/mole };
 
 **Parent:** [_Size](#_size)
 
-This is class for numerical values which do not change in simulation time. This represents modeling inputs.
+This is class for numerical values which do not change in simulation time. This represents numeric modeling inputs.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| num | number | true | | | Numerical value or starting value for identification. |
-| free | boolean | | | | If true the constant is unknown and can be evaluated based on experimental data.|
+| num | number | true | | | Exact value or starting value for identification. |
+| free | boolean | | | | If `true` the constant is unknown and can be evaluated based on experimental data.|
+| scale | string | | direct | | To clarify the scale for solving of optimization problem. Possible values: `direct`, `log`, `logit`. If not set this is the same as direct. If it is `log` then the `num` property should be > . If it is `logit` the `num` propery should be `0<num<1`|
+| lower | number | | | | To set the lowest possible value. `num` value should be larger or equal to `lower` |
+| upper | number | | | | To set the largest possible value. `num` value should be lower or equal to then `upper` |
 | units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of num property |
 
-### Example
+### Examples
+
 ```heta
 ''' Absorption constant describing transport from **GUT** to **BLOOD** '''
 kabs @Const 'Constant of absorption' {
@@ -135,7 +141,7 @@ kabs @Const 'Constant of absorption' {
             wiki: ['Pharmacokinetics#Compartmental_analysis'] 
     }}
 };
-kabs = 1.4e-6 { free: true, units: 1/h };
+kabs = 1.4e-6 { free: true, scale: log, lower: 1e-6, upper: 1e6, units: 1/h };
 ```
 
 ## Record
