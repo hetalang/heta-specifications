@@ -154,6 +154,7 @@ Record instances describes the values (variables) which can change in time. Usua
 | ---------|------|----------|---------|-----|-------------|
 | assignments | Dictionary{ID, MathExpr} | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
 | boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
+| output | boolean | | | | If `true` the value will be available for output: plots, tables, etc. |
 | units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of assignments part |
 
 ### Example
@@ -168,6 +169,7 @@ p1 [sw1]= 0;
 p1 {
     class: Record.
     boundary: true,
+    output: false,
     units: kg/L,
     assignments: {
         start_: x*y,

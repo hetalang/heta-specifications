@@ -5,6 +5,7 @@
 - include `atStart` in _Switcher class
 - add cases
 - add @Const properties: scale, lower, upper
+- add `output` properties to `@Record`
 
 ## 0.3.3
 - set @Dose class as experimental
