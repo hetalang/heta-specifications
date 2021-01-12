@@ -131,7 +131,7 @@ s1 @Species {compartment: comp1, boundary: false} .= 10;
 
 **file:** `index.heta` (combining all together and export to JSON format)
 ```heta
-include table.xlsx type xlsx with {sheet: 1, skipRows: 1} // skipping one row
+include table.xlsx type xlsx with {sheet: 1, omitRows: 1} // skipping one row between header and content
 include table.xlsx type xlsx with {sheet: 2}
 
 #export {format: json, filepath: output};
