@@ -63,6 +63,7 @@ k1 @Const = 0.01;
 ```
 
 ### Explanations
+
 Comments are denoted by a double slash.
 ```
 // Hello world! example
@@ -115,7 +116,7 @@ Heta language was originally developed for internal projects of InSysBio to supp
 
 ## Versions
 
-The **stable version** is published on <https://hetalang.github.io/#/specifications/> and stored as git branch [v0.x](https://github.com/hetalang/heta-specifications/tree/v0.x).
+The current version is **0.3.3**.
 
 The **latest** version of Heta standard is located in **master** branch of the [hetalang/heta-specifications](https://github.com/hetalang/heta-specifications) repository. 
 
@@ -126,4 +127,4 @@ Heta specifications versions follow [Semantic Versioning](https://semver.org/) s
 ## License
 The Heta language specifications are licensed under [Creative Commons Attribution-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nd/4.0/).
 
-InSysBio, 2018-2020
+InSysBio, 2018-2021
