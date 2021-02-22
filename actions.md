@@ -6,6 +6,8 @@ Some of the actions like `#include` work at the module level. The other actions 
 
 The action shortened is designated by `#` symbol before the action name.
 
+The closest analogue of the "action" in other programming languages is the name of function of command to execute.
+
 If no statement is written the default statement is `#upsert` which is the equivalent of `#insert` if `class` property is stated or `#update` if not.
 
 ## Action list
@@ -14,6 +16,7 @@ If no statement is written the default statement is `#upsert` which is the equiv
 - [update](#update)
 - [upsert](#upsert)
 - [delete](#delete)
+- [defineUnit](#defineunit)
 - [include](#include)
 - [setNS](#setns)
 - [importNS](#importns)
@@ -183,6 +186,40 @@ The `delete` action erases the element from the namespace. If the component with
 #delete k1; // deletes k1 from namespace
 ```
 
+## defineUnit
+
+The `defineUnit` sets a new unit of measurement which can be used inside QSP platform.
+
+It extends the base list of units by the user defined unit.
+The created unit can be then used in `units` property of `@Const`, `@Record` or to define another unit.
+Units property can be `undefined` which means this is basic unit and cannot be expressed in terms of other units like meter, second, etc.
+
+This is the action to create `UnitDefinition` class for implementation to use it inside [UnitsExpr](#unitsexpr).
+
+See more in [Units](./units) chapter.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| id | `ID` | true | | | unique identifier of `UnitDef` |
+| units | UnitsExpr *or* [UnitsComponent](./classes/#unitscomponent)[] | | | | String describing components of complex units or array of complex unit components. |
+
+### Example 1
+```heta
+kDa #defineUnit { units: [
+    { kind: g, multiplier: 1e3, exponent: 1 },
+    { kind: mole, exponent: -1 }
+]};
+
+Da #defineUnit { units: g/mole };
+```
+
+### Example 2
+```heta
+M #defineUnit {units: mole/litre};
+uM #defineUnit {units: (1e-6 M)};
+S_0 @Const {units: uM} = 1e-2;
+```
+
 ## include
 
 The `include` action is an alternative to [include statement](./syntax?id=include-statement).*
@@ -207,7 +244,7 @@ It uses virtual properties to set different files and formats.
 ## setNS
 
 The `setNS` action initializes namespace or updates [namespaces](namespaces) properties.
-The alternative to the `setNS` action is the the [namespace statement](syntax#namespace-block-statement).
+The alternative to the `setNS` action is the the [namespace statement](syntax#namespace-statement).
 
 The `setNS` action (or the `namespace` statement) must be used prior to the creation of the first component in the namespace.
 

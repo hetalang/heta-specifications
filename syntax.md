@@ -1,5 +1,7 @@
 # Syntax
 
+See also the [Heta tutorial](https://hetalang.github.io/#/resources/?id=lesson-2-syntax)
+
 The Heta code can be represented as a sequence of statements that create and modify elements in a modeling platform. The parsing and interpretation of the code result in creating of static (database-like) structure representing the modeling system, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has the freedom to make his code nice and readable.
 
 ## Reserved words
@@ -7,12 +9,13 @@ The Heta code can be represented as a sequence of statements that create and mod
 Some words cannot be used as identifiers because they are reserved for statements or specific object names.
 
 `nameless`, 
-`NaN`, `Infinity`, `e`, `E`, `pi`, `PI`, 
+`NaN`, `Infinity`, `e`, `pi`, 
 `include`, `block`, `namespace`, `abstract`, `concrete`, `begin`, `end`
 
 ## Action statement
 
-1. The action statements are divided by semicolons. The line breaks between and inside statements do not matter but can be used for code decoration.
+1. The action statements are divided by semicolons. The line breaks between and inside statements do not matter for interpretation.
+They can be used for code decoration.
 
     ```heta
     <statement one>; <statement two>;
@@ -31,9 +34,9 @@ Some words cannot be used as identifiers because they are reserved for statement
     - Notes
     - Assignments (several subtypes)
 
-## Action dictionary
+## Plain format of action statement
 
-1. The **Dictionary** part is the most flexible way to describe action properties. It begins with `{` symbol and ends with `}` symbol. A set of key-value pairs divided with commas `,` can be inside. The syntax of the dictionary is similar to JSON or YAML format.
+1. The plain format is the most flexible way to describe action properties. It begins with `{` symbol and ends with `}` symbol. A set of key-value pairs divided with commas `,` can be inside. The syntax is similar to the dictionary in JSON or YAML format.
 
     Example:
     ```heta
@@ -86,7 +89,7 @@ Some words cannot be used as identifiers because they are reserved for statement
     };
     ```
 
-5. The nested **Dictionary** value follows the same rules as the dictionary part of the statement and can be nested.
+5. The nested **Dictionary** value follows the same rules as the plain format of action statement and can be nested.
 
     Example:
     ```heta
@@ -108,11 +111,11 @@ Some words cannot be used as identifiers because they are reserved for statement
     };
     ```
 
-## Shortened properties 
+## Shortened format of action statement
 
 1. To simplify code reading/writing there are several types of statement parts. They describe the commonly used properties in compact form, see [Classes](./classes) description.
 
-1. The **Index** describes identifiers: `id` and `space` of components. The example if indexes are: `space::id` or `id` for nameless space.
+1. The **Index** describes identifiers: `id` and `space` of components. The example if indexes are: `space::id` or just `id` for nameless space.
 
     Example:
     ```heta
@@ -175,9 +178,9 @@ Some words cannot be used as identifiers because they are reserved for statement
     ''' Some notes '''
     a @Const;
     ```
-    which is equivalent to
+    which is equivalent to the following plain version
     ```heta
-    { id: a, notes: Some notes };
+    { notes: Some notes, id: a, class: Const };
     ```
 
 ## Shortened assignments
@@ -197,7 +200,7 @@ Some words cannot be used as identifiers because they are reserved for statement
     };
     ```
 
-1. **Start assignment** sets the initial assignment for the `@Record` instances. The symbol group `.=` or `[]=` can be used.
+1. **Start assignment** sets the initial assignment for the `@Record` instances. The symbol group `.=` or `[]=` can be used. (Do not put blanks between symbol group!)
 
     Example:
     ```heta
@@ -249,11 +252,11 @@ Some words cannot be used as identifiers because they are reserved for statement
 
 ## Include statement
 
-1. `include` statement describes modules loading. The simplest explanation of how this works is that the file content should be included in the current one.
+1. The `include` statement describes modules loading. The simplest explanation of how this works is that the file content should be included into the current one.
 
 1. The statement consists of the reserved word `include` followed by a relative or absolute file path. The full form of the statement can be presented in the following manner: 
     ```heta
-    include <filepath> type <module type> {...}
+    include <filepath> type <module type> with {...}
     ```
     where `<module type>` is one of the supported modules and `{...}` is a dictionary to set additional options. See more details on the [modules page](modules).
 
@@ -272,7 +275,7 @@ include file.xlsx type xlsx with {
 }
 ```
 
-## Namespace block statement
+## Namespace statement
 
 1. Platform components are grouped in namespaces. `namespace` statement can be used for easy work with namespaces. For more details about namespaces see on the page [namespaces](namespaces).
 
@@ -284,7 +287,7 @@ include file.xlsx type xlsx with {
 
     ```heta
     namespace <space id> begin
-        <base statement>;
+        <action statement>;
         ...
     end
     ```
@@ -301,7 +304,7 @@ include file.xlsx type xlsx with {
     one::rec @Record .= 1;
     one::comp @Compartment .= 10;
     ```
-    or equivalent to
+    or equivalent to the plain format
     ```heta
     {
         space: one,
@@ -324,13 +327,13 @@ include file.xlsx type xlsx with {
 
 ## Comments
 
-1. Comments are the part of the code which is not compiled and used only for annotation of code.
+1. Comments are the part of the code which are not compiled and are used only for annotation of code.
 
 1. A single-line comment starts with `//` symbols and ends with line breaks.
 
     Example:
     ```heta
-    a @Const = 5;
+    // this is not part of the platform but only the comment to the code
     ```
 
 1. A multiline comment starts with `/*` and ends with `*/` or end of the file.

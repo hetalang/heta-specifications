@@ -6,7 +6,6 @@ Heta classes describes hierarchical types of Heta components.
 
 - [Component](#component)
 - [_Size](#_size)
-- [UnitDef](#unitdef)
 - [Const](#const)
 - [Record](#record)
 - [Process](#process)
@@ -87,23 +86,6 @@ This is a class for all components which can have units. See more detailes on [u
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | String describing components of complex units or array of complex unit components. |
-
-## UnitDef
-
-**Parent:** [Component](#Component)
-
-This is class for implementation of a definition of unit to use it inside [UnitsExpr](#unitsexpr). Units property can be undefined which means this is basic unit and cannot be expressed in terms of other units like meter, second, etc.
-
-*no specific properties*
-
-### Example
-```heta
-kDa @UnitDef { units: [
-    { kind: g, multiplier: 1e3, exponent: 1 },
-    { kind: mole, exponent: -1 }
-]};
-Da @UnitDef { units: g/mole };
-```
 
 ### UnitsComponent
 

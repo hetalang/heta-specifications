@@ -19,11 +19,20 @@ minute
 
 ## UnitsExpr
 
-Complex units, i.e. units that can be expresses from combination of other units like `mole/liter`, `m^2`, etc can be expressed in form of `UnitsExpr` (units expression) string format.
+The complex units, i.e. units which can be expresses from combination of other units like `mole/litre`, `m^2`, etc can be expressed in form of `UnitsExpr` (units expression) string format.
 
 Example:
 ```heta
-s1 @Species { units: mole/liter };
+s1 @Species { units: mole/litre };
+```
+
+## UnitsExpr with multipliers
+
+In many cases to express the units the multiplier should be applied.
+
+Example:
+```heta
+s2 @Species { units: (1e-9 mole)/litre } .= 10;
 ```
 
 ## UnitsComponent Array
@@ -32,10 +41,10 @@ Some complex units should be expressed in format of `UnitsComponent[]`. Using `m
 
 Example:
 ```heta
-s2 @Species {
+s3 @Species {
     units: [
         { kind: mole, multiplier: 1e-9 },
-        { kind: liter, exponent: -1 }
+        { kind: litre, exponent: -1 }
     ]
 };
 ```
@@ -49,7 +58,7 @@ Example:
 pM @UnitsDef {
     units: [
         { kind: mole, multiplier: 1e-12 },
-        { kind: liter, multiplier: 1, exponent: -1 }
+        { kind: litre, multiplier: 1, exponent: -1 }
     ]
 };
 
@@ -58,5 +67,8 @@ s1 @Species { units: pM };
 
 ## Units checking in compilation
 
-The current version of Heta specifications do not clarify how to check units in platform.
-All checking should be performed by user.
+Depending on a compiler the units may be checked for consistency.
+
+See more information in [Compilation](./compilation) chapter.
+
+

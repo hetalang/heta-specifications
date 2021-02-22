@@ -22,22 +22,22 @@ s2 @Species .= 1e-1 {
 
 User defined units.
 ```heta
-/* user can create units using UnitDef class */
+/* user can create units using #defineUnit action */
 
 // create unit alias
-L @UnitsDef {
+L #defineUnit {
     units: liter
 };
 // use new unit in a usual way
 comp1 @Compartment .= 0.1 { units: L };
 
 // creating complex unit
-M @UnitsDef {
+M #defineUnit {
     units: mole/liter
 };
 
 // creating new unit with multipliers
-uM @UnitsDef {
+uM #defineUnit {
     units: [
         { kind: mole, multiplier: 1e-6 },
         { kind: liter, exponent: -1 }
