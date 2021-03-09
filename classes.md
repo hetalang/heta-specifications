@@ -29,7 +29,7 @@ Heta classes describes hierarchical types of Heta components.
 
 ## UML diagram
 
-[![Classes UML](https://raw.githubusercontent.com/hetalang/heta-specifications/v0.x/heta.uml.png)](https://raw.githubusercontent.com/hetalang/heta-specifications/v0.x/heta.uml.png ':ignore')
+[![Classes UML](https://raw.githubusercontent.com/hetalang/heta-specifications/master/heta.uml.png)](https://raw.githubusercontent.com/hetalang/heta-specifications/v0.x/heta.uml.png ':ignore')
 
 ## About Heta classes
 
@@ -170,6 +170,7 @@ Process instances changes the other `Record` instances indirectly through the ra
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | actors | ProcessExpr/Actor[] | | [] | | [ProcessExpr](#processexpr) or array of objects of format.  { target: \<ID\>, stoichiometry: \<number\> }. The rules for dynamic components which describes how they will be included to ODE including stoichiometry. |
+| reversible | boolean | | `true` | | This property usually doesn't cause the changes in a dynamic system. It describes if the `@Process` is reversible. It has been included to support SBML's and Simbio's the `reversible` attribute. It can also be set in `ProcessExpr` where `<->` and `<=>` stand for the reversible process.|
 | units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of process rate |
 
 ### Example
@@ -178,10 +179,13 @@ Process instances changes the other `Record` instances indirectly through the ra
 pr1 @Process { actors: p1 => 2*p2 };
 
 /* equivalent to 
-pr1 @Process { actors: [
-    { target: p1, stoichiometry: -1 },
-    { target: p2, stoichiometry: 2 }
-]};
+pr1 @Process {
+    actors: [
+        { target: p1, stoichiometry: -1 },
+        { target: p2, stoichiometry: 2 }
+    ],
+    reversible: false
+};
 */
 ```
 
