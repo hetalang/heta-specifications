@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.4.0
+
+- `reversible` property for `@Process`
+- substitute `#include @UnitDef` instance by `#defineUnit` action
+
 ## 0.3.4
 
 - include `atStart` in _Switcher class
