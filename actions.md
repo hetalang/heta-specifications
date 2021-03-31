@@ -222,7 +222,7 @@ S_0 @Const {units: uM} = 1e-2;
 
 ## include
 
-The `include` action is an alternative to [include statement](./syntax?id=include-statement).*
+The `include` action is an alternative to [include statement](./syntax?id=include-statement).
 
 The Include action works at the modules level. It does not create or update the component but loads another file inside the current one.
 
@@ -232,7 +232,7 @@ It uses virtual properties to set different files and formats.
 | ---------|------|----------|---------|-----|-------------|
 | source | string | true | | filepath | Relative or absolute path to a file. |
 | type | string | | `heta` | | Type of include. Possible values are: "heta", "json", "yaml", "xlsx", "sbml" |
-| ... | | | | | The other properties depending on `type` |
+| ... | | | | | The other properties depending on [module type](./modules) |
 
 ### Example
 

@@ -5,7 +5,7 @@ A dynamic model with several compartments and species.
 See more details in **"Heta tutorial" #4**
 
 ## Figure
-![multiple-compartments](https://raw.githubusercontent.com/hetalang/heta-specifications/v0.x/cases/multiple-compartments.png)
+![multiple-compartments](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/multiple-compartments.png)
 
 ## Code
 

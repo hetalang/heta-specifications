@@ -1,33 +1,52 @@
 # Modules
 
-Heta modules is the separated parts of code that can be parsed and
-combined into single platform. The purposes of modular sytem is similar to other programming languages supporting modules:
+**Heta module** is the separate part of modeling platform (file or file part) which can be interpreted and
+included into single platform. The purposes of modular system is to organize working on large models:
 
-- split the whole platform to subfiles for better code management;
+- split the whole platform to sub-files for better code management;
 - multiple loading of the same code in different context;
 - allow whiting code in various formats.
 
 The available list of module types are: heta, json, yaml, xlsx, sbml. 
 
-1. **Module** in Heta means the file that can be translated to Heta format. 
+1. Any **Module** in Heta can be translated to Heta code. 
 
-1. The identifier of the module is the absolute path of file in file system. For example: `y:/the-platform/src/index.heta`.
+1. The unique identifier of the module is the absolute path of file in file system. For example: `y:/the-platform/src/index.heta`.
 
-1. Module can be loaded inside other module by [`include` statement](syntax#include-statement) or by [`include` action](./actions#include). Loading of modules does not create any new context or namespace.
+1. Module can be loaded into other module with [include statement](syntax#include-statement) or with [include action](./actions#include). Loading of modules do not create any new namespace or component.
 
-1. `include` statement has `type` property. The default type is `heta` and it means the file includes just regular [Heta code](syntax).
+1. `include` statement has `type` property. The default type value is `heta` and it means the file includes just regular [Heta code](syntax).
 
-## type heta
+## heta module
 
-The default type of module. Text format in Heta syntax.
+The default type of module. Text file in Heta syntax.
 
-## type json
+**Example 1:**
+
+```heta
+// addition of module (with include statement) with the relative file path
+
+include ./my-module.heta
+```
+
+**Example 2:**
+
+```heta
+// addition of module (with include action) with the relative file path
+
+#include { source: ./my-module.heta };
+
+```
+
+## json module
 
 This is module in JSON format (array of objects) which can be mapped to Heta code.
 
-This module type is a good way to import the Heta acceptable code from other tools.
+This module type is a possible way to import the Heta code from other tools.
 
-Example:
+**Example:**
+
+Content of file "model.json"
 ```json
 [
     {
@@ -54,11 +73,19 @@ This structure is equivalent of to the following Heta code:
 #insert s1 @Species { compartment: c1 } .= 5.3;
 ```
 
-## type yaml
+The module can be loaded into heta platform by the code
+
+```heta
+#include {source: ./model.json, type: json};
+```
+
+## yaml module
 
 This is one-to-one equivalent of type json but written in YAML format.
 
-Example:
+**Example:**
+
+Content of file "model.yml"
 ```yaml
 - class: Compartment
   action: insert
@@ -82,16 +109,19 @@ This structure is equivalent of to the following Heta code:
 #insert s1 @Species { compartment: c1 } .= 5.3;
 ```
 
-## type xlsx
+The module can be loaded into heta platform by the code
 
-This module type allows to write a modeling platform in Excel file format (XLSX) and use this module as another ones.
-This can be useful for very large-scale models.
+```heta
+#include {source: ./model.yml, type: yaml};
+```
 
-The XLSX file can include any number of sheets but each sheet must be included separately.
-The first row must include path to property, the other rows includes the values of the properties.
-The columb with header `on` can be used to turn off the import of the row. Zero value here means: "do not use this line".
-`omitRows` property can be set to skip several rows between header (path row) and values.
-`sheet` property clarify which sheet should be loaded starting from 1, the default value is `1`;
+## xlsx module
+
+This module type allows to write a model's components in Excel file format (XLSX).
+This might be useful for very large-scale models.
+
+The first row must include property identifiers, the other rows includes the values of the properties.
+The column with reserved header `on` can be used to turn off the import of the row. Zero value here means: "do not use this line".
 
 Path rules:
 
@@ -99,8 +129,15 @@ Path rules:
 - arrays are noted by `[]` at the end of path. Array items are splitted by `;` symbol.
 - empty cells do not define any value.
 
-Example
-**file:** `table.xlsx`, sheet #1
+Additional properties in insert action:
+
+- `omitRows` property can be set to skip several rows between header (first row) and component rows.
+- `sheet` property clarify which sheet should be loaded starting from 0, the default value is `0`; 
+The XLSX file can include any number of sheets but each sheet must be included separately.
+
+**Example:**
+
+file: "table.xlsx", sheet #0
 
 |#| on | id | class | tags[] | assignments.start_ | boundary |
 |---|---|---|---|---|---|---|
@@ -115,7 +152,7 @@ comp1 @Compartment {tags: [a, b, c], boundary: true} .= 1;
 comp2 @Compartment {tags: [a, b]} .= comp1*2;
 ```
 
-**file:** `table.xlsx`, sheet #2
+file: "table.xlsx", sheet #1
 
 |#| on | id | class | compartment | assignments.start_ | boundary |
 |---|---|---|---|---|---|---|
@@ -129,21 +166,21 @@ s1 @Species {compartment: comp1, boundary: false} .= 10;
 // s2 @Species {compartment: comp2} .= 0;
 ```
 
-**file:** `index.heta` (combining all together and export to JSON format)
+file: "index.heta" (combining all together and export to JSON format)
 ```heta
-include table.xlsx type xlsx with {sheet: 1, omitRows: 1} // skipping one row between header and content
-include table.xlsx type xlsx with {sheet: 2}
+#include {source: ./table.xlsx, type: xlsx, sheet: 0, omitRows: 1}; // skipping one row between header and content
+#include {source: table.xlsx, type: xlsx, sheet: 2};
 
-#export {format: json, filepath: output};
+#export {format: JSON, filepath: output};
 ```
 
-## type sbml
+## sbml module
 
-This type of module was created to add SBML formatted models into Heta modeling platform. Currently only SBML of level 2 is supported.
+This type of module was created to adopt SBML formatted models into Heta modeling platform. Currently only SBML of level 2 is supported.
 
+**Example:**
 
-Example:
-**file:** `model.xml`
+file: "model.xml"
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sbml 
@@ -174,7 +211,14 @@ Example:
 ```
 
 This module is equivalent to the following Heta code
+
 ```heta
 default_comp @Compartment {boundary: true} .= 1;
 S @Species 'substance' {compartment: default_comp} .= 10/default_comp;
+```
+
+This model can be loaded into the platform with the following code:
+
+```heta
+#include { source: ./model.xml, type: sbml };
 ```

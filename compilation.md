@@ -1,6 +1,6 @@
 # Compilation steps
 
-Heta is open format and its rules can be ellaborated by software tools in different ways.
+Heta is open format and its rules can be elaborated by software tools in different ways.
 Nevertheless when formulating the Heta specification we keep in mind the following steps.
 
 1. **Parsing.** **Heta modules** are translated to the collection of components. 
@@ -13,7 +13,7 @@ Nevertheless when formulating the Heta specification we keep in mind the followi
 
     The errors which happen at the stage will be of type `ModuleError`.
 
-1. **Translation.** Queue is translated sequentially to create diclarative Heta structure (key-value format). The keys are the indexes of components, values is the components. The properties must satisfy the requirements for its classes.
+1. **Translation.** Queue is translated sequentially to create declarative Heta structure (key-value format). The keys are the indexes of components, values is the components. The properties must satisfy the requirements for its classes.
 
     The errors which happen at the stage will be of types: `QueueError`, `ValidationError`.
 
@@ -35,7 +35,7 @@ file: `index.heta`
 ```heta
 s1 @Species { compartment: comp0 };
 
-include ./addon.heta type heta
+#include {source: ./addon.heta, type: heta};
 ```
 
 file: `addon.heta`

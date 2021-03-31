@@ -5,7 +5,7 @@ Usage of core units in Heta code, see [units page](../units)
 ```heta
 k1 @Const = 1.1; // no units stated
 
-// Heta includes list of defaut units which can be used without declaration
+// Heta includes list of default units which can be used without declaration
 comp1 @Compartment .= 0.1 { units: liter };
 
 // Units can be complex (UnitExpr)
@@ -18,6 +18,9 @@ s2 @Species .= 1e-1 {
         { kind: liter, exponent: -1 }
     ]
 };
+
+// Units can be in short format with multipliers
+s2 @Species .= 1e-1 { units: (1e-6 mole)/liter };
 ```
 
 User defined units.
@@ -36,7 +39,7 @@ M #defineUnit {
     units: mole/liter
 };
 
-// creating new unit with multipliers
+// creating new unit with unit array
 uM #defineUnit {
     units: [
         { kind: mole, multiplier: 1e-6 },

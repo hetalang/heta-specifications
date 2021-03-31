@@ -183,7 +183,7 @@ They can be used for code decoration.
     { notes: Some notes, id: a, class: Const };
     ```
 
-## Shortened assignments
+## Shortened form of assignments
 
 1. **Const assignment** sets `num` property and is designed only for `@Const` class. The symbol `=` is used to mark an assignment.
 
@@ -254,6 +254,8 @@ They can be used for code decoration.
 
 1. The `include` statement describes modules loading. The simplest explanation of how this works is that the file content should be included into the current one.
 
+1. The `include` statement can be replaced by [`#include` action](./actions?id=include) with equivalent meaning.
+
 1. The statement consists of the reserved word `include` followed by a relative or absolute file path. The full form of the statement can be presented in the following manner: 
     ```heta
     include <filepath> type <module type> with {...}
@@ -277,7 +279,7 @@ include file.xlsx type xlsx with {
 
 ## Namespace statement
 
-1. Platform components are grouped in namespaces. `namespace` statement can be used for easy work with namespaces. For more details about namespaces see on the page [namespaces](namespaces).
+1. Platform components are grouped in namespaces. `namespace` statement can be used for easier work with namespaces. For more details about namespaces see on the page [namespaces](namespaces).
 
 1. The first use of Namespace block with a new space name initializes `namespace` implicitly by `#setNS` action.
 

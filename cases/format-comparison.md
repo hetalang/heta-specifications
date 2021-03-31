@@ -6,13 +6,12 @@ See more details in **"Heta tutorial" #2**
 
 ## Figure
 
-![two-compartment](https://raw.githubusercontent.com/hetalang/heta-specifications/v0.x/cases/two-compartment.png)
+![two-compartment](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/two-compartment.png)
 
 ## Shortened Heta code without #update
 
 file `index.heta`
 ```heta
-// Heta with sugar
 V0 @Compartment .= 1;
 Vd @Compartment .= 5;
 
@@ -39,7 +38,6 @@ Dose @Const = 10;
 
 file `index-upd.heta`
 ```heta
-// Heta with sugar
 V0 @Compartment .= 1;
 Vd @Compartment .= 5;
 

@@ -55,7 +55,7 @@ User can create his own list of units and use it instead of core units. It can b
 
 Example:
 ```heta
-pM @UnitsDef {
+pM #defineUnit {
     units: [
         { kind: mole, multiplier: 1e-12 },
         { kind: litre, multiplier: 1, exponent: -1 }
