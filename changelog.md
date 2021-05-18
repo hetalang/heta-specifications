@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.4.1
+
+- `@StopSwitcher` as an experimental class
+
 ## 0.4.0
 
 - `reversible` property for `@Process`

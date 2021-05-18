@@ -1,7 +1,7 @@
 # Compilation steps
 
-Heta is open format and its rules can be elaborated by software tools in different ways.
-Nevertheless when formulating the Heta specification we keep in mind the following steps.
+Heta is an open format and its rules can be elaborated by software tools in different ways.
+Nevertheless formulating the Heta specification we keep in mind the following steps.
 
 1. **Parsing.** **Heta modules** are translated to the collection of components. 
 
@@ -9,11 +9,11 @@ Nevertheless when formulating the Heta specification we keep in mind the followi
 
     The errors which happen at the stage will be of types: `FileSystemError`, `ParsingError`.
 
-1. **Files integration.** Collection of Heta modules are combined into a single structure **queue** which is sequence of queries for platform container based on [modules](modules) approach. The modules must not have circular references.
+1. **Modules integration.** Collection of Heta modules are combined into a single structure **queue** which is sequence of actions for platform container. The modules must not have circular references.
 
     The errors which happen at the stage will be of type `ModuleError`.
 
-1. **Translation.** Queue is translated sequentially to create declarative Heta structure (key-value format). The keys are the indexes of components, values is the components. The properties must satisfy the requirements for its classes.
+1. **Translation.** The queue is translated sequentially to create the elements of Heta container. Generally it is a key-value pairs. The properties must satisfy the requirements for its classes. See the structure of Heta container below.
 
     The errors which happen at the stage will be of types: `QueueError`, `ValidationError`.
 
@@ -21,9 +21,25 @@ Nevertheless when formulating the Heta specification we keep in mind the followi
 
     The errors which happen at the stage will be of types: `BindingError`.
 
-1. **Other steps.** The next steps depends on components in storage and setting of **Heta compiler**. For example it is expected that `#export` actions induce the creation of code for export.
+1. **Testing circular references.** In general case some of references (like `assignments` in `@Record` or `units` in `#defineUnit`) may be circular which is not allowed. On this step the compiler searches them and throws an error if found.
+
+1. **Checking units consistency (optional).** Testing if left and right part of assignments has the same calculated unit.
+
+1. **Checking units terms.** Checking the units requirement for specific components: @Compartment is volume or square, or length, etc.
+
+1. **Other steps.** The next steps depend on a tool used. For example it is expected that `#export` actions induce the creation of code for export.
 
     The errors which happen at the stage will be of types: `ExportError`.
+
+## Base structure of Heta container
+
+- namespaceStorage (key/value dictionary)
+    - namespace (key/value dictionary)
+        - components
+- unitDefStorage (key/value dictionary)
+    - unit definition
+- exportStorage (key/value dictionary)
+    - export description
 
 ## Example
 
@@ -100,30 +116,45 @@ s1 'Species number one';
 ]
 ```
 
-**Structure 4. Declarative Heta structure**
+**Structure 4. Heta container**
 
 ```json
 {
-    ...
-    "s1": {
-        "class": "Species",
-        "compartment": "comp0",
-        "title": "Species number one"
+    "namespaceStorage": {
+        "nameless": {
+            "s1": {"class": "Species", "compartment": "comp0", "title": "Species number one"}
+        }
+    },
+    "unitDefStorage": {},
+    "exportStorage": {
+        "some_random_id": {"class": "SBMLExport", "filepath": "sbml"}
     }
 }
 ```
 
-**Structure 5. Declarative Heta (bound)**
+**Structure 5. Heta container (bound)**
 
 ```json
 {
-    ...
-    "s1": {
-        "class": "Species",
-        "compartment": "comp0",
-        "title": "Species number one",
-        "compartmentObj": {...} // if compartment exists in "declarative Heta"
+    "namespaceStorage": {
+        "nameless": {
+            "s1": {
+                "class": "Species",
+                "compartment": "comp0",
+                "title": "Species number one",
+                "compartmentObj": {...} // direct reference to the compartment comp0
+            }
+        }
+    },
+    "unitDefStorage": {
+    },
+    "exportStorage": {
+        "some_random_id": {
+            "class": "SBMLExport",
+            "filepath": "sbml"
+        }
     }
+}
 ```
 
 **Output formats.**
@@ -140,7 +171,7 @@ file: `sbml.xml`
     <listOfSpecies>
         <species
             id = "s1"
-            metaid = "s1"
+            metaid = "nameless::s1"
             compartment = "comp0"
             name = "Species number one"
             boundaryCondition = "false"

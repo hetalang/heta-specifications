@@ -16,6 +16,7 @@ Heta classes describes hierarchical types of Heta components.
 - [TimeSwitcher](#timeswitcher)
 - [DSwitcher](#dswitcher)
 - [CSwitcher](#cswitcher)
+- [StopSwitcher](#stopswitcher) (experimental)
 - [Dose](#dose) (experimental)
 - [SimpleTask](#simpletask) (experimental)
 
@@ -350,6 +351,27 @@ sw2 @CSwitcher {
 };
 ```
 
+## StopSwitcher
+
+*This is an experimental feature*
+
+**Parent:** [_Switcher](#_switcher)
+
+`StopSwitcher` stops ODE simulations according to the boolean expression in `trigger`.
+Unlike other `_Switcher` instances it does not creates a new assignment scope.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| trigger | MathExpr | true | | | Expression to estimate the ODE stop condition |
+
+### Example
+
+```heta
+ss1 @StopSwitcher {
+    trigger: p1 > p2
+};
+```
+
 ## Dose
 
 *This is an experimental feature*
@@ -357,7 +379,7 @@ sw2 @CSwitcher {
 **Parent:** [_Size](#_size)
 
 `Dose` class describe non-periodic and periodic event which add some value to Species.
-It substites partially usage of `TimeSwitcher` and was included to support export to Simbiology and Mrgsolve.
+It substitutes partially usage of `TimeSwitcher` and was included to support export to Simbiology and Mrgsolve.
 `amount` property is always in amount units, not concentration. 
 
 | property | type | required | default | ref | description | 
