@@ -18,7 +18,6 @@ Heta classes describes hierarchical types of Heta components.
 - [CSwitcher](#cswitcher)
 - [StopSwitcher](#stopswitcher) (experimental)
 - [Dose](#dose) (experimental)
-- [SimpleTask](#simpletask) (experimental)
 
 **Simple types**
 
@@ -400,44 +399,6 @@ dose1 @Dose {
   start: 0,
   period: 12,
   repeatCount: 4
-};
-```
-
-## SimpleTask
-
-**Parent:** [Component](#component)
-
-*This is an experimental and not supported in most exports*
-
-`@SimpleTask` describes settings for simulation of the model based on particular namespace.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| subtasks | Subtask[] | true | | | Array of elements of type {saveat: \<number[]\>, output: \<string[]\>} |
-| tspan | number[] | | [0, 100] | | start and end point of simulation |
-| reassign | Dictionary | | {} | `Const` | reassignments of constants for the simulation |
-| solver.alg | string | | lsode | | method |
-| solver.reltol | number | | 1e-6 | | relative tolerance |
-| solver.abstol | number | | 1e-6 | | absolute tolerance |
-| solver.maxiters | number | | 1e5 | | maximum number of iteretions |
-| solver.dt | number | | 0 | | dt value |
-| solver.dtmin | number | | 0 | | dtmin value |
-| solver.dtmax | number | | 0 | | dtmax value |
-| solver.tstops | number[] | | [] | |time points for force stop |
-
-### Example
-
-```heta
-st1 @SimpleTask {
-    subtasks: [
-        { saveat: [0, 10, 100], output: [A, B, C] }
-    ],
-    tspan: [0, 120],
-    reassign: { p1: 10, p2: 0 },
-    solver: {
-        alg: lsoda,
-        abstol: 1e-9
-    }
 };
 ```
 

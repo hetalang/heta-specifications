@@ -3,6 +3,7 @@
 ## 0.4.1
 
 - `@StopSwitcher` as an experimental class
+- remove `@SimpleTask`
 
 ## 0.4.0
 

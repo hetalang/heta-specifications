@@ -90,109 +90,12 @@ pmid @ReferenceDefinition {
   suffix: /
 };
 
-pow @FunctionDefinition {
+pow #defineFunction {
   args: [x, y],
   expr: x^y
 };
 
-kDa @UnitDef {components: [
+kDa #defineUnit {components: [
   { kind: g, multiplier: 1e3, exponent: 1},
   { kind: mole, exponent: -1}
 ]};
-
-// simulations
-
-simple_task1 @SimpleTask {
-  model: sp1, // reference to space
-  subtasks: [
-    {saveat: [1,2,3], output_ids: [A, B, C]}
-    {saveat: [4,5,6], output_ids: [C]}
-  ],
-  type: simulation,
-  reassign: { // update constant values
-    const1: 3,
-    const2: 4.4
-  },
-  tspan: [0, 120], // time range
-  solver: {
-    alg: Rosenbrock23,
-    reltol: 1e-6,
-    abstol: 1e-12,
-    maxiters: 1e7,
-    dtmax: 0.1,
-    tstops: [] // force calculation in time points
-  },
-  data: {},
-  reduce: {}
-};
-
-simple_task2 @SimpleTask {
-  model: sp1,
-  subtasks: [
-    {saveat: [4,5,6]}
-  ]
-};
-
-multi_task1 @MultiTask { // unscoped
-  task_vec: [simple_task1, simple_task2],
-  sizes: {k1: 1, k2: 2}
-};
-
-// === fitting ===
-dts1 @SimpleData {
-  output_ids: [A, B, C], // depDataMarkers
-  indepData: ['t'], // indepDataMarker
-  t: [1, 2, 3], // indepData
-  val: [ // depData
-    [1, 1, 1],
-    [1, 1, 1],
-    [1, 1, 1]
-  ],
-  evid: [0, 0, 0]
-}
-
-l1 @SimpleTask {
-  model: sp1,
-  sizes: {}
-  subtasks: [{
-    data: dts1
-    reduce: ln_loss2
-  }],
-  reduce: sum
-};
-l2 @SimpleTask {
-  model: sp1,
-  sizes: {dose: 1}
-  subtasks: [{
-    data: dts2
-    reduce: ln_loss2
-  }],
-  reduce: sum
-};
-
-likelihood_sum @MultiTask {
-  tasks: [l1, l2],
-  reduce: sum
-};
-
-fitting_task1 @FittingTask {
-  inter_task: likelihood_sum,
-  fit_sizes: [k1, k2, k3],
-  fitter_opt: {
-    alg: LN_NELDERMEAD
-  }
-};
-
-dts1 @Observation {
-  kind: KineticsObservation,
-  indepDataMarker: t,
-  indepData: [0.1, 0.2, 0.3, 0.4, 0.5],
-  depDataMarkers: [x, y, z, s],
-  depData: [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ]
-};
