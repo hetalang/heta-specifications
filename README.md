@@ -20,7 +20,7 @@ See also the [Heta video tutorial](https://hetalang.github.io/#/resources/?id=le
 - [Math expressions](https://hetalang.github.io/#/specifications/math)
 - [Units](https://hetalang.github.io/#/specifications/units)
 - [Cases](https://hetalang.github.io/#/specifications/cases)
-- [Compilation steps](chttps://hetalang.github.io/#/specifications/ompilation)
+- [Compilation steps](https://hetalang.github.io/#/specifications/compilation)
 - [Change Log](https://hetalang.github.io/#/specifications/changelog)
 
 ## Features and philosophy
