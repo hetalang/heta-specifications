@@ -4,6 +4,7 @@
 
 - `@StopSwitcher` as an experimental class
 - remove `@SimpleTask`
+- `piesewise()` function inside MathExpr (experimental)
 
 ## 0.4.0
 

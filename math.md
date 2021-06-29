@@ -1,10 +1,10 @@
 # Math expressions
 
-All [@Record](./classes#record) instances (Species, Process, etc.) include `assimptions` property which is set of assignments for different cases: initial assignment `start_`, rule assignment `ode_` and any number of switcher assignments.
+All [@Record](./classes#record) instances (Species, Process, etc.) include `assignments` property which is set of assignments for different scopes: initial assignment `start_`, rule assignment `ode_` and any number of switcher assignments. The right hand side (RHS) of assignments is string of the specific format [MathExpr](./classes#mathexpr).
 
-The right hand side (RHS) of assignments is string of specific format [MathExpr](./classes#mathexpr).
+[@CSwitcher](./classes#cswitcher) includes [MathExpr](./classes#mathexpr) inside property `trigger`.
 
-The property `trigger` of [@DSwitcher](./classes#dswitcher) also includes [MathExpr](./classes#mathexpr) but this expression must return boolean result.
+The `trigger` property of [@DSwitcher](./classes#dswitcher) and [StopSwitcher](./classes#stopswitcher) also include [MathExpr](./classes#mathexpr) but this expression must return boolean result.
 
 `MathExpr` may include: numbers, identifiers, operators, functions, parentheses.
 
@@ -19,7 +19,7 @@ The another possible values of double are:
 
 ## Boolean values
 
-Boolen constants: `true`, `false` can also be used as part of boolean expressions
+Boolean constants: `true`, `false` can also be used as part of boolean expressions
 
 ## Pre defined constants
 
@@ -94,3 +94,32 @@ sin(x), tan(x)
 acosh(x), acoth(x), acsch(x), asech(x), asinh(x),
 atanh(x), cosh(x), coth(x), csch(x), sech(x),
 sinh(x), tanh(x)
+
+
+### piecewise function (experimental)
+
+`piecewise` is a special function which can be used to switch values based on conditions.
+It can be applied as an extension of the ternary operator or `ifgt`-like functions for more than one condition.
+
+The `piecewise` function can have several arguments with the following meaning.
+
+```heta
+y1 := piecewise(value1, cond1, value2, cond2, ..., otherwise)
+```
+
+`value1` is returned if `cond1` is true, `value2` is returned if `cond2` is true, etc.
+
+If neither conditions is true, than it returns `otherwise` value.
+`otherwise` value can be skipped. In that case the function returns `NaN`.
+
+Each condition argument must be of boolean type: comparison operator, boolean value, etc.
+
+__Example__
+
+```heta
+// 0 -> human, 1 -> monkey, 2 -> rat, default -> mouse
+animal @Const = 999;
+body_weight @Record .= piecewise(BW_human, animal==0, BW_monkey, animal==1, BW_rat, animal==2, BW_mouse);
+
+// the body_weight value will be equal to BW_mouse
+```
