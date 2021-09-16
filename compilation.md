@@ -9,13 +9,13 @@ Nevertheless formulating the Heta specification we keep in mind the following st
 
     The errors which happen at the stage will be of types: `FileSystemError`, `ParsingError`.
 
-1. **Modules integration.** Collection of Heta modules are combined into a single structure **queue** which is sequence of actions for platform container. The modules must not have circular references.
+1. **Modules integration.** Collection of Heta modules are combined into a single structure **Q-array** which is sequence of actions for platform container. The modules must not have circular references.
 
     The errors which happen at the stage will be of type `ModuleError`.
 
-1. **Translation.** The queue is translated sequentially to create the elements of Heta container. Generally it is a key-value pairs. The properties must satisfy the requirements for its classes. See the structure of Heta container below.
+1. **Translation.** The Q-array is translated sequentially to create the elements of Heta container. Generally it is a key-value pairs. The properties must satisfy the requirements for its classes. See the structure of Heta container below.
 
-    The errors which happen at the stage will be of types: `QueueError`, `ValidationError`.
+    The errors which happen at the stage will be of types: `QError`, `ValidationError`.
 
 1. **Binding.** Binding Heta components are based on internal cross references. Checking references. Checking required properties.
 
@@ -93,7 +93,7 @@ s1 'Species number one';
 }
 ```
 
-**Structure 3. Queue**
+**Structure 3. Q-array**
 
 ```json
 [
