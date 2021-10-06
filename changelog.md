@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.4.2
+
+- Add `#setScenario` action
+
 ## 0.4.1
 
 - `@StopSwitcher` as an experimental class
@@ -25,7 +29,7 @@
 
 ## 0.3.2
 
-- use `trigger` property with MathExpr in `CSwitcher` (continuous switcher) instead of condition reffered to Record
+- use `trigger` property with MathExpr in `CSwitcher` (continuous switcher) instead of condition referred to Record
 
 ## 0.3.1
 

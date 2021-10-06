@@ -19,9 +19,10 @@ If no statement is written the default statement is `#upsert` which is the equiv
 - [defineUnit](#defineunit)
 - [include](#include)
 - [setNS](#setns)
+- [setScenario](#setscenario)
+- [export](#export)
 - [importNS](#importns)
 - [import](#import)
-- [export](#export)
 
 ## insert
 
@@ -253,6 +254,52 @@ The `setNS` action (or the `namespace` statement) must be used prior to the crea
 | space | string | true | | | Name of created or updated namespace |
 | type | string | | `concrete` | | namespace type: "concrete" or "abstract", see [namespaces](namespaces) |
 
+## setScenario
+
+The `setScenario` action creates a "scenario" object that describes model simulations.
+Scenario describes the particular simulation conditions for a model with the updated constants, switchers, outputs and time ranges.
+Using Scenarios one can create a series of model variants which are based on the same expressions but must be simulated separately. 
+
+Scenarios have their own identifier and do not rewrites components. You can create `scn1` scenario and `scn` `@Const` at the same time and use them independently.
+
+The `parameters` property re-initializes the `@Const` numerical values for the particular simulation. If some parameter is not mentioned here the default value will used.
+
+`saveat` or `tspan` properties must be set for the particular Scenario. If you set both only `saveat` will be used.
+
+| property | type | required | default | ref | description |
+| ---------|------|----------|---------|-----|-------------|
+| id | ID | true | | | Unique identifier of a scenario. |
+| model | ID | true | | Namespace | Reference to a concrete namespace that will be used for model creation |
+| parameters | object<ID,number> | | | Const | Object representing updated `@Const` numerical value. Keys inside the object are references to Const, values are the values for simulations. | 
+| saveat | number[] | | | | An array of numerical values. The values states the time points for simulated output |
+| tspan | number[] | | | | Two numerical values declaring time range for simulation. |
+| observables | ID[] | | | Record | The property state the records that will be saved as simulation results. If not set the default observables will be used (`output: true` property in records). |
+| events_active | object<ID,boolean> | | | Switcher | Object representing Switchers that will be active or inactive in the scenario. Keys are Switcher identifiers, values are boolean values displaying if the switcher is active. |
+| events_save | object<ID,array> | | | Switcher | User should define here is it necessary to save output before and after event. If not set both: before and after values will be saved. Key is switcher id, value is an array of two boolean values. |
+
+## export
+
+1. The `#export` action describes what and how the output files will be created.
+
+1. A list of formats and available options depends on the compiler of Heta code. Read the documentation of a compiler.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| format | string | true | | | one of declared formats: 'JSON', 'SBML', etc. |
+| filepath | Filepath | true | | | path to target file to create |
+| ... | | | | | other options depending of format |
+
+### Example 1
+The example of exporting the platform content to SBML available in [Heta compiler](https://hetalang.github.io/#/heta-compiler/)
+
+```heta
+comp1 @Compartment .= 5.5;
+s1 @Species {compartment: comp1} .= 0;
+
+// export "nameless" namespace to SBML format
+#export { format: SBML, filepath: sbml_output };
+```
+
 ## importNS
 
 1. The `importNS` clones all content of the namespace to another one. This action allows us to share components between different namespaces.
@@ -364,26 +411,3 @@ end
 | prefix | string | | "" | | prefix of new ids |
 | suffix | string | | "" | | suffix of new ids|
 | rename | Dictionary | | {} | | id matching table |
-
-## export
-
-1. The `#export` action describes what and how the output files will be created.
-
-1. A list of formats and available options depends on the compiler of Heta code. Read the documentation of a compiler.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| format | string | true | | | one of declared formats: 'JSON', 'SBML', etc. |
-| filepath | Filepath | true | | | path to target file to create |
-| ... | | | | | other options depending of format |
-
-### Example 1
-The example of exporting the platform content to SBML available in [Heta compiler](https://hetalang.github.io/#/heta-compiler/)
-
-```heta
-comp1 @Compartment .= 5.5;
-s1 @Species {compartment: comp1} .= 0;
-
-// export "nameless" namespace to SBML format
-#export { format: SBML, filepath: sbml_output };
-```

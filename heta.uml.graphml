@@ -146,34 +146,19 @@ aux: &lt;Dictionary&gt; {use: "optional"}</y:AttributeLabel>
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="63.16736828619105" width="178.8935276479989" x="591.4738523208805" y="-338.2008597693446"/>
-          <y:Fill color="#00FFFF" transparent="false"/>
-          <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="50.21728515625" x="64.33812124587445" xml:space="preserve" y="3.0">UnitDef<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:Geometry height="81.49999999999994" width="147.83479426263978" x="1202.9330146985417" y="-658.6163941831694"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="2.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="65.41357421875" x="41.21061002194489" xml:space="preserve" y="3.0">_Switcher<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">
-</y:AttributeLabel>
+            <y:AttributeLabel xml:space="preserve">atStart: &lt;Boolean&gt;
+active: &lt;Boolean&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve"/>
           </y:UML>
         </y:UMLClassNode>
       </data>
     </node>
     <node id="n9">
-      <data key="d4" xml:space="preserve"/>
-      <data key="d6">
-        <y:UMLClassNode>
-          <y:Geometry height="59.97224806029425" width="147.83479426263978" x="1202.9330146985417" y="-637.0886422434637"/>
-          <y:Fill hasColor="false" transparent="false"/>
-          <y:BorderStyle color="#000000" type="line" width="2.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="65.41357421875" x="41.21061002194489" xml:space="preserve" y="3.0">_Switcher<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
-          <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">atStart: &lt;Boolean&gt;</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
-          </y:UML>
-        </y:UMLClassNode>
-      </data>
-    </node>
-    <node id="n10">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -188,11 +173,11 @@ aux: &lt;Dictionary&gt; {use: "optional"}</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n11">
+    <node id="n10">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="120.90616258064506" width="178.0" x="592.3673799688794" y="-201.7766035459657"/>
+          <y:Geometry height="120.90616258064506" width="178.0" x="583.3732705719649" y="-362.1603788961979"/>
           <y:Fill color="#00FFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="40.8291015625" x="68.58544921875" xml:space="preserve" y="3.0">Const<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -207,7 +192,7 @@ upper: &lt;Number&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n12">
+    <node id="n11">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -225,7 +210,7 @@ exponent: &lt;Number&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n13">
+    <node id="n12">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -243,7 +228,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n14">
+    <node id="n13">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -258,7 +243,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n15">
+    <node id="n14">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -273,7 +258,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n16">
+    <node id="n15">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -288,7 +273,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n17">
+    <node id="n16">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -304,7 +289,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n18">
+    <node id="n17">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="345.4776069351161" y="-823.976256257318"/>
@@ -315,7 +300,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n19">
+    <node id="n18">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="345.4776069351161" y="-766.4718633950768"/>
@@ -326,7 +311,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n20">
+    <node id="n19">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="345.4776069351161" y="-708.9674705328355"/>
@@ -337,7 +322,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n21">
+    <node id="n20">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="345.4776069351161" y="-651.4630776705942"/>
@@ -348,7 +333,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n22">
+    <node id="n21">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="345.4776069351161" y="-593.9586848083529"/>
@@ -359,7 +344,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n23">
+    <node id="n22">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="203.16355126059727" y="-497.3375536163478"/>
@@ -370,7 +355,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n24">
+    <node id="n23">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="320.5484763755966" y="-389.8373794550355"/>
@@ -381,7 +366,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n25">
+    <node id="n24">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="444.01779822704975" y="-432.2169688911538"/>
@@ -392,7 +377,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n26">
+    <node id="n25">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="512.6773271349726" y="-497.3375536163478"/>
@@ -403,7 +388,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n27">
+    <node id="n26">
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="27.504392862241275" width="123.46932185145317" x="250.68731999721388" y="-447.34177231727676"/>
@@ -414,7 +399,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n28">
+    <node id="n27">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
@@ -429,7 +414,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n29">
+    <node id="n28">
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLNoteNode>
@@ -438,6 +423,21 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="61.36328125" x="19.318359375" xml:space="preserve" y="4.6494140625">Data types<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:UMLNoteNode>
+      </data>
+    </node>
+    <node id="n29">
+      <data key="d4" xml:space="preserve"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="63.16736828619105" width="171.49999999999966" x="1416.775010415652" y="-608.3364096145137"/>
+          <y:Fill color="#00FFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="2.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="87.0654296875" x="42.21728515624983" xml:space="preserve" y="3.0">StopSwitcher<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
+            <y:AttributeLabel xml:space="preserve">trigger: &lt;MathExpr&gt;(boolean)</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve"/>
+          </y:UML>
+        </y:UMLClassNode>
       </data>
     </node>
     <edge id="e0" source="n3" target="n0">
@@ -514,7 +514,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e6" source="n4" target="n15">
+    <edge id="e6" source="n4" target="n14">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -527,7 +527,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e7" source="n10" target="n9">
+    <edge id="e7" source="n9" target="n8">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -538,14 +538,12 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e8" source="n11" target="n17">
+    <edge id="e8" source="n10" target="n16">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="2.099259703488542" sy="-41.363977015572274" tx="0.0" ty="0.0">
-            <y:Point x="683.4666396723679" y="-230.43818700927886"/>
-            <y:Point x="577.4520786445306" y="-230.43818700927886"/>
-            <y:Point x="577.4520786445306" y="-380.3172371596903"/>
+            <y:Point x="674.4725302754534" y="-380.3172371596903"/>
             <y:Point x="745.4551141539962" y="-380.3172371596903"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
@@ -554,7 +552,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e9" source="n17" target="n12">
+    <edge id="e9" source="n16" target="n11">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -565,7 +563,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e10" source="n13" target="n9">
+    <edge id="e10" source="n12" target="n8">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -576,7 +574,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e11" source="n9" target="n7">
+    <edge id="e11" source="n8" target="n7">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -590,7 +588,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e12" source="n17" target="n7">
+    <edge id="e12" source="n16" target="n7">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -604,7 +602,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e13" source="n14" target="n5">
+    <edge id="e13" source="n13" target="n5">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -615,7 +613,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e14" source="n14" target="n4">
+    <edge id="e14" source="n13" target="n4">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -628,7 +626,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e15" source="n5" target="n16">
+    <edge id="e15" source="n5" target="n15">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -639,7 +637,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e16" source="n15" target="n16">
+    <edge id="e16" source="n14" target="n15">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -650,7 +648,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e17" source="n0" target="n17">
+    <edge id="e17" source="n0" target="n16">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -664,21 +662,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e18" source="n8" target="n17">
-      <data key="d8" xml:space="preserve"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="680.9206161448799" y="-380.3172371596903"/>
-            <y:Point x="745.4551141539962" y="-380.3172371596903"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="white_delta"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e19" source="n23" target="n22">
+    <edge id="e18" source="n22" target="n21">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -689,7 +673,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e20" source="n24" target="n22">
+    <edge id="e19" source="n23" target="n21">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -700,7 +684,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e21" source="n25" target="n22">
+    <edge id="e20" source="n24" target="n21">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -711,7 +695,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e22" source="n26" target="n22">
+    <edge id="e21" source="n25" target="n21">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -722,7 +706,7 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e23" source="n27" target="n22">
+    <edge id="e22" source="n26" target="n21">
       <data key="d8" xml:space="preserve"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -733,8 +717,20 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e24" source="n28" target="n9">
+    <edge id="e23" source="n27" target="n8">
       <data key="d8" xml:space="preserve"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="white_delta"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e24" source="n29" target="n8">
+      <data key="d8" xml:space="preserve"/>
+      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
