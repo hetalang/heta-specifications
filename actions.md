@@ -269,13 +269,33 @@ The `parameters` property re-initializes the `@Const` numerical values for the p
 | property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
 | id | ID | true | | | Unique identifier of a scenario. |
-| model | ID | true | | Namespace | Reference to a concrete namespace that will be used for model creation |
+| model | ID | true | nameless | Namespace | Reference to a concrete namespace that will be used for model creation |
 | parameters | object<ID,number> | | | Const | Object representing updated `@Const` numerical value. Keys inside the object are references to Const, values are the values for simulations. | 
 | saveat | number[] | | | | An array of numerical values. The values states the time points for simulated output |
 | tspan | number[] | | | | Two numerical values declaring time range for simulation. |
 | observables | ID[] | | | Record | The property state the records that will be saved as simulation results. If not set the default observables will be used (`output: true` property in records). |
 | events_active | object<ID,boolean> | | | Switcher | Object representing Switchers that will be active or inactive in the scenario. Keys are Switcher identifiers, values are boolean values displaying if the switcher is active. |
 | events_save | object<ID,array> | | | Switcher | User should define here is it necessary to save output before and after event. If not set both: before and after values will be saved. Key is switcher id, value is an array of two boolean values. |
+
+### Example 1
+
+```heta
+// minimal set
+scn1 #setScenario {tspan: [0, 120]};
+```
+
+### Example 2
+
+```heta
+scn2 #setScenario {
+  model: mouse,
+  parameters: {weight: 20, kel: 1e-3},
+  saveat: [0, 1, 2, 4, 6, 8, 10, 12],
+  observables: [A0, C1, C2],
+  events_active: {sw1: false, sw2: true},
+  events_save: {sw2: [true, false]}
+};
+```
 
 ## export
 
