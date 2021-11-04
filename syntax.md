@@ -2,15 +2,7 @@
 
 See also the [Heta tutorial](https://hetalang.github.io/#/resources/?id=lesson-2-syntax)
 
-The Heta code can be represented as a sequence of statements that create and modify elements in a modeling platform. The parsing and interpretation of the code result in creating of static (database-like) structure representing the modeling system, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has the freedom to make his code nice and readable.
-
-## Reserved words
-
-Some words cannot be used as identifiers because they are reserved for statements or specific object names.
-
-`nameless`, 
-`NaN`, `Infinity`, `e`, `pi`, 
-`include`, `block`, `namespace`, `abstract`, `concrete`, `begin`, `end`
+The Heta code can be represented as a sequence of the statements that create and modify elements in a modeling platform. The parsing and interpretation of the code result in creating of static (database-like) structure representing the modeling platform, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has the freedom to make his code nice and readable.
 
 ## Action statement
 
@@ -63,6 +55,17 @@ They can be used for code decoration.
     {
         prop1: Some string,
         prop2: "String with # stop-symbols @"
+    };
+    ```
+
+2. There are [special string formats](#special-string-formats) which are used to describe the particular properties of actions or classes. They follow the same **String** syntax but also have the specific syntax rules.
+
+    Example:
+    ```heta
+    {
+        id: r1, // follows the ID format
+        class: Reaction,
+        actors: A => B // follows the ProcessExpr format
     };
     ```
 
@@ -343,6 +346,105 @@ include file.xlsx type xlsx with {
     Example:
     ```heta
     /*
-        This is not parsed part
+        Compiler will not parse this part.
     */
     ```
+
+## Special string formats
+
+Special string formats are additional rules for a specific properties of actions and classes.
+
+### ID
+
+`ID` describes the string format which is used for indexing Heta components. 
+The ID format is applied to create identifiers of elements including component and namespaces as well as to create a reference to an element. The following properties must follow the ID format:
+
+- `id`, `space` for all actions
+- properties which describe references to elements like: `compartment` in `Species` class, `fromSpace` in `importNS` action, etc.
+- references that are used inside `MathExpr`, `UnitsExpr`, `ProcessExpr`.
+
+The base rules for ID are the following:
+
+1. First symbol should be letter or underscore.
+1. Second and following elements should be letter, number or underscore.
+1. The last symbol should not be underscore.
+
+Additionally some words cannot be used as identifiers because they are reserved for statements or specific object names:
+
+`NaN`, `Infinity`, `e`, `pi`, 
+`include`, `block`, `namespace`, `abstract`, `concrete`, `begin`, `end`
+
+__Example__
+
+**Correct:** `x`, `x12`, `x_12`, `_12`, `x___12`, `_begin`
+
+**Wrong:** `12x`, `x-12`, `x 9`
+
+**Wrong usage of reserved words as ID:** `begin`, `block`
+
+**Wrong underscore position:** `_`, `x12_`
+
+### Filepath
+
+String representing relative or absolute file path.
+
+The following properties must follow the Filepath format:
+
+- `source` property in `include` statement
+- `filepath` property in `export` statement
+
+__Examples__
+
+`output`, `./output`, `../output`, `Y:/my-platform/src/module1/model.heta`
+
+### UnitsExpr
+
+UnitsExpr strings represent the complex units combined from the predefined unit IDs.
+Available operators: `*`, `/`, `^`, `1/`.
+
+The following properties must follow the UnitsExpr format:
+
+- `unit` property in `Const`, `Record` classes
+- `unit` property in `defineUnit` action
+
+See more details see [units](units) page.
+
+__Example__
+
+**Correct UnitsExpr:**: `mg`, `g/mole`, `1/h`, `kg/m2`, `kg/m^2`
+
+**Wrong UnitsExpr:** `g/(mole*L)`, `5*g`, `km + kg`
+
+### MathExpr
+
+MathExpr describes mathematical expressions in string format.
+Available operators: `+`, `-`, `*`, `/`, `^`. See details in [Math expressions](./math)
+
+The following properties must follow the `MathExpr` format:
+
+- `assignments` sub-properties in `Record` class
+- `trigger` property in `DSwitcher`, `CSwitcher` classes
+
+__Example__
+
+**Correct MathExpr:** `x*y*pow(x,y)`
+
+### ProcessExpr
+
+A `ProcessExpr` formatted string represents process stoichiometry.
+The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) divides two parts: influx (left) and outflux (right).
+The "plus" symbol divide two or more actors.
+Stoichiometry coefficients are shown by numbers before reference. The asterisk symbol is optional here.
+
+The following properties must follow the `ProcessExpr` format:
+
+- `actors` sub-properties in `Process` class
+
+__Example__
+
+*Correct ProcessExpr*:
+
+- `A->B`
+- `A =>`
+- `2A <=> 3*B + C`
+- `2 A <=> 3 * B + C`

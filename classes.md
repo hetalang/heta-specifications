@@ -1,6 +1,7 @@
 # Heta classes
 
-Heta classes describes hierarchical types of Heta components.
+Heta classes describes hierarchical types of the Heta components.
+Components are parts of the model which refer to a particular namespace. 
 
 **Class list**
 
@@ -18,14 +19,6 @@ Heta classes describes hierarchical types of Heta components.
 - [CSwitcher](#cswitcher)
 - [StopSwitcher](#stopswitcher) (experimental)
 - [Dose](#dose) (experimental)
-
-**Simple types**
-
-- [ID](#id)
-- [Filepath](#filepath)
-- [UnitsExpr](#unitsexpr)
-- [MathExpr](#mathexpr)
-- [ProcessExpr](#processexpr)
 
 ## UML diagram
 
@@ -401,62 +394,3 @@ dose1 @Dose {
   repeatCount: 4
 };
 ```
-
-## ID
-
-ID describes the string type which is used for idexing Heta components. ID type can be used for namespaces, identifiers and references.
-
-The rules for ID is the following:
-
-1. First symbol should be letter or underscore.
-1. Second and other elements should be letter, number or underscore.
-1. Deprication: the last symbol should not be underscore.
-
-### Example
-
-**Corect ID:** `"x"`, `"x12"`, `"x_12"`, `"_12"`, `"x___12"`
-
-**Wrong ID:** `"12x"`, `"x-12"`, `"x 9"`
-
-**Depricated ID:** `"_"`, `"x12_"`
-
-## Filepath
-
-String representing relative or absolute path.
-
-### Examples
-
-`output`, `./output`, `../output`, `Y:/my-platform/src/module1/model.heta`
-
-## UnitsExpr
-
-UnitsExpr strings represent the complex units combined from the predefined unit IDs. Available operatators: `*`, `/`, `^`, `1/`.
-
-See more detailes on [units](units) page.
-
-### Example
-
-**Correct UnitsExpr**: `mg`, `g/mole`, `1/h`, `kg/m2`, `kg/m^2`
-
-**Wrong UnitsExpr:** `g/(mole*L)`, `5*g`, `km + kg`
-
-## MathExpr
-
-Mathematical expressions in string format. Available operators: `+`, `-`, `*`, `/`, `^`. See detailes in [Math expressions](./math)
-
-## Example
-
-**Correct MathExpr:** `x*y*pow(x,y)`
-
-## ProcessExpr
-
-ProcessExpr is string representing process stoichiometry. The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) devided two parts: influx (left) and outflux (right). Plus symbol divide two or more actors. Stoichiometry coefficients are shown by numbers before reference. Asterix symbol is optional.
-
-### Example
-
-*Correct ProcessExpr*:
-
-- `A->B`
-- `A =>`
-- `2A <=> 3*B + C`
-- `2 A <=> 3 * B + C`

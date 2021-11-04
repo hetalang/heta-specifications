@@ -2,6 +2,7 @@
 
 ## 0.4.2
 
+- Create explanation of "special string formats"
 - Add `#setScenario` action
 
 ## 0.4.1
