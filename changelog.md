@@ -2,6 +2,8 @@
 
 ## 0.4.2
 
+- add `@TimeScale`
+- remove `@Dose` class
 - Create explanation of "special string formats"
 - Add `#setScenario` action
 

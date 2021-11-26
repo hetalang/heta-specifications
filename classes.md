@@ -7,6 +7,7 @@ Components are parts of the model which refer to a particular namespace.
 
 - [Component](#component)
 - [_Size](#_size)
+- [TimeScale](#timescale)
 - [Const](#const)
 - [Record](#record)
 - [Process](#process)
@@ -18,7 +19,6 @@ Components are parts of the model which refer to a particular namespace.
 - [DSwitcher](#dswitcher)
 - [CSwitcher](#cswitcher)
 - [StopSwitcher](#stopswitcher) (experimental)
-- [Dose](#dose) (experimental)
 
 ## UML diagram
 
@@ -90,11 +90,51 @@ This is a class for all components which can have units. See more detailes on [u
 | multiplier | numeric | true | 1 | | Multiplier |
 | exponent | numeric | true | 1 | | Power |
 
+## TimeScale
+
+**Parent:** [_Size](#_size)
+
+This component type is used if someone need to include an alternative time variable.
+For example the base time unit is `second` but it is required to add `tih` which means time in hours. It can be expressed via the base time `t`.
+
+```tih = 1 / 3600 * t + 0```
+
+The general form of the expression:
+
+```new_time = slope * t + intercept```
+
+Base time `t` is also a component of the `@TimeScale` class but it is inserted as default after initialization of a namespace. It cannot be deleted but a user can set units of it.
+
+```heta
+t {units: second};
+```
+
+In many cases the usage of `@TimeScale` is not required because it can be substituted by `@Record` component, see the examples.
+
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| slope | number | | 1 | | Fixed value of multiplier for calculation of the value`. |
+| intercept | number | | 0 | | Fixed value to add to the time variable. |
+| output | boolean | | | | If `true` the value will be available for output: plots, tables, etc. |
+
+__Examples__
+
+```heta
+tih @TimeScale {slope: 2.78e-4, output: true, units: hour};
+```
+
+`@Record` with the same meaning
+
+```heta
+tih @Record {output: true, units: hour} := 2.78e-4 * t;
+```
+
 ## Const
 
 **Parent:** [_Size](#_size)
 
-This is class for numerical values which do not change in simulation time. This represents numeric modeling inputs.
+This is a class for numerical values which do not change in simulation time. This represents numeric modeling inputs.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -361,36 +401,5 @@ Unlike other `_Switcher` instances it does not creates a new assignment scope.
 ```heta
 ss1 @StopSwitcher {
     trigger: p1 > p2
-};
-```
-
-## Dose
-
-*This is an experimental feature*
-
-**Parent:** [_Size](#_size)
-
-`Dose` class describe non-periodic and periodic event which add some value to Species.
-It substitutes partially usage of `TimeSwitcher` and was included to support export to Simbiology and Mrgsolve.
-`amount` property is always in amount units, not concentration. 
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| start | Number/ID | | 0 | - / `Const` | time to run the first switch |
-| period | Number/ID | | | - / `Const` | period of repeated switching |
-| repeatCount | Number/ID | | | - / `Const` | number of dose addition after the first dose |
-| target | ID | true | | Species | target species to add the dose |
-| amount | Number/ID | true | | - / `Const` | amount which should be added to the reffered species |
-| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of `amount` |
-
-### Example
-
-```heta
-dose1 @Dose {
-  target: A,
-  amount: 100,
-  start: 0,
-  period: 12,
-  repeatCount: 4
 };
 ```

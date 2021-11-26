@@ -8,6 +8,8 @@ All `@_Size` instances can have optional property `units`.
 
 There is a list of units (core units) that is included as default in Heta language. This list is based on base units in [SBML specifications](http://sbml.org/Documents/Specifications). The list is the following:
 
+| |
+| --- |
 mole, litre, second, kilogram, katal,
 item, joule, metre, dimensionless, watt,
 volt, ampere, newton, becquerel, candela,
