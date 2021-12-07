@@ -304,15 +304,16 @@ r1 := k1*A*comp1;
 Switcher instances state the assignment at specific points and conditions when to start the assignment. 
 id of switcher introduces a new key in assignments dictionary, see [Record](#record).
 
-| property | type | required | default | ref | description | 
+| property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
+| active | Boolean | | `true` | | If it is `false` the switcher will be off. A user can turn it off/on in simulation scenarios. |
 | atStart | Boolean | | | | `true` if we should check the condition at `start_` scope. |
 
 ## TimeSwitcher
 
 **Parent:** [_Switcher](#_switcher)
 
-`TimeSwitcher` decribes the switching asignment depending only on time. If `period` property > 0 the switching will be periodical. `repeatCount` and `stop` work together to estimate the latest switching.
+`TimeSwitcher` describes the switching assignment depending only on time. If `period` property > 0 the switching will be periodical. `repeatCount` and `stop` work together to estimate the latest switching.
 
 Number of switching is based on the following rules:
 
@@ -335,13 +336,15 @@ Based on rules to describe **one** switching use only `start` property. To use i
 sw1 @TimeSwitcher {
     start: 0,
     period: 24,
-    repeatCount: 4
+    repeatCount: 4,
+    active: true
 };
 
 sw2 @TimeSwitcher {
     start: starting_time, // ref to Const
     period: period,
-    stop: stop_time
+    stop: stop_time,
+    active: false
 };
 ```
 

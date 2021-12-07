@@ -274,7 +274,7 @@ The `parameters` property re-initializes the `@Const` numerical values for the p
 | saveat | number[] | | | | An array of numerical values. The values states the time points for simulated output |
 | tspan | number[] | | | | Two numerical values declaring time range for simulation. |
 | observables | ID[] | | | Record | The property state the records that will be saved as simulation results. If not set the default observables will be used (`output: true` property in records). |
-| events_active | object<ID,boolean> | | | Switcher | Object representing Switchers that will be active or inactive in the scenario. Keys are Switcher identifiers, values are boolean values displaying if the switcher is active. |
+| events_active | object<ID,boolean> | | | Switcher | Object representing Switchers that will be active or inactive in the scenario. Keys are Switcher's identifiers, values are boolean values displaying if the switcher is active. |
 | events_save | object<ID,array> | | | Switcher | User should define here is it necessary to save output before and after event. If not set both: before and after values will be saved. Key is switcher id, value is an array of two boolean values. |
 
 ### Example 1
