@@ -16,4 +16,4 @@
 | [namespaces](cases/namespaces) | Using namespaces to write several models in one platforms |
 | [import namespaces](cases/import-ns) | Model template reuse several times |
 | [AUC](cases/auc) | Using Process to simulate area under curve (AUC) |
-| ~~[all exports](cases/all-exports)~~ | The example describing all exports and their properties in **Heta compiler** |
+| [all exports](cases/all-exports) | The example describing all exports and their properties in **Heta compiler** |
