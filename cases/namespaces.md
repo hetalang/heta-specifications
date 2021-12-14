@@ -44,11 +44,6 @@ S @Const = 1e-8;
 
 #include { source: intracell.heta };
 #include { source: cell-dynamics.heta };
-
-// exports
-#export { format: SBML, filepath: sbml, version: L2V4 };
-#export { format: DBSolve, filepath: dbsolve };
-#export { format: Mrgsolve, filepath: mrgsolve };
 ```
 
 ![namespaces-1](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-1.png)
@@ -71,11 +66,6 @@ namespace intracell begin
   #include { source: intracell.heta };
   cell_count @Const = 1;
 end
-
-// exports
-#export { format: SBML, filepath: sbml };
-#export { format: DBSolve, filepath: dbsolve };
-#export { format: Mrgsolve, filepath: mrgsolve };
 ```
 
 ![namespaces-2](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-2.png)
@@ -98,11 +88,6 @@ vtr_m2 { actors: m2 => m3 }
 modified::vcl_m3 @Reaction { actors: m3 => }
   := kcl_m3 * m3 * blood;
 modified::kcl_m3 @Const = 1e-2;
-
-// exports
-#export { format: SBML, filepath: sbml };
-#export { format: DBSolve, filepath: dbsolve };
-#export { format: Mrgsolve, filepath: mrgsolve };
 ```
 
 ![namespaces-3](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-3.png)
@@ -135,11 +120,6 @@ vtr_m2 { actors: m2 => m3 }
 };
 
 modified::ksyn_3 = 1e-8;
-
-// exports
-#export { format: SBML, filepath: sbml };
-#export { format: DBSolve, filepath: dbsolve };
-#export { format: Mrgsolve, filepath: mrgsolve };
 ```
 
 ![namespaces-4](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-4.png)

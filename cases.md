@@ -10,7 +10,7 @@
 | [multiple compartments](cases/multiple-compartments) | A symple model with several compartments and species. It is also used in **Heta tutorial #4**. |
 | [annotation](cases/annotation) | Annotation of components in MM model. |
 | [time switcher](cases/time-switcher) | Model describes one-reaction model with periodic event. |
-| ~~[continuous switcher](cases/c-switcher)~~ | Event with continuous switch |
+| [CSwitcher](cases/c-switcher) | Usage of CSwitchers |
 | [using units](cases/using-units) | using default units and creating another ones |
 | [Heta modules](cases/heta-modules) | Combining Heta type modules in one platform |
 | [namespaces](cases/namespaces) | Using namespaces to write several models in one platforms |
