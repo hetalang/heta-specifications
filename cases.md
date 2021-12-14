@@ -13,7 +13,7 @@
 | ~~[continuous switcher](cases/c-switcher)~~ | Event with continuous switch |
 | [using units](cases/using-units) | using default units and creating another ones |
 | [Heta modules](cases/heta-modules) | Combining Heta type modules in one platform |
-| ~~[namespaces](cases/several)~~ | Using namespaces to write several models in one platforms |
+| [namespaces](cases/namespaces) | Using namespaces to write several models in one platforms |
 | [import namespaces](cases/import-ns) | Model template reuse several times |
 | [AUC](cases/auc) | Using Process to simulate area under curve (AUC) |
 | ~~[all exports](cases/all-exports)~~ | The example describing all exports and their properties in **Heta compiler** |
