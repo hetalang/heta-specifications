@@ -221,8 +221,7 @@ exponent: &lt;Number&gt;</y:AttributeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve">start: &lt;Number&gt;/&lt;ID&gt;
 stop: &lt;Number&gt;/&lt;ID&gt;
-period: &lt;Number&gt;/&lt;ID&gt;
-repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
+period: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve"/>
           </y:UML>
         </y:UMLClassNode>
@@ -730,7 +729,6 @@ repeatCount: &lt;Number&gt;/&lt;ID&gt;</y:AttributeLabel>
     </edge>
     <edge id="e24" source="n29" target="n8">
       <data key="d8" xml:space="preserve"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>

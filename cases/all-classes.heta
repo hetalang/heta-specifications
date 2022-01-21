@@ -52,7 +52,7 @@ A <=> B + B + 3C  // mark as reversible
 sw1 @TimeSwitcher {
   start: <Number>, // required, when switcher is called
   period: <Integer>, // >0, if set, the switcher will be called with period
-  repeatCount: <Integer> // >=0, if set the switche will be called (repeatCount + 1) times
+  stop: <Number>
 };
 
 // Const <= Component

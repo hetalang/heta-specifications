@@ -313,16 +313,16 @@ id of switcher introduces a new key in assignments dictionary, see [Record](#rec
 
 **Parent:** [_Switcher](#_switcher)
 
-`TimeSwitcher` describes the switching assignment depending only on time. If `period` property > 0 the switching will be periodical. `repeatCount` and `stop` work together to estimate the latest switching.
+`TimeSwitcher` describes the switching assignment depending only on time. If `period` property > 0 the switching will be periodical.
 
 Number of switching is based on the following rules:
 
-- `if (repeatCount < 0 OR stop < start) return 0`;
-- `if (period <= 0 OR 0 <= repeatCount < 1 OR 0 <= (stop-start)/period < 1) return 1`;
-- `if (period > 0 && 1 <= repeatCount && 1 <= (stop-start)/period) return min(repeatCount, (stop-start)/period) + 1`;
-- `if (period > 0 && repeatCount === Infinity/undefined && stop === Infinity/undefined) return Infinity`;
+- `if (stop < start) return 0`;
+- `if (period <= 0 OR 0 <= (stop-start)/period < 1) return 1`;
+- `if (period > 0 AND 1 <= (stop-start)/period) return (stop-start)/period + 1`;
+- `if (period > 0 AND (stop === Infinity OR stop === undefined)) return Infinity`;
 
-Based on rules to describe **one** switching use only `start` property. To use infinite repeat use `start` and `period` properties. To use several repeats add `repeatCount` or `stop`.
+Based on rules to describe **one** switching use only `start` property. To use infinite repeat use `start` and `period` properties. To use several repeats add the `stop`property.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
@@ -336,7 +336,6 @@ Based on rules to describe **one** switching use only `start` property. To use i
 sw1 @TimeSwitcher {
     start: 0,
     period: 24,
-    repeatCount: 4,
     active: true
 };
 
