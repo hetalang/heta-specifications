@@ -198,5 +198,5 @@ file: `table.xlsx`
 
 ```heta
 // how to use the code
-#include { source: table.xlsx,  type: xlsx };
+#include { source: table.xlsx,  type: table };
 ```

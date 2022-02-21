@@ -12,6 +12,8 @@ See details in [docs](https://hetalang.github.io/#/heta-compiler/export-formats)
 
 #export { format: YAML, filepath: yaml, noUnitsExpr: false };
 
+#export { format: XLSX, filepath: table, omitRows: 3, splitByClass: true };
+
 #export { format: XLSX, filepath: xlsx, omitRows: 3, splitByClass: true };
 
 #export { format: HetaCode, filepath: heta-code, noUnitsExpr: false };

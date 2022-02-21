@@ -7,7 +7,7 @@ included into single platform. The purposes of modular system is to organize wor
 - multiple loading of the same code in different context;
 - allow whiting code in various formats.
 
-The available list of module types are: heta, json, yaml, xlsx, sbml. 
+The available list of module types are: heta, json, yaml, table (xlsx), sbml. 
 
 1. Any **Module** in Heta can be translated to Heta code. 
 
@@ -115,13 +115,13 @@ The module can be loaded into heta platform by the code
 #include {source: ./model.yml, type: yaml};
 ```
 
-## xlsx module
+## table module
 
-This module type allows to write a model's components in Excel file format (XLSX).
+This module type allows to write a model's components in table file format: xlsx, csv, etc.
 This might be useful for very large-scale models.
 
 The first row must include property identifiers, the other rows includes the values of the properties.
-The column with reserved header `on` can be used to turn off the import of the row. Zero value here means: "do not use this line".
+The column with reserved header `on` can be used to turn off the import of the row. Zero value here means: "do not compile this line".
 
 Path rules:
 
@@ -168,8 +168,8 @@ s1 @Species {compartment: comp1, boundary: false} .= 10;
 
 file: "index.heta" (combining all together and export to JSON format)
 ```heta
-#include {source: ./table.xlsx, type: xlsx, sheet: 0, omitRows: 1}; // skipping one row between header and content
-#include {source: table.xlsx, type: xlsx, sheet: 2};
+#include {source: ./table.xlsx, type: table, sheet: 0, omitRows: 1}; // skipping one row between header and content
+#include {source: table.xlsx, type: table, sheet: 2};
 
 #export {format: JSON, filepath: output};
 ```

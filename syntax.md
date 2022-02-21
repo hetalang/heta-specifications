@@ -274,7 +274,7 @@ include ./addon.heta type heta
 
 Example 2:
 ```heta
-include file.xlsx type xlsx with {
+include file.xlsx type table with {
     sheet: 2,
     omitRows: 3
 }

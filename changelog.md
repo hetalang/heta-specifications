@@ -2,6 +2,7 @@
 
 ## 0.4.2
 
+- use `import xxx.xlsx type table` instead of  `import xxx.xlsx type xlsx`
 - add `@TimeScale`
 - remove `@Dose` class
 - Create explanation of "special string formats"
