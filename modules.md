@@ -117,6 +117,8 @@ The module can be loaded into heta platform by the code
 
 ## table module
 
+_See also the [Tabular format](tabular-format) chapter._
+
 This module type allows to write a model's components in table file format: xlsx, csv, etc.
 This might be useful for very large-scale models.
 

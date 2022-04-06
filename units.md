@@ -21,16 +21,37 @@ minute
 
 ## UnitsExpr
 
-The complex units, i.e. units which can be expresses from combination of other units like `mole/litre`, `m^2`, etc can be expressed in form of `UnitsExpr` (units expression) string format.
+The complex units, i.e. units which can be expresses from combination of the pre-defined units like `mole/litre`, `m^2`, etc can be expressed in form of `UnitsExpr` (units expression) string format.
 
-Example:
+There is some options to use dimensionless units: 
+
+- direct use of `dimensionless` base unit;
+- create an synonym of it as declared in `qsp-units.heta` from __heta-compiler__;
+- use 1 value instead of `dimensionless`.
+
+Example 1:
 ```heta
 s1 @Species { units: mole/litre };
 ```
 
+Example 2:
+```heta
+k1 @Const { units: mole^2/litre^2/second };
+```
+
+Example 3:
+```heta
+k1 @Const { units: 1/second };
+```
+
+Example 4:
+```heta
+x1 @Const { units: 1 }; // dimensionless
+```
+
 ## UnitsExpr with multipliers
 
-In many cases to express the units the multiplier should be applied.
+The multiplier of units is an optional feature but if you use you must cover the component with round brackets.
 
 Example:
 ```heta
@@ -39,7 +60,7 @@ s2 @Species { units: (1e-9 mole)/litre } .= 10;
 
 ## UnitsComponent Array
 
-Some complex units should be expressed in format of `UnitsComponent[]`. Using `multiplier` property one can add multiplier to the base unit.
+An alternative way to set complex units is to express it in format of `UnitsComponent[]`. Using `multiplier` property one can add multiplier to the base unit.
 
 Example:
 ```heta
@@ -53,7 +74,8 @@ s3 @Species {
 
 ## User defined units
 
-User can create his own list of units and use it instead of core units. It can be done creating `UnitsDef` components.
+User can create his own list of units and use it instead of core units. It can be done creating `#defineUnit` action.
+The `units` property here can be expressed by `UnitsExpr` or `UnitsComponent[]`
 
 Example:
 ```heta

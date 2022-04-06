@@ -19,7 +19,9 @@ See also the [Heta video tutorial](https://hetalang.github.io/#/resources/?id=le
 - [Namespaces](https://hetalang.github.io/#/specifications/namespaces)
 - [Math expressions](https://hetalang.github.io/#/specifications/math)
 - [Units](https://hetalang.github.io/#/specifications/units)
+- [Tabular format](https://hetalang.github.io/#/specifications/tabular-format)
 - [Cases](https://hetalang.github.io/#/specifications/cases)
+- [Modules](https://hetalang.github.io/#/specifications/modules)
 - [Compilation steps](https://hetalang.github.io/#/specifications/compilation)
 - [Change Log](https://hetalang.github.io/#/specifications/changelog)
 
