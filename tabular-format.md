@@ -10,9 +10,11 @@ For many reasons the tabular representation can be useful for the model developm
 - Simplify model content review and annotation;
 - Excel and other table processor utilization.
 
+_See also [format comparison example](format-comparison#table-format).
+
 ## Basics
 
-1. The content of the tables can be loaded with [include statement](syntax#include-statement) of the `table` type. There are also addition properties for this type, see [Modules](modules?id=table-module) chapter.
+1. The content of the tables can be loaded with [include statement](syntax#include-statement) of the `table` type. There are also addition properties for this type, see [Modules](modules#table-module) chapter.
 
     Example:
     ```heta
@@ -25,7 +27,7 @@ For many reasons the tabular representation can be useful for the model developm
 
 1. The first raw of the table is the header. It describes the meaning of cells content of other raws. The header syntax follows the [rules](#header-syntax-rules) for describing component properties and sub-properties.
 
-1. Each row represents a single Heta action. Empty rows will be skipped. Rows with `on` property set to 0 will be skipped.
+1. Each row represents a single Heta action. Empty rows will be skipped. Rows with `on` property set to `0` or _empty_ will be skipped as well.
 
 1. Each cell represents the property value or values. Empty cell means the value is not set.
 
@@ -89,7 +91,7 @@ For many reasons the tabular representation can be useful for the model developm
     coef1 @Const = 1e-3 {tags: [A,B,C]};
     ```
 
-- There is one specific header `on`. The value `0` in correspondent cells means "skip this row". It is the mechanism to mimic the single-line comment behavior.
+- There is one specific header `on`. The value `0` or _empty_ in correspondent cells means "skip this row". It is the mechanism to mimic a single-line comment or a header.
 
     Example:
     | on | id | class | num | title |
