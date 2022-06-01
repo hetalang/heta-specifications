@@ -10,7 +10,7 @@ For many reasons the tabular representation can be useful for the model developm
 - Simplify model content review and annotation;
 - Excel and other table processor utilization.
 
-_See also [format comparison example](format-comparison#table-format).
+_See also [format comparison example](cases/format-comparison#table-format)._
 
 ## Basics
 
