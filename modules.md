@@ -125,17 +125,11 @@ This might be useful for very large-scale models.
 The first row must include property identifiers, the other rows includes the values of the properties.
 The column with reserved header `on` can be used to turn off the import of the row. Zero value here means: "do not compile this line".
 
-Path rules:
-
-- nested properties are shown by dot (.) notation
-- arrays are noted by `[]` at the end of path. Array items are splitted by `;` symbol.
-- empty cells do not define any value.
-
-Additional properties in insert action:
+Additional properties of `#include` action:
 
 - `omitRows` property can be set to skip several rows between header (first row) and component rows.
-- `sheet` property clarify which sheet should be loaded starting from 0, the default value is `0`; 
-The XLSX file can include any number of sheets but each sheet must be included separately.
+- `sheet` property clarify which sheet should be loaded starting from `1`, the default value is `1`; 
+  This is useful for formats supporting multiple sheets like XLSX. For this case file can include any number of sheets but each sheet must be included separately by a separate `#include` statement.
 
 **Example:**
 

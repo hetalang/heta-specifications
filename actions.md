@@ -223,7 +223,7 @@ S_0 @Const {units: uM} = 1e-2;
 
 ## include
 
-The `include` action is an alternative to [include statement](./syntax?id=include-statement).
+The `include` action is an alternative to [include statement](./syntax#include-statement).
 
 The include action works at the modules level. It does not create or update the component but loads another file inside the current one.
 
@@ -258,7 +258,7 @@ The `setNS` action (or the `namespace` statement) must be used prior to the crea
 
 The `setScenario` action creates a "scenario" object that describes model simulations.
 Scenario describes the particular simulation conditions for a model with the updated constants, switchers, outputs and time ranges.
-Using Scenarios one can create a series of model variants which are based on the same expressions but must be simulated separately. 
+Using `Scenario`s one can create a series of model variants which are based on the same expressions but must be simulated separately.
 
 Scenarios have their own identifier and do not rewrites components. You can create `scn1` scenario and `scn` `@Const` at the same time and use them independently.
 
@@ -322,17 +322,17 @@ s1 @Species {compartment: comp1} .= 0;
 
 ## importNS
 
-1. The `importNS` clones all content of the namespace to another one. This action allows us to share components between different namespaces.
+1. The `importNS` clones all content of the namespace into another one. This action allows us to reuse components within different namespaces.
 
 1. When using `importNS` both namespaces declared in `space` and `fromSpace` must exist.
 
-1. The ids of components can be changed using `prefix`, `suffix`, `rename` properties. If no `prefix`, `suffix`, `rename` is declared the ids remain the same.
+1. Identifiers of components can be updated using `prefix`, `suffix`, `rename` properties. If no `prefix`, `suffix`, `rename` is declared identifiers remain the same.
 
-1. If `prefix` or `suffix` are declared (for example as `pref_`, `_suf`) the id updates follows the rules: `old_id` => `pref_old_id_suf`. `prefix` and `suffix` do not work for component of classes: `unitDef`.
+1. If `prefix` or `suffix` are declared (for example as `pref_`, `_suf`) the id changes follows the rules: `old` => `pref_old_suf`. `prefix` and `suffix` do not act on a component of classes: `unitDef`.
 
 1. `rename` states the rename rule directly. If `rename` set rule for id, `suffix` and `prefix` not used for the particular id.
 
-1. Renaming id rules change references.
+1. Renaming id rules updates also references.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
