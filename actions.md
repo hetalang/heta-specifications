@@ -23,6 +23,7 @@ If no statement is written the default statement is `#upsert` which is the equiv
 - [export](#export)
 - [importNS](#importns)
 - [import](#import)
+- [defineFunction](#definefunction)
 
 ## insert
 
@@ -431,3 +432,35 @@ end
 | prefix | string | | "" | | prefix of new ids |
 | suffix | string | | "" | | suffix of new ids|
 | rename | Dictionary | | {} | | id matching table |
+
+## defineFunction
+
+_EXPERIMMENTAL_
+
+The `defineFunction` action allows users to write a simple function in the platform and use it together with pre-defined functions [from the list](math#list-of-functions).
+
+The `math` property of `defineFunction` may include arythmetic operators, pre-defined constants, identifiers of arguments, pre-defined functions and functions added with other `defineFunction` statements. It cannot include other identifiers like for components.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| id | `ID` | true | | | unique identifier of `FunctionDef` |
+| arguments | `ID[]` | | `[]` | | identifiers of arguments |
+| math | `string[]` | true | | | single string representing math expression |
+
+### Example 1
+
+```heta
+#defineFunction pow7 {
+  arguments: [x],
+  math: "pow(x, 7)"
+};
+```
+
+### Example 2
+
+```heta
+#defineFunction f3 {
+  arguments: [x1, x2, x3],
+  math: sqrt(x1^2 + x2^2 + x3^2)
+};
+```

@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.4.3
+
+- add `#defineFunction` action as an experimental
+
 ## 0.4.2
 
 - use `import xxx.xlsx type table` instead of  `import xxx.xlsx type xlsx`
