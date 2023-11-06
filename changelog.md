@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.4.4
+
+- use `ProcessExpr` of type: A>B
+
 ## 0.4.3
 
 - add `#defineFunction` action as an experimental

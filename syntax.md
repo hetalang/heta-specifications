@@ -432,7 +432,7 @@ __Example__
 ### ProcessExpr
 
 A `ProcessExpr` formatted string represents process stoichiometry.
-The "arrow" syntax (`->`, `<->`, `=>`, `<=>`) divides two parts: influx (left) and outflux (right).
+The "arrow" syntax (`->`, `<->`, `=>`, `<=>`, `>`, `<>`) divides two parts: influx (left) and outflux (right).
 The "plus" symbol divide two or more actors.
 Stoichiometry coefficients are shown by numbers before reference. The asterisk symbol is optional here.
 
@@ -448,3 +448,4 @@ __Example__
 - `A =>`
 - `2A <=> 3*B + C`
 - `2 A <=> 3 * B + C`
+- `2A > 3R + C`
