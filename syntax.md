@@ -2,21 +2,18 @@
 
 See also the [Heta tutorial](https://hetalang.github.io/#/resources/?id=lesson-2-syntax)
 
-The Heta code can be represented as a sequence of the statements that create and modify elements in a modeling platform. The parsing and interpretation of the code result in creating of static (database-like) structure representing the modeling platform, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code. A developer has the freedom to make his code nice and readable.
+The Heta code represents a sequence of statements that create and modify elements in a modeling platform. The parsing and interpretation of the code result in the creation of a static (database-like) structure representing the modeling platform, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code, and a developer has the freedom to make their code more organized and readable.
 
-## Action statement
+## Action Statement
 
-1. The action statements are divided by semicolons. The line breaks between and inside statements do not matter for interpretation.
-They can be used for code decoration.
-
+1. Action statements are separated by semicolons, and line breaks within and between statements do not affect interpretation; they can be used for code formatting.
     ```heta
     <statement one>; <statement two>;
     <statement 
         three>;
     ...
     ```
-
-1. The action statement consists of a dictionary part and a set of shortened properties. The parts have the following priority rule: the subsequent part has a higher priority. List of part types are:
+1. An action statement consists of a dictionary part and a set of shortened properties. The parts follow a priority rule, where the subsequent part has a higher priority. The list of part types includes:
 
     - Dictionary
     - Index
@@ -24,18 +21,18 @@ They can be used for code decoration.
     - Action
     - Title
     - Notes
-    - Assignments (several subtypes)
+    - Assignments (with several subtypes)
 
-## Plain format of action statement
-
-1. The plain format is the most flexible way to describe action properties. It begins with `{` symbol and ends with `}` symbol. A set of key-value pairs divided with commas `,` can be inside. The syntax is similar to the dictionary in JSON or YAML format.
+## Plain Format of Action Statement
+1. The plain format is the most flexible way to describe action properties. It begins with the `{` symbol and ends with the `}` symbol, and it can contain a set of key-value pairs divided by commas (`,`), similar to a dictionary in JSON or YAML format.
 
     Example:
     ```heta
     { prop1: value 1, prop2: value 2, ...};
     ```
 
-    The **property** is always string without spaces. The properties must be unique within a dictionary. The **value** can have one of five types: String, Number, Boolean, Dictionary, or Array. The dictionary and array values might include other types. 
+    The **property** is always a string without spaces. Properties must be unique within a dictionary. The **value** can be one of five types: \<String\>, \<Number\>, \<Boolean\>, \<Dictionary\>, or \<Array\>. \<Dictionary\> and \<Array\> values might include other types.
+
 
     Example:
     ```heta
@@ -48,7 +45,7 @@ They can be used for code decoration.
     };
     ```
 
-2. The **String** value inside Dictionary starts from first non-space symbol and ends with non-space symbol before stop-list: ", } ] @ # ' \` " ". If you want to use symbols from the stop list inside string value, use parentheses `"`.
+2. String values inside dictionaries start from the first non-space symbol and end with the non-space symbol before the stop-list: `, } ] @ # ' `. If you want to use symbols from the stop list inside a \<String\> value, use parentheses.
 
     Example:
     ```heta
@@ -58,7 +55,7 @@ They can be used for code decoration.
     };
     ```
 
-2. There are [special string formats](#special-string-formats) which are used to describe the particular properties of actions or classes. They follow the same **String** syntax but also have the specific syntax rules.
+3. There are [special string formats](#special-string-formats) used to describe specific properties of actions or classes. They follow the same \<String\> syntax but also have specific rules.
 
     Example:
     ```heta
@@ -69,7 +66,8 @@ They can be used for code decoration.
     };
     ```
 
-3. The **Number** value inside Dictionary is the Number in Double format.
+4. The \<Number\> value inside a dictionary is in \<Double\> format.
+
     
     Example:
     ```heta
@@ -81,18 +79,18 @@ They can be used for code decoration.
     };
     ```
 
-4. The **Boolean** value inside Dictionary may have two values: `true`, `false`. If you want to use a string with a value equal to `true`, false use parentheses `"true"`, `"false"`
+5. The \<Boolean\> value inside a dictionary may have two values: `true` or `false`.
 
     Example:
     ```heta
     {
-        prop1: true,
+        prop1: true,       // this is Boolean
         prop2: false,
-        stringProp: "true"
+        stringProp: "true" // this is String
     };
     ```
 
-5. The nested **Dictionary** value follows the same rules as the plain format of action statement and can be nested.
+6. Nested \<Dictionary\> values follow the same rules as the plain format of an action statement and can be nested.
 
     Example:
     ```heta
@@ -101,7 +99,7 @@ They can be used for code decoration.
     };
     ```
 
-6. The **Array** value is a sequence of numbered elements divided by commas. Numeration starts from 0 (zero) index.
+6. The \<Array\> value is a sequence of numbered elements divided by commas. Numeration starts from 0 (zero) index.
 
     Example:
     ```heta
@@ -114,11 +112,11 @@ They can be used for code decoration.
     };
     ```
 
-## Shortened format of action statement
+## Shortened Format of Action Statement
 
-1. To simplify code reading/writing there are several types of statement parts. They describe the commonly used properties in compact form, see [Classes](./classes) description.
+1. To simplify code reading and writing, there are several types of statement parts that describe commonly used properties in a compact form. See the [Classes](./classes) description for details.
 
-1. The **Index** describes identifiers: `id` and `space` of components. The example if indexes are: `space::id` or just `id` for nameless space.
+1. **Index** describes identifiers, such as `id` and `space` for components. The examples if indexes are: `space::id` or just `id` for nameless space.
 
     Example:
     ```heta
@@ -138,32 +136,31 @@ They can be used for code decoration.
     ```heta
     #importNS {space: target_ns, fromSpace: source_ns };
     ```
-
-1. The **Class** shortened property sets `class`. Particular Class defines a list of properties that can be set. This property is denoted by `@` symbol. The list of possible classes can be found in [Classes](./classes) description. Classes' names always start from the uppercase symbol. When you use class shortened property `@` the parser will replace the first lowercase symbol for the capital one.
+1. **Class** sets the `class` property. A particular class defines a list of properties that can be set. This property is denoted by the "@" symbol. The list of possible classes can be found in [Classes](./classes) description. Classes' names always start from the uppercase symbol. When you use class shortened property `@` the parser will replace the first lowercase symbol for the capital one.
 
     Example:
     ```heta
     k2 @const { num: 1.3 };
     ```
-    Which is equivalent to
-    ```heta
+    Equivalent to:
+
     { id: k2, class: Const, num: 1.3 };
     ```
-
-1. The **Action** shortened property sets `action`. The `action` describe what to do with the statement, see [Actions](./actions). This shortened is denoted by `#` symbol. The action property is a required property in the base statement, but it has a default value `upsert`.
+1. **Action** sets the `action` property. The `action` describes what to do with the statement, see [Actions](./actions). This property is denoted by the `#` symbol and is a required property in the base statement. Its default value is `upsert`.
 
     Example:
     ```heta
     #insert k3 @Const;
     k3 { num: 1 };
     ```
-    Which is equivalent to
+    Equivalent to:
     ```heta
     { action: insert, id: k3, class: Const };
     { action: upsert, id: k3, num: 1 };
     ```
 
-1. The **Title** shortened property sets `title`. It is denoted by single quotes `'`.
+
+1. **Title** sets the `title` property, denoted by single quotes `'`.
 
     Example:
     ```heta
@@ -174,7 +171,7 @@ They can be used for code decoration.
     { id: a, title: Some title };
     ```
 
-1. The **Notes** shortened property sets `notes`. It is denoted by three single quotes `'''`. The `notes` part is located usually before the other parts.
+1. **Notes** sets the `notes` property, designated by three single quotes `'''`. The `notes` part is usually located before other parts.
 
     Example:
     ```heta
@@ -186,15 +183,15 @@ They can be used for code decoration.
     { notes: Some notes, id: a, class: Const };
     ```
 
-## Shortened form of assignments
+## Shortened Form of Assignments
 
-1. **Const assignment** sets `num` property and is designed only for `@Const` class. The symbol `=` is used to mark an assignment.
+1. **Const Assignment**  set the `num` property and is designed only for the `@Const` class. The `=` symbol is used to mark an assignment.
 
     Example:
     ```heta
     k1 @Const = 1.1;
     ```
-    Which is equivalent to
+    Equivalent to:
     ```heta
     {
         id: k1,
@@ -203,14 +200,14 @@ They can be used for code decoration.
     };
     ```
 
-1. **Start assignment** sets the initial assignment for the `@Record` instances. The symbol group `.=` or `[]=` can be used. (Do not put blanks between symbol group!)
+1. **Start Assignment** sets the initial assignment for the `@Record` instances. The symbols `.=` or `[]=` can be used. (Do not put spaces between the symbols.)
 
     Example:
     ```heta
     s @Record .= 10;
     p @Species []= 0;
     ```
-    Which is equivalent to 
+    Equivalent to:
     ```heta
     {
         id: s,
@@ -224,13 +221,13 @@ They can be used for code decoration.
     };
     ```
 
-1. **Rule assignment** sets the `ode_` assignment for `@Record` instances. The symbol group `:=` can be used.
+1. **Rule Assignment** sets the `ode_` assignment for `@Record `instances. The `:=` symbol can be used.
 
     Example:
     ```heta
     rule1 @Record := x*y;
     ```
-    Which is equivalent to 
+    Equivalent to:
     ```heta
     {
         id: rule1,
@@ -239,7 +236,7 @@ They can be used for code decoration.
     };
     ```
 
-1. **Switcher assignment** sets the re-assignment of records value managed by Switcher. The symbol group `[<switcher id>]=` can be used.
+1. **Switcher Assignment** sets the re-assignment of records managed by a Switcher. The symbol `[<switcher id>]=` can be used.
 
     Example:
     ```heta
@@ -253,19 +250,22 @@ They can be used for code decoration.
     };
     ```
 
-## Include statement
+## Include Statement
 
-1. The `include` statement describes modules loading. The simplest explanation of how this works is that the file content should be included into the current one.
+1. The `include` statement is used to describe module loading, where the file content is included (while compilation) in the current one. 
 
-1. The `include` statement can be replaced by [`#include` action](./actions?id=include) with equivalent meaning.
+1. The `include` statement can be replaced by the [`#include`](./actions?id=include) action with equivalent meaning.
 
-1. The statement consists of the reserved word `include` followed by a relative or absolute file path. The full form of the statement can be presented in the following manner: 
+1. The statement consists of the reserved word `include` followed by a relative or absolute file path. The full form of the statement can be presented as follows:
+
+
     ```heta
     include <filepath> type <module type> with {...}
     ```
-    where `<module type>` is one of the supported modules and `{...}` is a dictionary to set additional options. See more details on the [modules page](modules).
+    Where `<module type>` is one of the supported modules, and `{...}` is a dictionary to set additional options. For more details on modules, refer to the modules page.
 
-1. `include` statement can set additional parameters after `with` keyword in dictionary format
+1. The `include` statement can set additional parameters after the `with` keyword in dictionary format.
+
 
 Example 1:
 ```heta
@@ -279,16 +279,16 @@ include file.xlsx type table with {
     omitRows: 3
 }
 ```
+## Namespace Statement
 
-## Namespace statement
+1. Platform components are grouped in namespaces, and the `namespace` statement can be used to work with namespaces more easily. For details about namespaces, refer to the [namespaces](namespaces) page.
 
-1. Platform components are grouped in namespaces. `namespace` statement can be used for easier work with namespaces. For more details about namespaces see on the page [namespaces](namespaces).
+1. The first use of a namespace block with a new space name initializes the `namespace` (in the same manner as the `#setNS` action).
 
-1. The first use of Namespace block with a new space name initializes `namespace` implicitly by `#setNS` action.
+1. To clarify the type of the namespace, one of the reserved words `abstract` or `concrete` should be used. The default type is `concrete`.
 
-1. To clarify the type of namespace one of the reserved words: `abstract`, `concrete` should be used. The default type is `concrete`.
+1. The block is organized as follows:
 
-1. The block is organized in the following manner.
 
     ```heta
     namespace <space id> begin
@@ -296,6 +296,7 @@ include file.xlsx type table with {
         ...
     end
     ```
+
     Example:
     ```heta
     namespace one begin
@@ -303,13 +304,13 @@ include file.xlsx type table with {
         comp @Compartment .= 10;
     end
     ```
-    Which is equivalent to 
+    Equivalent to:
     ```heta
     #setNS { space: one, type: concrete };
     one::rec @Record .= 1;
     one::comp @Compartment .= 10;
     ```
-    or equivalent to the plain format
+    or equivalent to the plain format:
     ```heta
     {
         space: one,
@@ -332,16 +333,15 @@ include file.xlsx type table with {
 
 ## Comments
 
-1. Comments are the part of the code which are not compiled and are used only for annotation of code.
+1. Comments are parts of the code that are not compiled and are used solely for annotating the code.
 
 1. A single-line comment starts with `//` symbols and ends with line breaks.
 
     Example:
     ```heta
-    // this is not part of the platform but only the comment to the code
+    // this is not part of the platform but only a comment to the code
     ```
-
-1. A multiline comment starts with `/*` and ends with `*/` or end of the file.
+1. A multiline comment starts with `/*` and ends with `*/` or at the end of the file.
 
     Example:
     ```heta
@@ -349,28 +349,20 @@ include file.xlsx type table with {
         Compiler will not parse this part.
     */
     ```
-
-## Special string formats
-
-Special string formats are additional rules for a specific properties of actions and classes.
+## Special String Formats
+Special string formats are additional rules for specific properties of actions and classes.
 
 ### ID
-
-`ID` describes the string format which is used for indexing Heta components. 
-The ID format is applied to create identifiers of elements including component and namespaces as well as to create a reference to an element. The following properties must follow the ID format:
-
+The ID format is used for indexing Heta components, creating identifiers for components and namespaces, and referencing elements. The following properties must follow the ID format:
 - `id`, `space` for all actions
-- properties which describe references to elements like: `compartment` in `Species` class, `fromSpace` in `importNS` action, etc.
-- references that are used inside `MathExpr`, `UnitsExpr`, `ProcessExpr`.
+- Properties that describe references to elements like `compartment` in the `Species` class, `fromSpace` in the `importNS` action, etc.
+- References used inside `MathExpr`, `UnitsExpr`, `ProcessExpr`.
+The base rules for an ID are as follows:
 
-The base rules for ID are the following:
-
-1. First symbol should be letter or underscore.
-1. Second and following elements should be letter, number or underscore.
-1. The last symbol should not be underscore.
-
-Additionally some words cannot be used as identifiers because they are reserved for statements or specific object names:
-
+1. The first symbol should be a letter or underscore.
+1. The second and following elements should be letters, numbers, or underscores.
+1. The last symbol should not be an underscore.
+Additionally, some words cannot be used as identifiers because they are reserved for statements or specific object names, such as 
 `NaN`, `Infinity`, `e`, `pi`, 
 `include`, `block`, `namespace`, `abstract`, `concrete`, `begin`, `end`
 
@@ -378,67 +370,59 @@ __Example__
 
 **Correct:** `x`, `x12`, `x_12`, `_12`, `x___12`, `_begin`
 
-**Wrong:** `12x`, `x-12`, `x 9`
+**Incorrect:** `12x`, `x-12`, `x 9`
 
-**Wrong usage of reserved words as ID:** `begin`, `block`
+**Incorrect usage of reserved words as an ID**: `begin`, `block`
 
-**Wrong underscore position:** `_`, `x12_`
+**Incorrect underscore position**: `_`, `x12_`
 
 ### Filepath
 
-String representing relative or absolute file path.
+A string representing a relative or absolute file path.
 
 The following properties must follow the Filepath format:
 
-- `source` property in `include` statement
-- `filepath` property in `export` statement
+- `source` property in the `include` statement
+- `filepath` property in the `export` statement
 
-__Examples__
+__Examples:__
 
-`output`, `./output`, `../output`, `Y:/my-platform/src/module1/model.heta`
+Correct Filepath: `output`, `./output`, `../output`, `Y:/my-platform/src/module1/model.heta`
 
 ### UnitsExpr
 
-UnitsExpr strings represent the complex units combined from the predefined unit IDs.
-Available operators: `*`, `/`, `^`, `1/`.
+UnitsExpr strings represent complex units combined from predefined unit IDs. Available operators are `*`, `/`, `^`, and `1/`.
 
 The following properties must follow the UnitsExpr format:
-
-- `unit` property in `Const`, `Record` classes
-- `unit` property in `defineUnit` action
+- `unit` property in `@Const` and `@Record` classes
+- `unit` property in `#defineUnit` action
 
 See more details see [units](units) page.
 
-__Example__
+__Example:__
 
-**Correct UnitsExpr:**: `mg`, `g/mole`, `1/h`, `kg/m2`, `kg/m^2`
-
-**Wrong UnitsExpr:** `g/(mole*L)`, `5*g`, `km + kg`
-
-### MathExpr
+**Correct UnitsExpr:** `mg`, `g/mole`, `1/h`, `kg/m2`, `kg/m^2`
+**Incorrect UnitsExpr:** `g/(mole*L)`, `5*g`, `km + kg`
+### MathExpr:
 
 MathExpr describes mathematical expressions in string format.
-Available operators: `+`, `-`, `*`, `/`, `^`. See details in [Math expressions](./math)
+Available operators are `+`, `-`, `*`, `/`, and `^`. See details in [Math expressions](./math)
 
 The following properties must follow the `MathExpr` format:
-
-- `assignments` sub-properties in `Record` class
-- `trigger` property in `DSwitcher`, `CSwitcher` classes
-
-__Example__
+- `assignments` sub-properties in the `Record` class
+- `trigger` property in `DSwitcher` and `CSwitcher` classes
+__Example:__
 
 **Correct MathExpr:** `x*y*pow(x,y)`
 
-### ProcessExpr
+### ProcessExpr:
 
 A `ProcessExpr` formatted string represents process stoichiometry.
-The "arrow" syntax (`->`, `<->`, `=>`, `<=>`, `>`, `<>`) divides two parts: influx (left) and outflux (right).
-The "plus" symbol divide two or more actors.
-Stoichiometry coefficients are shown by numbers before reference. The asterisk symbol is optional here.
-
+The "arrow" syntax (`->`, `<->`, `=>`, `<=>`, `>`, `<>`) divides two parts into influx (left) and outflux (right).
+The `+` symbol divides two or more actors, and stoichiometry coefficients are shown by numbers before the reference. The asterisk symbol is optional.
 The following properties must follow the `ProcessExpr` format:
 
-- `actors` sub-properties in `Process` class
+- `actors` property in the `Process` class
 
 __Example__
 
