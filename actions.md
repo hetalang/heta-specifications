@@ -307,7 +307,8 @@ scn2 #setScenario {
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | format | string | true | | | one of declared formats: 'JSON', 'SBML', etc. |
-| filepath | Filepath | true | | | path to target file to create |
+| filepath | Filepath | false | _depending on format_ | | path to target file to create |
+| spaceFilter | RegExp | false | ".+" | | Regular expression to filter spaces in export |
 | ... | | | | | other options depending of format |
 
 ### Example 1

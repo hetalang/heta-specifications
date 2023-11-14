@@ -3,6 +3,9 @@
 ## 0.4.4
 
 - use `ProcessExpr` of type: A>B
+- use Regular Expression in `spaceFilter` of `#export` action
+- default values for `filepath` of `#export` action
+- minor text fixes
 
 ## 0.4.3
 

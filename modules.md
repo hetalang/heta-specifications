@@ -128,7 +128,7 @@ The column with reserved header `on` can be used to turn off the import of the r
 Additional properties of `#include` action:
 
 - `omitRows` property can be set to skip several rows between header (first row) and component rows.
-- `sheet` property clarify which sheet should be loaded starting from `1`, the default value is `1`; 
+- `sheet` property clarifies which sheet should be loaded starting from `0`, the default value is `0`; 
   This is useful for formats supporting multiple sheets like XLSX. For this case file can include any number of sheets but each sheet must be included separately by a separate `#include` statement.
 
 **Example:**
@@ -172,7 +172,7 @@ file: "index.heta" (combining all together and export to JSON format)
 
 ## sbml module
 
-This type of module was created to adopt SBML formatted models into Heta modeling platform. Currently only SBML of level 2 is supported.
+This type of module was created to adopt SBML formatted models into Heta modeling platform. Currently SBML of levels 2 and 3 are supported.
 
 **Example:**
 
