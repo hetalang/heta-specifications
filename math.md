@@ -19,7 +19,7 @@ The another possible values of double are:
 
 ## Boolean values
 
-Boolean constants: `true`, `false` can also be used as part of boolean expressions
+Boolean constants: `true`, `false`. It is also possible to use `1` and `0` as a boolean values.
 
 ## Pre defined constants
 

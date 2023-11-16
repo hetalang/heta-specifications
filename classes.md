@@ -306,8 +306,8 @@ id of switcher introduces a new key in assignments dictionary, see [Record](#rec
 
 | property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
-| active | Boolean | | `true` | | If it is `false` the switcher will be off. A user can turn it off/on in simulation scenarios. |
-| atStart | Boolean | | | | `true` if we should check the condition at `start_` scope. |
+| active | boolean | | `true` | | If it is `false` the switcher will be off. A user can turn it off/on in simulation scenarios. |
+| atStart | boolean | | | | `true` if we should check the condition at `start_` scope. |
 
 ## TimeSwitcher
 
