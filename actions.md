@@ -19,6 +19,7 @@ If no statement is written the default statement is `#upsert` which is the equiv
 - [defineUnit](#defineunit)
 - [include](#include)
 - [setNS](#setns)
+- [deleteNS](#deletens)
 - [setScenario](#setscenario)
 - [export](#export)
 - [importNS](#importns)
@@ -254,6 +255,23 @@ The `setNS` action (or the `namespace` statement) must be used prior to the crea
 | ---------|------|----------|---------|-----|-------------|
 | space | string | true | | | Name of created or updated namespace |
 | type | string | | `concrete` | | namespace type: "concrete" or "abstract", see [namespaces](namespaces) |
+
+## deleteNS
+
+The `deleteNS` action deletes the namespace from the platform.
+If the space does not exist it throws the error.
+
+| property | type | required | default | ref | description | 
+| ---------|------|----------|---------|-----|-------------|
+| space | string | true | `nameless` | | Namespace to delete |
+
+**Example:**
+
+```heta
+  #deleteNS;              // to delete namespace nameless
+  #deleteNS {space: one}; // to delete namespace one
+  #deleteNS two::*;       // delete namespace two
+```
 
 ## setScenario
 
