@@ -5,9 +5,9 @@ Splitting the model to three files to create SBML file.
 file: `main.heta`
 ```heta
 // load base model
-include ./model.heta
+include ./model.heta;
 // add updated values of constants
-include ./constants.heta
+include ./constants.heta;
 
 #export {
     format: SBML,

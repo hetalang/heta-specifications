@@ -252,7 +252,7 @@ The Heta code represents a sequence of statements that create and modify element
 
 ## Include Statement
 
-1. The `include` statement is used to describe module loading, where the file content is included (while compilation) in the current one. 
+1. The `include` statement is used to describe module loading, where the file content is included (while compilation) into the current one. 
 
 1. The `include` statement can be replaced by the [`#include`](./actions?id=include) action with equivalent meaning.
 
@@ -260,16 +260,18 @@ The Heta code represents a sequence of statements that create and modify element
 
 
     ```heta
-    include <filepath> type <module type> with {...}
+    include <filepath> type <module type> with {...};
     ```
     Where `<module type>` is one of the supported modules, and `{...}` is a dictionary to set additional options. For more details on modules, refer to the modules page.
 
 1. The `include` statement can set additional parameters after the `with` keyword in dictionary format.
 
+1. The statement must be finalized with semicolon `;`.
+
 
 Example 1:
 ```heta
-include ./addon.heta type heta
+include ./addon.heta type heta;
 ```
 
 Example 2:
@@ -277,7 +279,7 @@ Example 2:
 include file.xlsx type table with {
     sheet: 2,
     omitRows: 3
-}
+};
 ```
 ## Namespace Statement
 
@@ -286,6 +288,8 @@ include file.xlsx type table with {
 1. The first use of a namespace block with a new space name initializes the `namespace` (in the same manner as the `#setNS` action).
 
 1. To clarify the type of the namespace, one of the reserved words `abstract` or `concrete` should be used. The default type is `concrete`.
+
+1. The statement must be finalized with semicolon `;` or must include `begin/end` block part.
 
 1. The block is organized as follows:
 

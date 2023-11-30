@@ -26,7 +26,7 @@ The default type of module. Text file in Heta syntax.
 ```heta
 // addition of module (with include statement) with the relative file path
 
-include ./my-module.heta
+include ./my-module.heta;
 ```
 
 **Example 2:**

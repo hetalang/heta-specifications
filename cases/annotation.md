@@ -4,7 +4,7 @@ Annotation of components in Michaelis-Menten model.
 
 file: `annotation.heta`
 ```Heta
-include ./qsp-units.heta
+include ./qsp-units.heta;
 
 Vmax @Const = 0.1;
 Km @Const = 2.5;
