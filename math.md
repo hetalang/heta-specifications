@@ -61,7 +61,7 @@ Here the first operand `b1 < b2` is the boolean expression, then an expression t
 | floor(x) | Round a value towards minus. |
 | ln(x) | Natural logarithm of a value |
 | log(x) | Natural logarithm of a value |
-| log(x, base) | The logarithm of a value with base. |
+| logbase(base, x) | The logarithm of a value with base. |
 | log10(x) | The 10-base logarithm of a value. |
 | log2(x) | The 2-base of a value. |
 | multiply(x, y)| Multiply two or more values, x * y. |
