@@ -68,7 +68,6 @@ Here the first operand `b1 < b2` is the boolean expression, then an expression t
 | pow(x, y)	| The power of x to y, x ^ y. |
 | sign(x) | Compute the sign of a value. |
 | sqrt(x) | Calculate the square root of a value. |
-| nthRoot(x) | 2d root of x |
 | nthRoot(x, n) | n-th root of x |
 | square(x)| Compute the square of a value, x * x. |
 | subtract(x, y) | Subtract two values, x - y. |

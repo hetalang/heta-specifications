@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.4.5
+
+- use `0`, `1` together with `true`, `false` for boolean
+- `#deleteNS` action
+- use of `;` everywhere
+- update function list: log(x, b) -> logbase(x, b), remove nthRoot(x), hyperbolic functions support
+
 ## 0.4.4
 
 - use `ProcessExpr` of type: A>B
