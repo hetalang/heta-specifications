@@ -29,10 +29,10 @@ If no statement is written the default statement is `#upsert` which is the equiv
 ## insert
 
 `insert` action adds a new component to the platform. 
-If the component with the same index already exists it will be replaced by the new one. 
-When applying `insert` the `class` and `id` properties should be stated directly.
+When applying `insert` the `class` and `id` properties should be stated.
+If the component with the same index already exists it will be replaced by the new one. In this case the software should throw a warning. See also [forceInsert](#forceInsert) action.
 
-The `insert` action may be skipped in properties because this is the default action when `class` property exists. 
+The `insert` action may be skipped in statement because this is the default action when `class` property exists. 
 
 | property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
@@ -76,6 +76,19 @@ This statement should throw the error because `class` property is not indicated.
 #insert space1::x1 @Record .= 0;
 ```
 This statement throws the error because namespace with `id` space1 has not been declared.
+
+## forceInsert
+
+The `forceInsert` do the same as [`insert`](#insert) but does not throw a warning if the component with the same index already exists. This action was included to clarify directly if user wants to replace the component.
+
+### Example 1
+  
+```heta
+c1 @Record := 1;
+
+// second insert with the same index, no warning
+#forceInsert c1 @Compartment .= 1;
+```
 
 ## update
 
@@ -227,7 +240,7 @@ S_0 @Const {units: uM} = 1e-2;
 
 The `include` action is an alternative to [include statement](./syntax#include-statement).
 
-The include action works at the modules level. It does not create or update the component but loads another file inside the current one.
+The include action works at the modules level. It does not create or update the component but act like it loads another file inside the current one.
 
 It uses virtual properties to set different files and formats.
 
