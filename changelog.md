@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.6
+
+- support `null` values of properties
+- add `#forceInsert` action
+- `#defineFunction` is not experimental anymore
+
 ## 0.4.5
 
 - use `0`, `1` together with `true`, `false` for boolean

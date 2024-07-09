@@ -6,7 +6,7 @@
 
 **Heta** is a modeling language for quantitative systems pharmacology and systems biology.
 
-The current version is **0.4.5**.
+The current version is **0.4.6**.
 
 See also the [Heta video tutorial](https://hetalang.github.io/#/resources/?id=lesson-0-introduction)
 
