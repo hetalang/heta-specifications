@@ -24,14 +24,14 @@ The Heta code represents a sequence of statements that create and modify element
     - Assignments (with several subtypes)
 
 ## Plain Format of Action Statement
-1. The plain format is the most flexible way to describe action properties. It begins with the `{` symbol and ends with the `}` symbol, and it can contain a set of key-value pairs divided by commas (`,`), similar to a dictionary in JSON or YAML format.
+1. The plain format is the most straightforward way to describe action properties. It begins with the `{` symbol and ends with the `}` symbol, and it can contain a set of key-value pairs divided by commas (`,`), similar to a dictionary in JSON or YAML format.
 
     Example:
     ```heta
     { prop1: value 1, prop2: value 2, ...};
     ```
 
-    The **property** is always a string without spaces. Properties must be unique within a dictionary. The **value** can be one of five types: \<String\>, \<Number\>, \<Boolean\>, \<Dictionary\>, or \<Array\>. \<Dictionary\> and \<Array\> values might include other types.
+    The **property** name is always a string without spaces, it must be unique within a dictionary. The **value** can be one of five types: \<String\>, \<Number\>, \<Boolean\>, \<Dictionary\>, \<Array\> or \<Null\>. \<Dictionary\> and \<Array\> values might include other types.
 
 
     Example:
@@ -41,7 +41,8 @@ The Heta code represents a sequence of statements that create and modify element
         numberProp: 1.2e-3,
         booleanProp: true,
         dictionaryProp: { nestedProp: true },
-        arrayProp: [1, 2, 3]
+        arrayProp: [1, 2, 3],
+        someProp: null
     };
     ```
 
@@ -111,6 +112,8 @@ The Heta code represents a sequence of statements that create and modify element
         prop5: [{a: 1, b: 2, c: 3}, {}]
     };
     ```
+
+7. The \<Null\> value is used to describe the value which must be empty. See more detailes in [Null values](./null)
 
 ## Shortened Format of Action Statement
 
