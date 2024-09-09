@@ -25,6 +25,4 @@ r1 @Reaction 'Michaelis-Menten reaction' {
 r1 := Vmax*S/(Km+S)*default_comp; // S is used here but assigned below
 S .= 10; // S should be initialialized after creation
 P .= 0;
-
-#export { format: SBML, filepath: sbml };
 ```

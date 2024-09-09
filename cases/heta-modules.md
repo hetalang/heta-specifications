@@ -8,11 +8,6 @@ file: `main.heta`
 include ./model.heta;
 // add updated values of constants
 include ./constants.heta;
-
-#export {
-    format: SBML,
-    filepath: sbml_model
-};
 ```
 
 file: `model.heta`

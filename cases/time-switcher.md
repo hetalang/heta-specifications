@@ -32,7 +32,4 @@ evt1 @TimeSwitcher {
 */
 // addition of 10 to A concentration (not amount)
 A [evt1]= A + 10;
-
-// exports
-#export {format: SBML, filepath: sbml1_export };
 ```

@@ -20,6 +20,4 @@ flux3 @Process { actors: vol2= } := k_out * h;
 h @Record := vol2 / S;
 S @Const = 2;
 k_out @Const = 0.1;
-
-#export {format: Matlab, filepath: matlab };
 ```

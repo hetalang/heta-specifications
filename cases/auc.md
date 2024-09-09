@@ -9,11 +9,6 @@ S @Species { compartment: comp1 } .= 10;
 elimination @Reaction { actors: S => };
 elimination := kel * S * comp1;
 
-#export {
-    format: JSON,
-    filepath: output
-};
-
 // including the variable reperesenting AUC
 // this corresponds to ODE: d(auc)/dt = pr1 = S, auc(0) = 0
 auc @Record .= 0;

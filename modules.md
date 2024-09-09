@@ -162,12 +162,11 @@ s1 @Species {compartment: comp1, boundary: false} .= 10;
 // s2 @Species {compartment: comp2} .= 0;
 ```
 
-file: "index.heta" (combining all together and export to JSON format)
+file: "index.heta" (combining all together)
 ```heta
 #include {source: ./table.xlsx, type: table, sheet: 0, omitRows: 1}; // skipping one row between header and content
 #include {source: table.xlsx, type: table, sheet: 2};
 
-#export {format: JSON, filepath: output};
 ```
 
 ## sbml module

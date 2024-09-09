@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.5.0
+
+- `#export` action is not a part of the language anymore 
+
 ## 0.4.6
 
 - support `null` values of properties

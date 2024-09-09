@@ -29,6 +29,4 @@ r3 @Reaction {actors: c3 = } := k3 * c3 * comp3;
 k1 @Const = 0.01;
 k2 @Const = 0.02;
 k3 @Const = 0.03;
-
-#export {format: Matlab, filepath: model};
 ```

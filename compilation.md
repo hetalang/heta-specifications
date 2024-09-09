@@ -27,7 +27,7 @@ Nevertheless formulating the Heta specification we keep in mind the following st
 
 1. **Checking units terms.** Checking the units requirement for specific components: @Compartment is volume or square, or length, etc.
 
-1. **Other steps.** The next steps depend on a tool used. For example it is expected that `#export` actions induce the creation of code for export.
+1. **Other steps.** The next steps depend on a tool used? analysis, export etc.
 
     The errors which happen at the stage will be of types: `ExportError`.
 
@@ -38,8 +38,6 @@ Nevertheless formulating the Heta specification we keep in mind the following st
         - components
 - unitDefStorage (key/value dictionary)
     - unit definition
-- exportStorage (key/value dictionary)
-    - export description
 
 ## Example
 
@@ -57,8 +55,6 @@ s1 @Species { compartment: comp0 };
 file: `addon.heta`
 ```
 s1 'Species number one';
-
-#export { format: SBML, filepath: sbml };
 ```
 
 **Structure 2. Collection of modules**
@@ -83,11 +79,6 @@ s1 'Species number one';
             "action": "upsert",
             "id": "s1",
             "title": "Species number one"
-        },
-        {
-            "action": "export",
-            "format": "SBML",
-            "filepath": "sbml"
         }
     ]
 }

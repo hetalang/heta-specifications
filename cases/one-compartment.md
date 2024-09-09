@@ -25,7 +25,4 @@ a0 .= F * dose;
 c1 .= 0;
 r_abs := kabs * a0;
 r_el := kel * c1 * Vd;
-
-// this creates SBML formatted file
-#export { format: SBML, filepath: sbml_output };
 ```

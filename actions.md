@@ -2,7 +2,6 @@
 
 Heta is not a declarative language because it sequentially updates and changes the platform.
 The `action` property inside an "action statement" clarifies what platform should do with a statement.
-Some of the actions like `#include` work at the module level. The other actions like `#export` work at the export step and they do not modify the platform.
 
 The action shortened is designated by `#` symbol before the action name.
 
@@ -21,7 +20,6 @@ If no statement is written the default statement is `#upsert` which is the equiv
 - [setNS](#setns)
 - [deleteNS](#deletens)
 - [setScenario](#setscenario)
-- [export](#export)
 - [importNS](#importns)
 - [import](#import)
 - [defineFunction](#definefunction)
@@ -327,30 +325,6 @@ scn2 #setScenario {
   events_active: {sw1: false, sw2: true},
   events_save: {sw2: [true, false]}
 };
-```
-
-## export
-
-1. The `#export` action describes what and how the output files will be created.
-
-1. A list of formats and available options depends on the compiler of Heta code. Read the documentation of a compiler.
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| format | string | true | | | one of declared formats: 'JSON', 'SBML', etc. |
-| filepath | Filepath | false | _depending on format_ | | path to target file to create |
-| spaceFilter | RegExp | false | ".+" | | Regular expression to filter spaces in export |
-| ... | | | | | other options depending of format |
-
-### Example 1
-The example of exporting the platform content to SBML available in [Heta compiler](https://hetalang.github.io/#/heta-compiler/)
-
-```heta
-comp1 @Compartment .= 5.5;
-s1 @Species {compartment: comp1} .= 0;
-
-// export "nameless" namespace to SBML format
-#export { format: SBML, filepath: sbml_output };
 ```
 
 ## importNS

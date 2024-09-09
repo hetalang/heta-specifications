@@ -25,8 +25,6 @@ kabs @Const = 0.01;
 kel @Const = 1e-3;
 F @Const = 0.95;
 Dose @Const = 10;
-
-#export { format: SBML, filepath: sbml_model };
 ```
 
 ```heta
@@ -55,8 +53,6 @@ kabs @Const = 0.01;
 kel @Const = 1e-3;
 F @Const = 0.95;
 Dose @Const = 10;
-
-#export { format: SBML, filepath: sbml_model };
 ```
 
 ```heta
@@ -82,8 +78,6 @@ file `index-plain.heta`
 { action: insert, class: Const, id: kel, num: 1e-3 };
 { action: insert, class: Const, id: F, num: 0.95 };
 { action: insert, class: Const, id: Dose, num: 10 };
-
-{ action: export, format: SBML, filepath: sbml_model };
 ```
 
 ```heta
@@ -109,8 +103,6 @@ file `index-json.json`
   { "action": "insert", "class": "Const", "id": "kel", "num": 1e-3 },
   { "action": "insert", "class": "Const", "id": "F", "num": 0.95 },
   { "action": "insert", "class": "Const", "id": "Dose", "num": 10 },
-  
-  { "action": "export", "format": "SBML", "filepath": "sbml_model" }
 ]
 ```
 
@@ -168,9 +160,6 @@ file `index-yaml.yml`
   class: Const
   id: Dose
   num: 10
-- action: export
-  format: SBML
-  filepath: sbml_model
 ```
 
 ```heta
@@ -194,7 +183,6 @@ file: `table.xlsx`
 | insert | Const | kel | | | 1e-3 |
 | insert | Const | F | | | 0.95 |
 | insert | Const | Dose | | | 10 |
-| export | | | | | | | || SBML | sbml_model |
 
 ```heta
 // how to use the code

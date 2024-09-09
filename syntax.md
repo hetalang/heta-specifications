@@ -390,7 +390,6 @@ A string representing a relative or absolute file path.
 The following properties must follow the Filepath format:
 
 - `source` property in the `include` statement
-- `filepath` property in the `export` statement
 
 __Examples:__
 
