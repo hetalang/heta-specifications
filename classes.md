@@ -69,6 +69,7 @@ This is the top class for all Heta components. Includes properties for component
 | notes | string | | | | Arbitrary text for component annotation. It can potentially support markdown for text decoration. |
 | tags | string[] | | [ ] | | Array of strings tagging components. Can be used for grouping components. |
 | aux | object | | { } | | User defined auxilary structures { key: value pair } with any complexity. This can be used to store additional information and annotation. |
+| xmlAnnotation | string | | | | Additional annotation in XML format. Can be any string with XML formatted content. It is applied for SBML <Annotation> tag compartibility. |
 
 ## _Size
 
