@@ -52,7 +52,7 @@ Heta language was originally developed for internal projects of InSysBio to supp
 
 ## Versions
 
-The **developed** version of Heta standard is located in **master** branch of the [hetalang/heta-specifications](https://github.com/hetalang/heta-specifications) repository. 
+The **latest** version of Heta standard is located in **master** branch of the [hetalang/heta-specifications](https://github.com/hetalang/heta-specifications) repository. 
 
 The published versions are stored as [**tags**](https://github.com/hetalang/heta-specifications/releases) in the repository.
 

@@ -8,7 +8,7 @@ See also the [Heta video tutorial](../resources/?id=lesson-0-introduction)
 
 ## Content
 
-- **Heta Specifications (intro)**
+- **Intro**
 - [Syntax](./syntax.md)
 - [Tabular format](./tabular-format.md)
 - [Actions](./actions.md)
@@ -107,7 +107,7 @@ k1 @Const = 0.01;
 
 ## Versions
 
-The **developed** version of Heta standard is located in **master** branch of the [hetalang/heta-specifications](https://github.com/hetalang/heta-specifications) repository. 
+The **latest** version of Heta standard is located in **master** branch of the [hetalang/heta-specifications](https://github.com/hetalang/heta-specifications) repository. 
 
 The published versions are stored as [**tags**](https://github.com/hetalang/heta-specifications/releases) in the repository.
 
