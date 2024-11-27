@@ -12,6 +12,7 @@ If no statement is written the default statement is `#upsert` which is the equiv
 ## Action list
 
 - [insert](#insert)
+- [forceInsert](#forceinsert)
 - [update](#update)
 - [upsert](#upsert)
 - [delete](#delete)

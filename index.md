@@ -1,10 +1,29 @@
-[![Heta project](https://img.shields.io/badge/%CD%B1-Heta_project-blue)](https://hetalang.github.io/)
-[![GitHub release](https://img.shields.io/github/release/hetalang/heta-specifications.svg)](https://github.com/hetalang/heta-specifications/releases/)
-[![GitHub issues](https://img.shields.io/github/issues/hetalang/heta-specifications.svg)](https://GitHub.com/hetalang/heta-specifications/issues/)
-[![DOI:10.13140/RG.2.2.18935.06563](https://zenodo.org/badge/DOI/10.13140/RG.2.2.14881.35682.svg)](https://doi.org/10.13140/RG.2.2.14881.35682)
-[![License: CC BY-ND 4.0](https://img.shields.io/badge/License-CC%20BY--ND%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nd/4.0/)
+# Heta Specifications
 
-See more information on the [Heta project page](https://hetalang.github.io/).
+**Heta** is a modeling language for quantitative systems pharmacology and systems biology.
+
+The current version is [![GitHub release](https://img.shields.io/github/release/hetalang/heta-specifications.svg)](https://github.com/hetalang/heta-specifications/releases/).
+
+See also the [Heta video tutorial](../resources/?id=lesson-0-introduction)
+
+## Content
+
+- **Heta Specifications (intro)**
+- [Syntax](./syntax.md)
+- [Tabular format](./tabular-format.md)
+- [Actions](./actions.md)
+- [Classes](./classes.md)
+- [Modules](./modules.md)
+- [Namespaces](./namespaces.md)
+- [Math expressions](./math.md)
+- [Null values](./null.md)
+- [Units](./units.md)
+- [Cases](./cases.md)
+- [Compilation steps](./compilation.md)
+- [Change Log](./changelog.md)
+
+
+## Features and philosophy
 
 **Heta** language is a domain-specific programming language (DSL) for dynamic quantitative models used in quantitative systems pharmacology (QSP) and systems biology (SB). It describes the biological systems as the components of QSP/SB modeling platform.
 
@@ -40,15 +59,51 @@ r1 := k1*A*comp1;
 k1 @Const = 0.01;
 ```
 
-*See more examples on [Cases page](https://hetalang.github.io/#/specifications/cases).*
+*See more examples on [Cases page](./cases).*
 
-## Origin
+### Explanations
 
-Heta language was originally developed for internal projects of InSysBio to support the development of large-scale QSP modeling platforms and storing them in database-like formats.
+Comments are denoted by a double slash.
+```heta
+// Hello world! example
+```
 
-## Maintainers
+This creates the volume (compartment) with id "comp1" in the "nameless" namespace.
+```heta
+comp1 @Compartment;
+```
 
-- Evgeny Metelkin
+This code creates two species: "A", "B" inside "comp1".
+```heta
+A @Species { compartment: comp1 };
+B @Species { compartment: comp1 };
+```
+
+This code creates reaction A -> 2B, where one molecule of A is transformed to two molecules of B.
+```heta  
+r1 @Reaction { actors: A -> 2B };
+```
+
+This string sets the initial value (assignment at initialization step) for compartment volume.
+```heta
+comp1 .= 1;
+```
+
+This sets the initial values for species concentrations (dynamic values).
+```heta
+A .= 10;
+B .= 0;
+```
+
+This line sets reaction law.
+```heta
+r1 := k1*A*comp1;
+```
+
+This creates a component that can be described by number and sets the value 0.01 at the same line.
+```heta
+k1 @Const = 0.01;
+```
 
 ## Versions
 
