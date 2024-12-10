@@ -1,9 +1,18 @@
 # Heta classes
 
-Heta classes describes hierarchical types of the Heta components.
-Components are parts of the model which refer to a particular namespace. 
+Heta classes define the hierarchical types of components within the Heta modeling language. These components form the building blocks of a model, with each class specifying the properties, validation rules, and behaviors associated with its instances.
 
-**Class list**
+This document is intended for developers, modelers, and researchers who want to understand and utilize the Heta language for systems biology and quantitative systems pharmacology (QSP) modeling.
+
+The purpose of this document is to provide a detailed specification of all Heta classes, their relationships, and practical usage examples. By understanding the structure and purpose of each class, users can effectively build, modify, and validate their Heta-based models.
+
+Key concepts covered in this document include:
+- **Hierarchical Class Structure:** All Heta components inherit properties and behaviors from the root `Component` class.
+- **Property Validation:** Classes enforce specific rules for required properties, data types, and default values.
+- **References:** Some classes require references to other components, which are checked during model compilation.
+- **Examples and Use Cases:** Each class is accompanied by examples to illustrate its application.
+
+## Class List
 
 - [Component](#component)
 - [_Size](#_size)
@@ -22,197 +31,283 @@ Components are parts of the model which refer to a particular namespace.
 
 ## UML diagram
 
+The Heta class structure is visualized in the UML diagram below. This diagram illustrates the relationships and inheritance hierarchy between the classes.
+
 [![Classes UML](https://raw.githubusercontent.com/hetalang/heta-specifications/master/heta.uml.png)](https://raw.githubusercontent.com/hetalang/heta-specifications/master/heta.uml.png ':ignore')
 
-## About Heta classes
+## About Heta Classes
 
-1. Classes define the meaning of platform (model) components. A class declares properties of their instances, their types, checking rules and the default values.
+Heta classes define the meaning and behavior of model components. Each class specifies the properties that instances of the class can have, along with their data types, validation rules, and default values. These definitions provide a structured framework for building, validating, and using models.
 
-1. Trying to include the undeclarated properties is not an error but the property will be ignored.
-    ```heta
-    pr1 @Process { compartment: comp1 };
-    ```
-    will be interpreted as 
-    ```heta
-    pr1 @Process { };
-    ```
-    because `compartment` property is not declared for `Process` class.
+Key aspects of Heta classes:
 
-1. There are some specific checking rules in classes, e.g. required properties. They will be checked only after all components from the code is loaded, see [compilation](./compilation) steps. For example, `Const` class has required numeric property `num`:
-    ```heta
-    k1 @Const; // thes case doesn't throw error
-    k1 { num: 1 };    // because num property is set here
-    ```
+1. **Property Validation:**
+   - Each class has a predefined set of properties. Declaring a property that is not defined for the class is not considered an error, but the property will be ignored during compilation.
+   - Example:
+     ```heta
+     pr1 @Process { compartment: comp1 };
+     ```
+     In this case, `compartment` is not a valid property of the `Process` class, so it will be ignored:
+     ```heta
+     pr1 @Process { };
+     ```
 
-1. Some properties of the components are the references to other components, furthermore they should be referenced to instances of specific classes. The checking of references will be after loading all the code. For example a `Species` instance must have the property `compartment` which is the reference to a `Compartment` instance.
-    ```heta
-    S @Species { compartment: comp1 } .= 0;
-    ```
-    The code above throws an error because there is no element with id `comp1`.
-    ```heta
-    S @Species { compartment: comp1 } .= 0;
-    comp1 @Compartment .= 1;
-    ```
-    The code above is OK because for the moment of reference checking the compartment has already been loaded.
+2. **Required Properties:**
+   - Some classes enforce specific required properties. These properties are validated after all components in the code have been loaded.
+   - Example: The `Const` class requires the numeric property `num`:
+     ```heta
+     k1 @Const; // This does not throw an error
+     k1 = 1; // Adding the required property completes the definition
+     ```
 
-1. `Component` is the top class, i.e. all other Heta components inherits from `Component`. 
+3. **References:**
+   - Certain properties must reference other components within the same namespace, and these references are validated after the entire model is loaded.
+   - Example: A `Species` instance must include the `compartment` property, which refers to a `Compartment` instance:
+     ```heta
+     S @Species { compartment: comp1 } .= 0; // Throws an error if comp1 is not defined
+     comp1 @Compartment .= 1; // Adding the compartment resolves the reference
+     ```
+
+4. **Class Hierarchy:**
+   - `Component` is the root class from which all other Heta classes inherit. This hierarchical structure allows shared properties and behaviors to propagate across classes.
+
+5. **Abstract classes**
+    - Some classes are abstract and cannot be instantiated directly. They serve as base classes for other classes and provide common properties and behaviors.
+    - Example: `_Size` is an abstract class that defines properties related to units. It is inherited by classes like `TimeScale`, `Const`, `Record`, etc.
+
+6. **Syntax remarks**
+    - Certain properties in Heta classes, such as `title` and `notes`, support syntax sugar for concise and readable declarations.
+    - Additionally, within `{}` blocks, strings often do not require quotation marks unless they contain spaces or special characters, simplifying the syntax further.
+    - See more in the [Syntax](./syntax) section.
 
 ## Component
 
 **Parent:** *no*
 
-This is the top class for all Heta components. Includes properties for component's annotation.
+## Component
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| title | string | | | | Additional non-unique human readable identifier for a component. |
-| notes | string | | | | Arbitrary text for component annotation. It can potentially support markdown for text decoration. |
-| tags | string[] | | [ ] | | Array of strings tagging components. Can be used for grouping components. |
-| aux | object | | { } | | User defined auxilary structures { key: value pair } with any complexity. This can be used to store additional information and annotation. |
-| xmlAnnotation | string | | | | Additional annotation in XML format. Can be any string with XML formatted content. It is applied for SBML <Annotation> tag compartibility. |
+**Parent:** None  
+
+The `Component` class is the root class for all Heta components. It provides a set of general properties that are inherited by all other classes. These properties are primarily used for annotating and organizing model components.
+
+### Properties
+
+| Property       | Type      | Required | Default | Syntax Sugar | Description                                             |
+|----------------|-----------|----------|---------|--------------|---------------------------------------------------------|
+| `title`        | string    |          |         | `'Title'`   | A human-readable, non-unique identifier for the component. |
+| `notes`        | string    |          |         | `'''Notes'''` | Arbitrary text used for annotation. Can optionally support Markdown for rich text. |
+| `tags`         | string[]  |          | `[]`    |              | An array of tags for categorizing or grouping components. Quotation marks are not needed unless the string contains spaces or special characters. |
+| `aux`          | object    |          | `{}`    |              | User-defined auxiliary data in key-value pairs. This can be used for storing custom annotations or metadata. |
+| `xmlAnnotation`| string    |          |         |              | Additional annotation in XML format, compatible with SBML's `<Annotation>` tag. |
+
+### Usage Examples
+
+```heta
+'''This is a general description.'''
+comp1 @Component 'Main Component' {
+    tags: [example, annotation],
+    aux: {
+        metadata: { creator: John Doe, created: 2024-12-01 }
+    },
+    xmlAnnotation: "<Annotation><info>Example XML annotation</info></Annotation>"
+};
+```
 
 ## _Size
 
-**Parent:** [Component](#component)
+**Parent:** [Component](#component)  
 
-This is a class for all components which can have units. See more detailes on [units](units) page.
+The `_Size` class is an abstract class that provides properties related to units. It serves as a base class for other components, such as `TimeScale`, `Const`, and `Record`, which require unit-related definitions. `_Size` cannot be instantiated directly.
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | String describing components of complex units or array of complex unit components. |
+More information about units can be found in the [Units](./units) section.
 
-### UnitsComponent
+### Properties
 
-**Parent:** no
+| Property | Type | Required | Default  | Description |
+|----------|------|----------|----------|-------------|
+| `units`  | UnitsExpr or UnitsComponent[] | | | Specifies the units for the component. Can be a string describing the units or an array of `UnitsComponent` objects. |
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| kind | ID | true | | UnitDef | The reference id to UnitDef.|
-| multiplier | numeric | true | 1 | | Multiplier |
-| exponent | numeric | true | 1 | | Power |
+### Example
+
+While `_Size` itself is abstract and cannot be instantiated, its properties are inherited and utilized by concrete classes:
+
+```heta
+comp1 @Const {
+    units: kg/L
+};
+```
+or using an array of UnitsComponent:
+
+```heta
+comp1 @Const {
+    units: [
+        { kind: kg, exponent: 1 },
+        { kind: L, exponent: -1 }
+    ]
+};
+```
+
+## UnitsComponent
+
+**Parent:** None  
+
+The `UnitsComponent` class defines a single component of a unit, such as its kind (e.g., kilogram, liter), a multiplier, and an exponent. It is primarily used in the `units` property of components derived from `_Size`.
+
+### Properties
+
+| Property     | Type     | Required | Default | Ref      | Description                                      |
+|--------------|----------|----------|---------|----------|--------------------------------------------------|
+| `kind`       | ID       | Yes      |         | UnitDef  | The reference ID to a predefined unit definition (e.g., `kg`, `L`). |
+| `multiplier` | numeric  |      | 1       |          | A scaling factor applied to the unit.           |
+| `exponent`   | numeric  |      | 1       |          | The power to which the unit is raised.          |
 
 ## TimeScale
 
-**Parent:** [_Size](#_size)
+**Parent:** [_Size](#_size)  
 
-This component type is used if someone need to include an alternative time variable.
-For example the base time unit is `second` but it is required to add `tih` which means time in hours. It can be expressed via the base time `t`.
+The `TimeScale` class represents an alternative time variable. It allows users to define transformations of the base time variable `t`, such as expressing time in different units or with a shifted origin.
 
-```tih = 1 / 3600 * t + 0```
+### Properties
 
-The general form of the expression:
+| Property    | Type    | Required | Default | Syntax Sugar | Description                                           |
+|-------------|---------|----------|---------|--------------|-------------------------------------------------------|
+| `slope`     | number  |          | 1       |              | A fixed multiplier applied to the base time variable. |
+| `intercept` | number  |          | 0       |              | A fixed offset added to the base time variable.       |
+| `output`    | boolean |          |         |              | If `true`, the transformed time variable is available for output (e.g., plots, tables). |
 
-```new_time = slope * t + intercept```
+### Behavior
 
-Base time `t` is also a component of the `@TimeScale` class but it is inserted as default after initialization of a namespace. It cannot be deleted but a user can set units of it.
+The `TimeScale` transformation is expressed as:
+```
+new_time = slope * t + intercept
+```
+
+The base time variable `t` is always available and is automatically initialized in the namespace.
+The base time t cannot be deleted but its units can be customized.
+
+### Examples
+
+Set units for default time scale:
 
 ```heta
 t {units: second};
 ```
 
-In many cases the usage of `@TimeScale` is not required because it can be substituted by `@Record` component, see the examples.
-
-
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| slope | number | | 1 | | Fixed value of multiplier for calculation of the value`. |
-| intercept | number | | 0 | | Fixed value to add to the time variable. |
-| output | boolean | | | | If `true` the value will be available for output: plots, tables, etc. |
-
-__Examples__
+Define a custom time scale with a slope and output the transformed time variable:
 
 ```heta
-tih @TimeScale {slope: 2.78e-4, output: true, units: hour};
+tih @TimeScale {
+    slope: 2.78e-4,
+    intercept: 0,
+    output: true,
+    units: hour
+};
 ```
 
-`@Record` with the same meaning
+### Substituting TimeScale with Record
+
+In some cases, a `Record` component can be used to achieve the same functionality as `TimeScale`:
 
 ```heta
-tih @Record {output: true, units: hour} := 2.78e-4 * t;
+tih @Record { output: true, units: hour } := 2.78e-4 * t;
 ```
+
+This provides equivalent behavior but uses the more general-purpose `Record` class.
 
 ## Const
 
-**Parent:** [_Size](#_size)
+**Parent:** [_Size](#_size)  
 
-This is a class for numerical values which do not change in simulation time. This represents numeric modeling inputs.
+The `Const` class represents constant numerical values that do not change over the course of a simulation. These constants are typically used as inputs to a model, such as parameters or coefficients.
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| num | number | true | | | Exact value or starting value for identification. |
-| free | boolean | | | | If `true` the constant is unknown and can be evaluated based on experimental data.|
-| scale | string | | direct | | To clarify the scale for solving of optimization problem. Possible values: `direct`, `log`, `logit`. If not set this is the same as direct. If it is `log` then the `num` property should be > . If it is `logit` the `num` propery should be `0<num<1`|
-| lower | number | | | | To set the lowest possible value. `num` value should be larger or equal to `lower` |
-| upper | number | | | | To set the largest possible value. `num` value should be lower or equal to then `upper` |
-| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of num property |
+### Properties
+
+| Property   | Type    | Required | Default  | Syntax Sugar | Description                                                               |
+|------------|---------|----------|----------|--------------|---------------------------------------------------------------------------|
+| `num`      | number  | Yes      |          | = <number> | The exact numerical value of the constant or its initial value for identification. |
 
 ### Examples
 
 ```heta
-''' Absorption constant describing transport from **GUT** to **BLOOD** '''
-kabs @Const 'Constant of absorption' {
-    tags: ['pk', 'human'],
-    aux: { references: { 
-            pmid: [ 11111111, 22222222 ], 
-            wiki: ['Pharmacokinetics#Compartmental_analysis'] 
-    }}
-};
-kabs = 1.4e-6 { free: true, scale: log, lower: 1e-6, upper: 1e6, units: 1/h };
+k1 @Const {units: 1/h} = 1.4e-6;
 ```
 
 ## Record
 
-**Parent:** [_Size](#_size)
+**Parent:** [_Size](#_size)  
 
-Record instances describes the values (variables) which can change in time. Usually Record has the physical or biologycal meaning. The value changes their value by assignment at specific points (switchers) or by `Process` instances.
+The `Record` class represents time-varying variables, such as states or compartments, that can change over the course of a simulation. These variables often have a physical or biological meaning and can be influenced by assignments, `Process`/`Reaction` instances, or initial conditions.
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| assignments | Dictionary{ID, MathExpr} | | | | Dictionary of assignments where key is switcher id and value describes the MathExpr |
-| boundary | boolean | | | | If `true` the value describing `Record` cannot be changed by `@Process` instances. |
-| output | boolean | | | | If `true` the value will be available for output: plots, tables, etc. |
-| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of assignments part |
+### Properties
 
-### Example
+| Property       | Type                     | Required | Default | Syntax Sugar | Description    |
+|----------------|--------------------------|----------|---------|--------------|----|
+| `assignments`  | Dictionary{ID, MathExpr} |          |   `{}`      |     `.=`, `:=` or `[<sw>]=`  | A dictionary where each key is a switcher ID, and each value defines an expression to assign to the variable. |
+| `boundary`     | boolean                  |          | `false` |              | If `true`, the variable is under boundary condition and will not change by `Process`/`Reaction` instances. |
+| `output`       | boolean                  |          |         |              | If `true`, the variable is included in simulation outputs like plots or tables. |
+
+### Behavior
+
+The value of a `Record` can change:
+1. **By default initialization** (e.g., `p1 .= x * y`).
+2. **Through assignments at specific times or conditions** using `Switcher` instances.
+3. **By interactions with `Process`/`Reaction` instances**, unless marked as a boundary condition.
+
+### Examples
+
+#### Basic Record Declaration
+
+```heta
+p1 @Record {
+    boundary: true,
+    units: kg/L
+};
+p1 .= x * y;
+```
+
+#### Assignments by Switchers
 
 ```heta
 p1 @Record { boundary: true, units: kg/L };
-p1 .= x*y;
-p1 [sw1]= 0;
-
-// equivalent to this code
-/*
-p1 {
-    class: Record.
-    boundary: true,
-    output: false,
-    units: kg/L,
-    assignments: {
-        start_: x*y,
-        sw: 0
-    }
-};
-*/
+p1 .= x * y;
+p1 [sw1] = 0; //change the value of p1 to 0 when sw1 is triggered
 ```
 
 ## Process
 
 **Parent:** [Record](#record)
 
-Process instances changes the other `Record` instances indirectly through the rate of Record change. Process is like flux that increase or decrease values over time.
+## Process
 
-| property | type | required | default | ref | description | 
-| ---------|------|----------|---------|-----|-------------|
-| actors | ProcessExpr/Actor[] | | [] | | [ProcessExpr](#processexpr) or array of objects of format.  { target: \<ID\>, stoichiometry: \<number\> }. The rules for dynamic components which describes how they will be included to ODE including stoichiometry. |
-| reversible | boolean | | `true` | | This property usually doesn't cause the changes in a dynamic system. It describes if the `@Process` is reversible. It has been included to support SBML's and Simbio's the `reversible` attribute. It can also be set in `ProcessExpr` where `<->` and `<=>` stand for the reversible process.|
-| units | UnitsExpr *or* [UnitsComponent](#unitscomponent)[] | | | | units of process rate |
+**Parent:** [Record](#record)  
 
-### Example
+The `Process` class represents fluxes or reactions that modify the values of other `Record` instances over time. Processes describe the dynamic interactions between components and are a key element in constructing system dynamics.
+
+### Properties
+
+| Property    | Type                  | Required | Default | Syntax Sugar | Description                                                             |
+|-------------|-----------------------|----------|---------|--------------|-------------------------------------------------------------------------|
+| `actors`    | ProcessExpr or Actor[] |          | `[]`    |              | Defines the components affected by the process and their stoichiometries. |
+| `reversible`| boolean               |          | `true`  |              | Indicates whether the process is reversible.                            |
+
+### Behavior
+
+- **Actors:** The `actors` property specifies which `Record` instances are modified by the process and how (e.g., production, consumption, or transfer).
+- **Reversibility:** By default, processes are reversible. This property can be explicitly set to `false` to model irreversible processes.
+
+### Examples
+
+#### Basic Process Declaration
 
 ```heta
-pr1 @Process { actors: p1 => 2*p2 };
+pr1 @Process { actors: p1 => 2 * p2 };
+```
 
-/* equivalent to 
+#### Expanded Representation
+
+The above example is equivalent to:
+
+```heta
 pr1 @Process {
     actors: [
         { target: p1, stoichiometry: -1 },
@@ -220,10 +315,21 @@ pr1 @Process {
     ],
     reversible: false
 };
-*/
 ```
 
-### Effector
+#### Using reversible process
+
+```heta
+pr2 @Process { actors: A <=> B };
+```
+
+### Notes
+
+- The `actors` property can be expressed as a single `ProcessExpr` or an array of `Actor` objects.
+- A shorthand notation `ProcessExpr` can be used (e.g., `A -> B`, `A <-> B`) is used to describe actors. 
+- The reversible property is included for compatibility with SBML's and SimBio's reversible attribute.
+
+## Effector
 
 **Parent:** *none*
 
@@ -231,7 +337,7 @@ pr1 @Process {
 | ---------|------|----------|---------|-----|-------------|
 | target | ID | true | | `Record` | Reference to record |
 
-### Actor
+## Actor
 
 **Parent:** [Effector](#effector)
 

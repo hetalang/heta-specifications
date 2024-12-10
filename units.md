@@ -11,7 +11,10 @@ The Heta language includes a default set of core units based on the [SBML specif
 
 | Core Units |
 | --- |
-mole, litre, second, kilogram, katal, item, joule, metre, dimensionless, watt, volt, ampere, newton, becquerel, candela, coulomb, farad, gram, gray, henry, hertz, kelvin, lumen, lux, ohm, pascal, radian, siemens, sievert, steradian, tesla, weber, year, day, hour, minute, avogadro
+mole, litre, second, kilogram, katal, item, joule, metre, dimensionless, watt, 
+volt, ampere, newton, becquerel, candela, coulomb, farad, gram, gray, henry, 
+hertz, kelvin, lumen, lux, ohm, pascal, radian, siemens, sievert, steradian,
+tesla, weber, year, day, hour, minute, avogadro
 
 ## 2. Units Expressions (UnitsExpr)
 

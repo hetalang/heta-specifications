@@ -1,4 +1,4 @@
-# Heta Specifications
+# Heta Language Specifications
 
 **Heta** is a modeling language for quantitative systems pharmacology and systems biology.
 
