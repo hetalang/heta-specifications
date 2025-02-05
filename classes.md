@@ -464,7 +464,7 @@ Auxiliary class to define the effect of the `Process` on the `Record` instances 
 ### Usage
 
 - `Compartment` are volumes where `Species` instances are dissolved or located.
-- Compartments usually are referenced by `Species` instances to define their location. But no referrence to the particular compartmentis not an error.
+- Each `Species` instance must be assigned to a `Compartment`, which defines its location. However, not all `Compartment` instances need to be referenced by a `Species`. It is possible to have Compartment instances that exist in the model without being explicitly assigned to any Species.
 - `Compartment` must have units of volume, area, or length: `liter`, `meter^3`, `meter^2`, `meter`, etc. . The units should be consistent with the units of the `Species` instances located in the compartment.
 - Compartment may change its value by `Process` instances, `_Switchers`, etc. as any other `Record`.
 - Avoid initializing the value of the `Compartment` with zero `0` value because it may lead to division by zero errors when normalizing concentrations.
