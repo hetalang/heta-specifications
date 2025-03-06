@@ -686,7 +686,8 @@ It serves as a base class for specific types of switchers, such as `TimeSwitcher
 - The `start`, `period`, and `stop` properties can be defined as an `Const` instance as well as a number.
 - Switcher will not change any values unless it is referenced in the `assignments` property of the `Record` instance. Use syntax `p1 [sw1]= p1 + 1;` to update the value of the `Record` instance `p1` by the switcher `sw1`.
 
-### Example
+### Examples
+
 Simple one time switch at time 5
 ```heta
 sw1 @TimeSwitcher {
@@ -734,7 +735,7 @@ sw3 @TimeSwitcher {
     start: 10,
     period: 5,
     stop: 30,
-    active: true
+    active: false
 };
 ```
 
