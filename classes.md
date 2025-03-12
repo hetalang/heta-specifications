@@ -763,14 +763,14 @@ The `DSwitcher` class (Discrete Switcher) triggers assignments based on a boolea
 
 - The `DSwitcher` monitors the value of the `trigger` expression.
 - The switcher activates when the `trigger` transitions from `false` to `true`.
-- The trigger property must evaluate to a **boolean** expression, such as `(x > 1) && (y != x)`.
+- The trigger property must evaluate to a **boolean** expression, such as `(x > 1) and (y != x)`.
 - For non-boolean expressions, use the `CSwitcher` class.
 
 ### Examples
 Discrete switcher that updates the value of the `s1` at some specific condition.
 ```heta
 sw1 @DSwitcher {
-    trigger: (x > 1) && (y != x)
+    trigger: (x > 1) and (y != x)
 };
 s1 @Species { compartment: comp1, isAmount: true } .= 0;
 s1 [sw1]= s1 + dose;
