@@ -2,7 +2,9 @@
 
 ## 0.5.1
 
-- clarify `DSwitcher` and `CSwitcher` classes
+- clarify `DSwitcher` difference between `CSwitcher` classes
+- `xmlAnnotation` property for `#export` action for `Component` class
+- clarify classes description
 
 ## 0.5.0
 
