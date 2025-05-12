@@ -761,10 +761,11 @@ The `DSwitcher` class (Discrete Switcher) triggers assignments based on a boolea
 
 ### Usage
 
-- The `DSwitcher` monitors the value of the `trigger` expression.
-- The switcher activates when the `trigger` transitions from `false` to `true`.
+- The `DSwitcher` monitors the value of the `trigger` at **integration time points**.
+- The switcher activates each time when the `trigger` transitions from `false` to `true`.
 - The trigger property must evaluate to a **boolean** expression, such as `(x > 1) and (y != x)`.
-- For non-boolean expressions, use the `CSwitcher` class.
+- For non-boolean expressions and strictly evaluated time points, use the `CSwitcher` class.
+- Usage of `DSwitcher` may result in different results depending on the integration method used time steps etc. It is recommended to use `CSwitcher` for more precise control over the switching conditions.
 
 ### Examples
 Discrete switcher that updates the value of the `s1` at some specific condition.
@@ -776,7 +777,7 @@ s1 @Species { compartment: comp1, isAmount: true } .= 0;
 s1 [sw1]= s1 + dose;
 ```
 
-The DSwitcher sw2 activates when x exceeds 10.
+The DSwitcher sw2 activates after x exceeds 10.
 When sw2 activates, the value of p1 is set to 5.
 ```heta
 sw2 @DSwitcher {
@@ -809,11 +810,11 @@ The `CSwitcher` class (Continuous Switcher) activates based on a condition deriv
 
 ### Usage
 
-- The `CSwitcher` continuously evaluates the `trigger` expression.
+- The `CSwitcher` continuously evaluates the `trigger` expression and evaluates (back interpolation) the value at the time of the switch.
 - It triggers when the specified expression crosses zero, transitioning from negative to positive values, crossing zero.
 - The CSwitcher is well-suited for scenarios where changes are driven by continuous dynamics, such as transitions based on rates or thresholds.
 - The trigger property must evaluate to a **numerical** expression, such as `x - y`.
-- For boolean expressions, use the `DSwitcher` class.
+- For boolean expressions when precision is not important, use the `DSwitcher` class.
 
 ### Examples
 
