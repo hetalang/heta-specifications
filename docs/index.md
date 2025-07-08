@@ -116,4 +116,4 @@ Heta specifications versions follow [Semantic Versioning](https://semver.org/) s
 ## License
 The Heta language specifications are licensed under [Creative Commons Attribution-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nd/4.0/).
 
-InSysBio, 2018-2024
+InSysBio, 2018-2025
