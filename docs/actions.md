@@ -35,7 +35,7 @@ The `insert` action may be skipped in statement because this is the default acti
 
 | property | type | required | default | ref | description |
 | ---------|------|----------|---------|-----|-------------|
-| class | string | true | | | Class name of a component, see [classes](classes) |
+| class | string | true | | | Class name of a component, see [classes](./classes) |
 | id | ID | true | | | The unique identifier of the component in namespace |
 | space | ID | |  nameless | namespace id | An identifier of a namespace. The namespace must be created before usage. |
 | ... | | | | | The other keys depending on `class` associated properties. |
@@ -216,7 +216,7 @@ See more in [Units](./units) chapter.
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | id | `ID` | true | | | unique identifier of `UnitDef` |
-| units | UnitsExpr *or* [UnitsComponent](./classes/#unitscomponent)[] | | | | String describing components of complex units or array of complex unit components. |
+| units | UnitsExpr *or* [UnitsComponent](./classes#unitscomponent)[] | | | | String describing components of complex units or array of complex unit components. |
 
 ### Example 1
 ```heta

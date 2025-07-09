@@ -4,24 +4,7 @@
 
 The current version is [![GitHub release](https://img.shields.io/github/release/hetalang/heta-specifications.svg)](https://github.com/hetalang/heta-specifications/releases/).
 
-See also the [Heta video tutorial](../resources/?id=lesson-0-introduction)
-
-## Content
-
-- **Intro**
-- [Syntax](./syntax.md)
-- [Tabular format](./tabular-format.md)
-- [Actions](./actions.md)
-- [Classes](./classes.md)
-- [Modules](./modules.md)
-- [Namespaces](./namespaces.md)
-- [Math expressions](./math.md)
-- [Null values](./null.md)
-- [Units](./units.md)
-- [Cases](./cases.md)
-- [Compilation steps](./compilation.md)
-- [Change Log](./changelog.md)
-
+See also the [Heta video tutorial](/resources/?id=lesson-0-introduction)
 
 ## Features and philosophy
 

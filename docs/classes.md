@@ -26,7 +26,7 @@ validation rules, and behaviors associated with its instances.
 The Heta class structure is visualized in the UML diagram below. This diagram illustrates the relationships
  and inheritance hierarchy between the classes.
 
-[![Classes UML](./img/heta.uml.png)]( ':ignore')
+![Classes UML](./img/heta.uml.png)
 
 ## About Heta Classes
 

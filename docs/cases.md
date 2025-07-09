@@ -1,6 +1,6 @@
 # Cases
 
-*See also published [QSP platfortms](/implemented?id=open-source-qsp-platforms).*
+*See also published [QSP platfortms](/ecosystem?id=open-source-qsp-platforms).*
 
 | | |
 |---|---|
