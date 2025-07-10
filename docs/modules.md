@@ -123,13 +123,15 @@ This module type allows to write a model's components in table file format: xlsx
 This might be useful for very large-scale models.
 
 The first row must include property identifiers, the other rows includes the values of the properties.
-The column with reserved header `on` can be used to turn off the import of the row. Zero value here means: "do not compile this line".
+The column with reserved header `on` can be used to turn off the import of the row. Zero or empty value here means: "do not compile this line".
 
 Additional properties of `#include` action:
 
-- `omitRows` property can be set to skip several rows between header (first row) and component rows.
+- `omitRows` property can be set to skip several rows between header (first row) and component rows, the default value is `0`; 
+  This is useful for formats like XLSX where the first row can be used for comments or other information.
 - `sheet` property clarifies which sheet should be loaded starting from `0`, the default value is `0`; 
   This is useful for formats supporting multiple sheets like XLSX. For this case file can include any number of sheets but each sheet must be included separately by a separate `#include` statement.
+- `transpose` property can be set to `true` to transpose the table, i.e. to swap rows and columns. If set, each column starting from 2 will be treated as a separate component. The default value is `false`.
 
 **Example:**
 
