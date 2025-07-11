@@ -1,6 +1,6 @@
 # Syntax
 
-See also the [Heta tutorial](https://hetalang.github.io/#/resources/?id=lesson-2-syntax)
+See also the [Heta tutorial](/resources/?id=lesson-2-syntax)
 
 The Heta code represents a sequence of statements that create and modify elements in a modeling platform. The parsing and interpretation of the code result in the creation of a static (database-like) structure representing the modeling platform, see [compilation](./compilation). There are many ways to write the same modeling system using Heta code, and a developer has the freedom to make their code more organized and readable.
 

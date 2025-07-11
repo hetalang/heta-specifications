@@ -5,7 +5,7 @@ A dynamic model without compartments and species.
 See more details in **"Heta tutorial" #3**
 
 ## Figure
-![tanks-and-pipes](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/tanks-and-pipes.png)
+![tanks-and-pipes](./tanks-and-pipes.png)
 
 ## Code
 

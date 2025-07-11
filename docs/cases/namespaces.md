@@ -46,7 +46,7 @@ S @Const = 1e-8;
 #include { source: cell-dynamics.heta };
 ```
 
-![namespaces-1](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-1.png)
+![namespaces-1](./namespaces-1.png)
 
 ## Creating two models in one platform
 
@@ -68,7 +68,7 @@ namespace intracell begin
 end
 ```
 
-![namespaces-2](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-2.png)
+![namespaces-2](./namespaces-2.png)
 
 ## Cloning models with import
 
@@ -90,7 +90,7 @@ modified::vcl_m3 @Reaction { actors: m3 => }
 modified::kcl_m3 @Const = 1e-2;
 ```
 
-![namespaces-3](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-3.png)
+![namespaces-3](./namespaces-3.png)
 
 ## Cloning models with renaming components
 
@@ -122,4 +122,4 @@ vtr_m2 { actors: m2 => m3 }
 modified::ksyn_3 = 1e-8;
 ```
 
-![namespaces-4](https://raw.githubusercontent.com/hetalang/heta-specifications/master/cases/namespaces-4.png)
+![namespaces-4](./namespaces-4.png)
