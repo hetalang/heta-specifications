@@ -1,0 +1,39 @@
+[
+    {
+        "text": "Language",
+        "items": [
+            { "text": "Intro", "link": "/specifications/" },
+            { "text": "Syntax", "link": "/specifications/syntax" },
+            { "text": "Tabular format", "link": "/specifications/tabular-format" },
+            { "text": "Actions", "link": "/specifications/actions" },
+            { "text": "Classes", "link": "/specifications/classes" },
+            { "text": "Modules", "link": "/specifications/modules" },
+            { "text": "Namespaces", "link": "/specifications/namespaces" },
+            { "text": "Math expressions", "link": "/specifications/math" },
+            { "text": "Null values", "link": "/specifications/null" },
+            { "text": "Units", "link": "/specifications/units" },
+            { 
+                "text": "Cases", 
+                "link": "/specifications/cases",
+                "items": [
+                    { "text": "one compartment", "link": "/specifications/cases/one-compartment" },
+                    { "text": "format comparison", "link": "/specifications/cases/format-comparison" },
+                    { "text": "tanks and pipes", "link": "/specifications/cases/tanks-and-pipes" },
+                    { "text": "multiple compartments", "link": "/specifications/cases/multiple-compartments" },
+                    { "text": "annotation", "link": "/specifications/cases/annotation" },
+                    { "text": "time switcher", "link": "/specifications/cases/time-switcher" },
+                    { "text": "CSwitcher", "link": "/specifications/cases/c-switcher" },
+                    { "text": "using units", "link": "/specifications/cases/using-units" },
+                    { "text": "Heta modules", "link": "/specifications/cases/heta-modules" },
+                    { "text": "namespaces", "link": "/specifications/cases/namespaces" },
+                    { "text": "import namespaces", "link": "/specifications/cases/import-ns" },
+                    { "text": "AUC", "link": "/specifications/cases/auc" }
+                ]
+            },
+            { "text": "Compilation steps", "link": "/specifications/compilation" },
+            { "test": "Change Log", "link": "https://github.com/hetalang/heta-specifications/blob/master/changelog.md" }
+        ]
+    }
+]
+
+
