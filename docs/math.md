@@ -37,6 +37,11 @@ The math expression `p1 .= 1*y` implies there is constant or record with the id 
 There are 5 numeric operators in MathExpr:
 `+`, `-`, `*`, `/`, `^`.
 
+::: info
+The `^` (power) operator in this language is **right-associative** and has **higher precedence** than other operators.
+For comparison: in **Matlab**, the `^` operator is **left-associative**.
+:::
+
 There are 6 comparison operators in MathExpr:
 `>`, `>=`, `<`, `<=`, `==`, `!=`.
 
