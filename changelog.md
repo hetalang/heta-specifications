@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.5.2
+
+- add `hasMeta` action for modules metadata
+
 ## 0.5.1
 
 - clarify `DSwitcher` difference between `CSwitcher` classes

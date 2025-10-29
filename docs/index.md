@@ -4,7 +4,7 @@
 
 The current version is [![GitHub release](https://img.shields.io/github/release/hetalang/heta-specifications.svg)](https://github.com/hetalang/heta-specifications/releases/).
 
-See also the [Heta video tutorial](/resources/?id=lesson-0-introduction)
+See also the [Heta video tutorial](/resources/learn-heta)
 
 ## Features and philosophy
 
