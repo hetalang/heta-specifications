@@ -24,6 +24,7 @@ If no statement is written the default statement is `#upsert` which is the equiv
 - [importNS](#importns)
 - [import](#import)
 - [defineFunction](#definefunction)
+- [hasMeta](#hasmeta)
 
 ## insert
 
@@ -467,5 +468,39 @@ The `math` property of `defineFunction` may include arythmetic operators, pre-de
 #defineFunction f3 {
   arguments: [x1, x2, x3],
   math: sqrt(x1^2 + x2^2 + x3^2)
+};
+```
+
+## hasMeta
+
+The `hasMeta` action attaches arbitrary metadata to a module. It describes the file itself.
+It does not create, modify, or delete any platform component and does not affect model semantics, compilation results, or simulation outcomes.
+
+- **Processing:** loaders may parse `hasMeta` and use it but skip it during platform construction.
+- **Scope:** metadata applies to the current module file (not to a platform or component).
+- **Structure:** the value is a free-form JSON object. Implementations must not impose a schema; tools may read known keys when present.
+
+### Example (JSON format)
+
+```json
+{
+  "action": "hasMeta",
+  "toolName": "heta-compiler",
+  "toolVersion": "0.9.8",
+  "createdAt": "2025-10-27T16:09:06.733Z",
+  "platformId": "mm",
+  "format": "JSON"
+}
+```
+
+### Example (Heta format)
+
+```heta
+#hasMeta {
+  toolName: "heta-compiler",
+  toolVersion: "0.9.8",
+  createdAt: "2025-10-27T16:09:06.733Z",
+  platformId: mm,
+  format: Heta
 };
 ```
