@@ -62,6 +62,11 @@ s3 @Species {
 };
 ```
 
+This example is equivalent to the following `UnitsExpr` representation:
+```heta
+s3 @Species { units: (1e-9 mole)/litre };
+```
+
 ## 5. User-Defined Units
 
 Users can define custom units using the [`#defineUnit`](./actions?id=defineunit) action. Custom units can be specified in either `UnitsExpr` or `UnitsComponent[]` format.
@@ -81,6 +86,13 @@ s1 @Species { units: pM };
 
 ## 6. Dimensionless Units
 
+Dimensionless units represent quantities without any physical dimensions, such as ratios, percentages, or coefficients.  
+In Heta, dimensionless units should be explicitly defined. If no unit is specified for a component, it is treated as `undefined`, not as `dimensionless`.
+
+It is important to distinguish between `dimensionless` and `item` units:
+- `item` refers to countable entities (e.g., molecules, cells),  
+- `dimensionless` refers to pure numbers that have no associated physical dimension.
+
 Dimensionless units can be represented in the following ways:
 
 1. **Direct Use:** Specify the `dimensionless` base unit.
@@ -97,9 +109,30 @@ x2 @Const { units: 1 } = 2.2;
 x3 @Const { units: DL } = 3.3;
 ```
 
+A multiplier may be applied to the dimensionless unit to define scaled dimensionless units (e.g., percent, ppm). During unit normalization, the multiplier is treated as a conversion factor to the base dimensionless unit.
+
+Examples (UnitsExpr):
+```heta
+// percent as 0.01 * dimensionless
+percent #defineUnit { units: (1e-2 1) };
+
+x @Const { units: percent } = 50;    // normalized to 0.5 dimensionless
+y @Const { units: (1e-6 1) } = 3;    // “ppm-like”, equals 3e-6 dimensionless
+```
+
 ## 7. Units Consistency Checking
 
 During compilation, the Heta compiler may perform units consistency checks to validate compatibility and correctness of unit definitions. The availability and implementation of this feature depend on the compiler being used.
+
+When comparing `dimensionless` quantities, the value of the exponent is ignored.  
+For example, the following code does **not** produce an error:
+
+```heta
+x1 { units: dimensionless^2 } .= 5;
+x2 { units: dimensionless^3 } .= 10;
+x_sum { units: dimensionless } .= x1 + x2;
+```
+This behavior reflects the convention that exponents on dimensionless units do not affect their comparability.
 
 **For more information, refer to the [Compilation](./compilation) chapter.**
 
@@ -107,7 +140,7 @@ This example demonstrates a simple units inconsistency resulting in a compilatio
 ```heta
 c1 @Compartment { units: litre } .= 1;
 s1 @Species { units: mole/litre, compartment: c1 } .= 10;
-r1 @Reaction { units: mole/second } := k1 * s1;
+r1 @Reaction { units: mole/second } := k1 * s1;            // <= Error here
 k1 @Const { units: 1/second } = 1e-3;
 ```
 The reaction rate `r1` is calculated using `k1` and `s1` and has derived units of `mole/litre/second`. But the stated units of `r1` is `mole/second` and incompatible. Correcting such mismatches ensures the model's mathematical and dimensional integrity.
