@@ -8,7 +8,7 @@ The `trigger` property of [@DSwitcher](./classes#dswitcher) and [StopSwitcher](.
 
 `MathExpr` may include: numbers, identifiers, operators, functions, parentheses.
 
-## Numbers
+## Internal numbers
 
 All numbers in "math expression" are double. You can use any form of number: `0.001`, `1e-3`, `1E-3`, `1.0e-3`, etc.
 
@@ -17,9 +17,11 @@ The another possible values of double are:
 - `-Infinity` which negative infinite value.
 - `NaN` which means infinite or negative infinite, i.e. `0/0`.
 
-## Boolean values
+Note: `Infinity`, `-Infinity` and `NaN` should be written if they give a meaning in the context of the expression.
 
-Boolean constants: `true`, `false`. It is also possible to use `1` and `0` as a boolean values.
+## Intrnal boolean
+
+Boolean constants: `true`, `false`.
 
 ## Pre defined constants
 
@@ -111,7 +113,7 @@ If neither conditions is true, than it returns `otherwise` value.
 
 Each condition argument must be of boolean type: comparison operator, boolean value, etc.
 
-__Example__
+**Example**
 
 ```heta
 // 0 -> human, 1 -> monkey, 2 -> rat, default -> mouse
