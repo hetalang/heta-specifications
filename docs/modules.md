@@ -7,7 +7,7 @@ included into single platform. The purposes of modular system is to organize wor
 - multiple loading of the same code in different context;
 - allow whiting code in various formats.
 
-The available list of module types are: heta, json, yaml, table (xlsx), sbml. 
+The available list of module types are: heta, json, yaml, table, sbml. 
 
 1. Any **Module** in Heta can be translated to Heta code. 
 
@@ -42,7 +42,7 @@ include ./my-module.heta;
 
 This is module in JSON format (array of objects) which can be mapped to Heta code.
 
-This module type is a possible way to import the Heta code from other tools.
+This module type is a dicret solution to import the Heta code from/to other tools without parsing Heta syntax.
 
 **Example:**
 
@@ -81,7 +81,7 @@ The module can be loaded into heta platform by the code
 
 ## yaml module
 
-This is one-to-one equivalent of type json but written in YAML format.
+This is alternative and one-to-one equivalent of type `json` but written in YAML format.
 
 **Example:**
 
@@ -119,8 +119,8 @@ The module can be loaded into heta platform by the code
 
 _See also the [Tabular format](tabular-format) chapter._
 
-This module type allows to write a model's components in table file format: xlsx, csv, etc.
-This might be useful for very large-scale models.
+This module type allows to write a model's components in table file format: CSV, XLSX, TAB, etc.
+This might be useful for users preferring to work with spreadsheets or when tabular formats are required for reporting.
 
 The first row must include property identifiers, the other rows includes the values of the properties.
 The column with reserved header `on` can be used to turn off the import of the row. Zero or empty value here means: "do not compile this line".
@@ -133,7 +133,21 @@ Additional properties of `#include` action:
   This is useful for formats supporting multiple sheets like XLSX. For this case file can include any number of sheets but each sheet must be included separately by a separate `#include` statement.
 - `transpose` property can be set to `true` to transpose the table, i.e. to swap rows and columns. If set, each column starting from 2 will be treated as a separate component. The default value is `false`.
 
-**Example:**
+### Examples:
+
+file: "table.csv"
+```csv
+on,id,class,compartment,assignments.start_,boundary
+1,s1,Species,comp1,10,false
+0,s2,Species,comp2,0,
+```
+
+When loaded with `include {source: table.csv, type: table};`, this table is equivalent to Heta code
+
+```heta
+s1 @Species {compartment: comp1, boundary: false} .= 10;
+// s2 @Species {compartment: comp2} .= 0;
+```
 
 file: "table.xlsx", sheet #0
 
@@ -143,7 +157,7 @@ file: "table.xlsx", sheet #0
 |2| 1 | comp1 | Compartment | a; b; c | 1 | true |
 |3| 1 | comp2 | Compartment | a; b | comp1*2 | |
 
-This table is equivalent to Heta code
+When loaded with `include {source: table.xlsx, type: table, sheet: 0};` this table is equivalent to Heta code:
 
 ```heta
 comp1 @Compartment {tags: [a, b, c], boundary: true} .= 1;
@@ -157,7 +171,7 @@ file: "table.xlsx", sheet #1
 |1| 1| s1 | Species | comp1 | 10 | false |
 |2| 0| s2 | Species | comp2 | 0  | |
 
-This table is equivalent to Heta code
+When loaded with `include {source: table.xlsx, type: table, sheet: 1};`, this table is equivalent to Heta code
 
 ```heta
 s1 @Species {compartment: comp1, boundary: false} .= 10;
@@ -173,7 +187,7 @@ file: "index.heta" (combining all together)
 
 ## sbml module
 
-This type of module was created to adopt SBML formatted models into Heta modeling platform. Currently SBML of levels 2 and 3 are supported.
+This type of module was created to adopt [SBML formatted](https://sbml.org) models into Heta modeling platform. Currently SBML of levels 2 and 3 are supported.
 
 **Example:**
 
