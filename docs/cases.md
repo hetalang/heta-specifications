@@ -1,7 +1,5 @@
 # Cases
 
-*See also published [QSP platfortms](/ecosystem?id=open-source-qsp-platforms).*
-
 | | |
 |---|---|
 | [one compartment](cases/one-compartment) | One compartment PK model example. |

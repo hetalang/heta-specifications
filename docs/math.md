@@ -19,7 +19,7 @@ The another possible values of double are:
 
 Note: `Infinity`, `-Infinity` and `NaN` should be written if they give a meaning in the context of the expression.
 
-## Intrnal boolean
+## Internal boolean
 
 Boolean constants: `true`, `false`.
 
