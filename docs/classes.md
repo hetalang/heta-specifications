@@ -647,14 +647,12 @@ It serves as a base class for specific types of switchers, such as `TimeSwitcher
 | Property   | Type    | Required | Default | Shorthand | Description                                                                |
 |------------|---------|----------|---------|--------------|----------------------------------------------------------------------------|
 | `active`   | boolean |          | `true`  |              | Determines whether the switcher is enabled during the simulation.          |
-| `atStart`  | boolean |          |         |              | If `true`, the switcher's condition is evaluated at the beginning of the simulation. |
 
 ### Usage
 
 - `_Switcher` introduces a new key in the `assignments` dictionary of a `Record` component.
 - Subclasses of `_Switcher` define specific conditions or events that activate the assignments.
 - The `active` property can be used to enable or disable the switcher during the simulation.
-- The `atStart` property can be used to evaluate the switcher's condition at the beginning of the simulation. If `false`, the switcher's condition is evaluated only at `t > 0`.
 - `_Switcher`s can change value or `Record`, `Species`, `Compartment`, etc. instances but not `Const` instances.
 
 ## TimeSwitcher
@@ -699,8 +697,7 @@ Switch every 24 hours starting at time 0
 ```heta
 sw1 @TimeSwitcher {
     start: 0,
-    period: 24,
-    atStart: true // to trigger at time 0
+    period: 24
 };
 x @Record .= 0;
 x [sw1]= x + 1;
@@ -711,8 +708,7 @@ Switch at 0, every 24 hours but last switch at time 72 hours, total 4 switches
 sw1 @TimeSwitcher {
     start: 0,
     period: 24,
-    stop: 72,
-    atStart: true
+    stop: 72
 };
 ```
 
@@ -724,8 +720,7 @@ end_time @Const .= 72;
 sw2 @TimeSwitcher {
     start: starting_time,
     period: period,
-    stop: stop_time,
-    atStart: true
+    stop: stop_time
 };
 ```
 
@@ -758,6 +753,7 @@ The `DSwitcher` class (Discrete Switcher) triggers assignments based on a boolea
 | Property   | Type      | Required | Default | Description                                      |
 |------------|-----------|----------|---------|--------------------------------------------------|
 | `trigger`  | MathExpr  | Yes      |         | A boolean expression that determines when the switcher is activated. |
+| `atStart`  | boolean |          |         |              | If `true`, the switcher's condition is evaluated at the beginning of the simulation. |
 
 ### Usage
 
@@ -807,6 +803,7 @@ The `CSwitcher` class (Continuous Switcher) activates based on a condition deriv
 | Property   | Type      | Required | Default |  Description                                     |
 |------------|-----------|----------|---------|--------------------------------------------------|
 | `trigger`  | MathExpr  | Yes      |         | A mathematical expression used to determine the switching condition. |
+| `atStart`  | boolean |          |         |              | If `true`, the switcher's condition is evaluated at the beginning of the simulation. |
 
 ### Usage
 
