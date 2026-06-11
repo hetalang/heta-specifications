@@ -680,7 +680,7 @@ It serves as a base class for specific types of switchers, such as `TimeSwitcher
     - `if (stop < start) return 0`;
     - `if (period <= 0 OR 0 <= (stop-start)/period < 1) return 1`;
     - `if (period > 0 AND 1 <= (stop-start)/period) return (stop-start)/period + 1`;
-    - `if (period > 0 AND (stop === Infinity OR stop === undefined)) return Infinity`;
+    - `if (period > 0 AND stop === undefined) return Infinity`;
 - The `start`, `period`, and `stop` properties can be defined as an `Const` instance as well as a number.
 - Switcher will not change any values unless it is referenced in the `assignments` property of the `Record` instance. Use syntax `p1 [sw1]= p1 + 1;` to update the value of the `Record` instance `p1` by the switcher `sw1`.
 

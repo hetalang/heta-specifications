@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.3
+
+- `Infinity` is not allowed as a number in properties
+- `atStart` property removed for `@TimeSwitcher` class
+- extend description: units, table format, math expression
+
 ## 0.5.2
 
 - add `hasMeta` action for modules metadata
