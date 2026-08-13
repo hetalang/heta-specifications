@@ -1,5 +1,10 @@
 # Change Log
 
+# 0.6.0
+
+- rename Euler constant `e` to `exponentiale`
+- add reserved words: `true`, `false`, `null`
+
 ## 0.5.4
 
 - Clarify switcher assignment semantics: all right-hand sides are evaluated from the pre-event state before their results are assigned to targets.
