@@ -1,5 +1,10 @@
 # Change Log
 
+# 0.6.0
+
+- rename Euler constant `e` to `exponentiale`
+- add reserved words: `true`, `false`, `null`
+
 ## 0.5.3
 
 - `Infinity` is not allowed as a number in properties
