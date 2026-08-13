@@ -445,13 +445,15 @@ end
 
 The `defineFunction` action allows users to write a simple function in the platform and use it together with pre-defined functions [from the list](math#list-of-functions).
 
-The `math` property of `defineFunction` may include arythmetic operators, pre-defined constants, identifiers of arguments, pre-defined functions and functions added with other `defineFunction` statements. It cannot include other identifiers like for components.
+The `math` property of `defineFunction` may include arithmetic operators, boolean operators, pre-defined constants, identifiers of arguments, pre-defined functions and functions added with other `defineFunction` statements. It cannot include other identifiers like for components.
+
+The function may return either a numeric or a boolean value depending on the expression.
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
 | id | `ID` | true | | | unique identifier of `FunctionDef` |
 | arguments | `ID[]` | | `[]` | | arguments |
-| math | `string[]` | true | | | single string representing math expression |
+| math | `string[]` | true | | | single string representing math expression returning a numeric or boolean value |
 
 ### Example 1
 
@@ -468,6 +470,15 @@ The `math` property of `defineFunction` may include arythmetic operators, pre-de
 #defineFunction f3 {
   arguments: [x1, x2, x3],
   math: sqrt(x1^2 + x2^2 + x3^2)
+};
+```
+
+### Example 3 (boolean result)
+
+```heta
+#defineFunction isPositive {
+  arguments: [x],
+  math: "x > 0"
 };
 ```
 
