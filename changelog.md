@@ -4,6 +4,7 @@
 
 - rename Euler constant `e` to `exponentiale`
 - add reserved words: `true`, `false`, `null`
+- allow return boolean values from `#defineFunction`
 
 ## 0.5.3
 
