@@ -26,7 +26,7 @@ Boolean constants: `true`, `false`.
 ## Pre defined constants
 
 There is a set of identifiers which can be used in `MathExpr` but they are not components of platform.
-- `e` is the Euler's number, i.e. `e = exp(1) = 2.71828...`.
+- `exponentiale` is the Euler's number, i.e. `exponentiale = exp(1) = 2.71828...`.
 - `pi` is &pi;=3.141592... number.
 
 ## Identifiers
