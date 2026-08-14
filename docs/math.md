@@ -95,7 +95,7 @@ acos(x), acot(x), acsc(x), asec(x), asin(x),
 atan(x), cos(x), cot(x), csc(x), sec(x), 
 sin(x), tan(x)
 
-### piecewise function (experimental)
+### piecewise function
 
 `piecewise` is a special function which can be used to switch values based on conditions.
 It can be applied as an extension of the ternary operator or `ifgt`-like functions for more than one condition.

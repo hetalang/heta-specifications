@@ -5,6 +5,8 @@
 - rename Euler constant `e` to `exponentiale`
 - add reserved words: `true`, `false`, `null`
 - allow return boolean values from `#defineFunction`
+- `piecewise` function is not experimental anymore
+- add SBML compatibility notes
 
 ## 0.5.3
 

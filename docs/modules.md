@@ -189,6 +189,8 @@ file: "index.heta" (combining all together)
 
 This type of module was created to adopt [SBML formatted](https://sbml.org) models into Heta modeling platform. Currently SBML of levels 2 and 3 are supported.
 
+For more information about SBML conversion to Heta code, see [SBML conversion](sbml-conversion) chapter.
+
 **Example:**
 
 file: "model.xml"
