@@ -86,22 +86,22 @@ table lists direct conversions.
 
 | SBML MathML element | Heta expression |
 |---|---|
-| `plus` | `a + b + ...` |
-| `minus` | `-a` or `a - b` |
-| `times` | `a * b * ...` |
-| `divide` | `a / b` |
-| `power` | `pow(a, b)` |
-| `root` without degree | `sqrt(x)` |
-| `root` with degree `n` | `pow(x, 1.0 / n)` |
-| `ln` | `ln(x)` |
-| `ceiling` | `ceil(x)` |
-| `gt`, `geq`, `lt`, `leq` | `>`, `>=`, `<`, `<=` |
-| `eq`, `neq` | `==`, `!=` |
-| `and`, `or`, `xor`, `not` | `and`, `or`, `xor`, `not` |
+| `<plus>` | `a + b + ...` or `add()` or `add(a)` |
+| `<minus>` | `-a` or `a - b` |
+| `<times>` | `a * b * ...` or `multiply()` or `multiply(a)` |
+| `<divide>` | `a / b` |
+| `<power>` | `pow(a, b)` |
+| `<root>` without degree | `sqrt(x)` |
+| `<root>` with degree `n` | `pow(x, 1.0 / n)` |
+| `<ln>` | `ln(x)` |
+| `<ceiling>` | `ceil(x)` |
+| `<gt>`, `<geq>`, `<lt>`, `<leq>` | `>`, `>=`, `<`, `<=` |
+| `<eq>`, `<neq>` | `==`, `!=` |
+| `<and>`, `<or>`, `<xor>`, `<not>` | `and`, `or`, `xor`, `not` |
 | SBML time `csymbol` | `t` |
 | SBML Avogadro `csymbol` | `6.02214076e23` |
-| `exponentiale`, `pi` | `exponentiale`, `pi` |
-| `infinity`, `notanumber` | `Infinity`, `NaN` |
+| `<exponentiale>`, `<pi>` | `exponentiale`, `pi` |
+| `<infinity>`, `<notanumber>` | `Infinity`, `NaN` |
 
 An application of a named SBML function shall become an ordinary Heta function
 call. Thus, a call of `f` with arguments becomes `f(...)`, whether `f` is a

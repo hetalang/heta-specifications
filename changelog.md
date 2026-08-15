@@ -2,10 +2,12 @@
 
 # 0.6.0
 
+- add support for empty arguments in `add()` and `multiply()` functions
 - rename Euler constant `e` to `exponentiale`
 - add reserved words: `true`, `false`, `null`
 - allow return boolean values from `#defineFunction`
 - `piecewise` function is not experimental anymore
+- remove support for `sign()` function
 - add SBML compatibility notes
 
 ## 0.5.3
