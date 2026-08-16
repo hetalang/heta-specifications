@@ -27,7 +27,7 @@ _See also [format comparison example](cases/format-comparison#table-format)._
 
 1. The first raw of the table is the header. It describes the meaning of cells content of other raws. The header syntax follows the [rules](#header-syntax-rules) for describing component properties and sub-properties.
 
-1. Each row represents a single Heta action. Empty rows will be skipped. Rows with `on` property set to `0` or _empty_ will be skipped as well.
+1. Each row represents a single Heta action. Empty rows will be skipped. Rows with `on` property set to numeric `0`, Boolean `false`, or _empty_ will be skipped as well. Use numeric `1` or Boolean `true` to import a row.
 
 1. Each cell represents the property value or values. Empty cell means the value is not set.
 
@@ -91,7 +91,7 @@ _See also [format comparison example](cases/format-comparison#table-format)._
     coef1 @Const = 1e-3 {tags: [A,B,C]};
     ```
 
-- There is one specific header `on`. The value `0` or _empty_ in correspondent cells means "skip this row". It is the mechanism to mimic a single-line comment or a header.
+- There is one specific header `on`. Numeric `0`, Boolean `false`, or an empty cell means "skip this row"; numeric `1` or Boolean `true` means "import this row". This is the mechanism to mimic a single-line comment or a header. The `on` field is handled before Boolean-property normalization, so use actual Boolean or numeric cells rather than text such as `"0"` or `"false"`.
 
     Example:
     | on | id | class | num | title |

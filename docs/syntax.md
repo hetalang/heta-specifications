@@ -89,6 +89,7 @@ The Heta code represents a sequence of statements that create and modify element
     ```
 
 5. The \<Boolean\> value inside a dictionary may have two values: `true` or `false`.
+   For a property whose declared type is `boolean`, numeric literals `0` and `1` are also accepted as aliases for `false` and `true`. Other numeric values are invalid.
 
     Example:
     ```heta
