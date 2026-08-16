@@ -3,6 +3,7 @@
 # 0.6.0
 
 - add support for empty arguments in `add()` and `multiply()` functions
+- normalize `0` and `1` to boolean values in logical expression contexts and boolean table properties
 - rename Euler constant `e` to `exponentiale`
 - add reserved words: `true`, `false`, `null`
 - allow return boolean values from `#defineFunction`

@@ -23,6 +23,16 @@ Note: `Infinity`, `-Infinity` and `NaN` should be written if they give a meaning
 
 Boolean constants: `true`, `false`.
 
+In a boolean position, the numeric literals `0` and `1` are also accepted as
+aliases for `false` and `true`, respectively. They are normalized to boolean
+constants while the expression is parsed. Other numeric literals, such as `2`
+or `-1`, are not valid in a boolean position.
+
+Boolean positions include operands of `and`, `or`, `xor`, and `not`; the
+condition of the ternary operator and `piecewise`; and the `trigger` of
+`DSwitcher` and `StopSwitcher`. In numeric positions, including assignment
+values and branches of a conditional expression, `0` and `1` remain numbers.
+
 ## Pre defined constants
 
 There is a set of identifiers which can be used in `MathExpr` but they are not components of platform.
