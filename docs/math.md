@@ -83,12 +83,13 @@ Here the first operand `b1 < b2` is the boolean expression, then an expression t
 | log2(x) | The 2-base logarithm of a value. |
 | multiply(x, y, ...)| Multiply values `x * y * ...`, no arguments correspond to `1`. |
 | pow(x, y)	| The power of x to y, `x ^ y`. |
+| sign(x) | Compute the sign of a value. |
 | sqrt(x) | Calculate the square root of a value. |
 | nthRoot(x, n) | n-th root of x |
 | square(x)| Compute the square of a value, `x * x`. |
 | subtract(x, y) | Subtract two values, `x - y`. |
-| max(x, y, ...) | Maximum from two or more numbers. |
-| min(x, y, ...) | Minimum from two or more numbers. |
+| max(x, y, ...) | Maximum of values. |
+| min(x, y, ...) | Minimum of values. |
 | factorial(n) | Factorial of number |
 | ifgt(x, y, z1, z2) | Equivalent to : `x > y ? z1 : z2` |
 | ifge(x, y, z1, z2) | Equivalent to : `x >= y ? z1 : z2` |
