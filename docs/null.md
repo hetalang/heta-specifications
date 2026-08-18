@@ -8,7 +8,7 @@ Setting a property to `null` works differently for different statements.
 
 ## null in #insert and #update
 
-When we set a property to `null` in the `#insert` or `#forceInsert` statements, it means that the property is intentionally empty,missing, or has the default value. It is the same as we do not declare the property at all.
+When a property is set to `null`, its value is cleared. It is the same as the property being absent and does not restore a default value.
 
 ```heta
 k1 @Const {units: null} = 1; // implicit #insert
@@ -20,7 +20,7 @@ works the same as
 k1 @Const = 1;
 ```
 
-When we set a property to `null` in the `#update` statement, it means that the property is intentionally removed.
+The same rule applies to `#update`: `null` removes the property.
 
 ```heta
 k1 @Const {units: mM};

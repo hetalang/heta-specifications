@@ -68,6 +68,11 @@ The values of `boundaryCondition` and `constant` shall be used to set the Heta
 For SBML Level 2, an omitted `constant` attribute of a parameter shall be treated
 as `true`.
 
+For reactions in SBML Level 2 Version 5 and earlier, an omitted `reversible`
+attribute shall be treated as `true`. In Level 3, an omitted `reversible`
+attribute remains unspecified. A reaction with `fast="true"` is not supported;
+`fast="false"` and an omitted `fast` attribute are ignored.
+
 Local parameters of a reaction shall be created as generated Heta constants. Their
 identifiers may be changed so that they do not conflict with other declarations.
 The stoichiometry of a reactant shall be negative and the stoichiometry of a
@@ -156,4 +161,3 @@ The compiler shall report an import error for the following contents:
 
 Other SBML contents not covered by this document are not required to be
 converted.
-
