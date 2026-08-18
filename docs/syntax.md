@@ -67,7 +67,7 @@ The Heta code represents a sequence of statements that create and modify element
     };
     ```
 
-4. The \<Number\> value inside a dictionary is in \<Double\> format. `Infinity` and `NaN` values are not supported when used as property values.
+4. The \<Number\> value inside a dictionary is in \<Double\> format. Property values are finite numbers, except `Const.num`, which also accepts `Infinity`, `+Infinity`, `-Infinity`, and `NaN`.
 
     
     Example:
@@ -80,11 +80,12 @@ The Heta code represents a sequence of statements that create and modify element
     };
     ```
 
-    Wrong:
+    Extended numbers are only valid for `Const.num`:
     ```heta
     {
-        prop1: Infinity,
-        prop2: NaN
+        id: k1,
+        class: Const,
+        num: Infinity
     };
     ```
 

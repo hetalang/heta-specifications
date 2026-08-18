@@ -9,6 +9,8 @@
 - allow return boolean values from `#defineFunction`
 - `piecewise` function is not experimental anymore
 - add SBML compatibility notes
+- allow `Infinity`, `-Infinity`, and `NaN` in `Const.num`
+- clarify `null`, required properties of concrete namespaces, `TimeSwitcher`, `TimeScale`, and `reversible`
 
 ## 0.5.3
 

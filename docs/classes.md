@@ -55,7 +55,7 @@ Key aspects of Heta classes:
      k1 @Const; // This does not throw an error at this stage
      k1 = 1;    // Adding the required property completes the definition to avoid errors
      ```
-   - The required properties may be skipped if the compartment belongs to the [`abstract namespace`](./namespaces)
+   - The required properties may be skipped if the component belongs to an [`abstract namespace`](./namespaces)
      because the this step is not applied for them.
    - Example: You can skip the required properties for the `Species` class if the compartment belongs to the abstract namespace.
      ```heta
@@ -78,7 +78,19 @@ Key aspects of Heta classes:
    - `Component` is the root class from which many other Heta classes inherit.
      This hierarchical structure allows shared properties and behaviors to propagate across classes.
 
-5. **Abstract classes**
+5. **Concrete namespaces**
+   - Final validation is applied only to concrete namespaces.
+
+   | Component | Required final definition |
+   |---|---|
+   | `Const` | `num` |
+   | `Record` and subclasses | `assignments.start_` or `assignments.ode_` |
+   | `Species` | `compartment` |
+   | `TimeScale` | `slope`, `intercept` |
+   | `TimeSwitcher` | `active`, `start` |
+   | `DSwitcher`, `CSwitcher`, `StopSwitcher` | `active`, `trigger` |
+
+6. **Abstract classes**
     - Some classes are "abstract" and cannot be instantiated directly. They serve as base classes for other classes and provide common properties and behaviors.
     - Example: `_Size` is an abstract class that defines properties related to units. It is inherited by classes like `TimeScale`, `Const`, `Record`, etc.
 
@@ -194,7 +206,7 @@ This is equivalent to the following `UnitsExpr`:
 p1 @Record { units: litre/(1e-6 mole) };
 ```
 
-## TimeScale
+## TimeScale (experimental)
 
 **Parent:** [_Size](#_size)  
 
@@ -204,15 +216,15 @@ The `TimeScale` class represents an time variable.
 
 | Property    | Type    | Required | Default | Description                                           |
 |-------------|---------|----------|---------|-------------------------------------------------------|
-| `slope`     | number  |          | 1       | A fixed multiplier applied to the base time variable. |
-| `intercept` | number  |          | 0       | A fixed offset added to the base time variable.       |
+| `slope`     | number  | Yes      |         | A fixed multiplier applied to the base time variable. |
+| `intercept` | number  | Yes      |         | A fixed offset added to the base time variable.       |
 | `output`    | boolean |          |         | If `true`, the transformed time variable is available for output (e.g., plots, tables). |
 
 ### Usage
 
 - `TimeScale` is used to define a transformation of the base time variable in a model.
 - The `TimeScale` transformation is expressed as: `new_time = slope * t + intercept`
-- The base time variable `t` is always available and is automatically initialized in the namespace.
+- The base time variable `t` is always available and is initialized with `slope: 1` and `intercept: 0`.
 - The base time t cannot be deleted but its units can be customized.
 - In many cases, a `Record` component can be used to achieve the same functionality as `TimeScale`.
 
@@ -367,13 +379,13 @@ The `Process` class represents fluxes that modify the values of other `Record` i
 | Property    | Type                  | Required | Default | Description |
 |-------------|-----------------------|----------|---------|--------------|
 | `actors`    | ProcessExpr or Actor[] |          | `[]`    | Defines the components affected by the process and their stoichiometries. |
-| `reversible`| boolean               |          | `true`  | Indicates whether the process is reversible.                            |
+| `reversible`| boolean               |          |         | Indicates whether the process is reversible.                            |
 
 ### Usage
 
 - `Process` instances define the interactions between components in a model. They act like fluxes that modify the values of other components stated in the `actors` property.
 - The `actors` property specifies which `Record` instances are modified by the process and how (e.g., production, consumption, or transfer).
-- By default, processes are reversible. This property can be explicitly set to `false` to model irreversible processes or shown in `ProcessExpr` by one of symbols: `=>, ->, >`.
+- When absent, `reversible` remains unspecified. It can be set explicitly or indicated by `ProcessExpr` symbols such as `=>`, `->`, and `>`.
 - The `actors` property can be expressed as a `ProcessExpr` or an array of `Actor` objects.
 - A shorthand notation `ProcessExpr` can be used (e.g., `A -> B`, `2A <-> B`, etc.) is used to describe actors.
 - The `reversible` property do not affect the ODE simulations. It can be used for visualization or for compatibility with SBML's and SimBio's reversible attribute.
@@ -409,7 +421,7 @@ Using reversible process by shorthand notation
 pr2 @Process { actors: A <=> B };
 ```
 
-Neutral `ProcessExpr` (neither reversible nor irreversible) result in default **reversible** process
+Neutral `ProcessExpr` (neither reversible nor irreversible) does not set `reversible`
 ```heta
 pr3 @Process { actors: A = B };
 ```
@@ -646,7 +658,7 @@ It serves as a base class for specific types of switchers, such as `TimeSwitcher
 
 | Property   | Type    | Required | Default | Shorthand | Description                                                                |
 |------------|---------|----------|---------|--------------|----------------------------------------------------------------------------|
-| `active`   | boolean |          | `true`  |              | Determines whether the switcher is enabled during the simulation.          |
+| `active`   | boolean | Yes      | `true`  |              | Determines whether the switcher is enabled during the simulation.          |
 
 ### Usage
 
@@ -654,6 +666,7 @@ It serves as a base class for specific types of switchers, such as `TimeSwitcher
 - Subclasses of `_Switcher` define specific conditions or events that activate the assignments.
 - The `active` property can be used to enable or disable the switcher during the simulation.
 - `_Switcher`s can change value or `Record`, `Species`, `Compartment`, etc. instances but not `Const` instances.
+- `active: null` clears the property and is invalid after final validation in a concrete namespace.
 
 ## TimeSwitcher
 
@@ -665,7 +678,7 @@ It serves as a base class for specific types of switchers, such as `TimeSwitcher
 
 | property | type | required | default | ref | description | 
 | ---------|------|----------|---------|-----|-------------|
-| start | Number/ID | | 0 | - / `Const` | time to run the first switch |
+| start | Number/ID | Yes | | - / `Const` | time to run the first switch |
 | period | Number/ID | | | - / `Const` | period of repeated switching |
 | stop | Number/ID | | | - / `Const` | time to turn off switch |
 
