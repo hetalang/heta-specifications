@@ -376,22 +376,22 @@ The ID format is used for indexing Heta components, creating identifiers for com
 - References used inside `MathExpr`, `UnitsExpr`, `ProcessExpr`.
 The base rules for an ID are as follows:
 
-1. The first symbol must be a letter or underscore.
+1. The first symbol must be a letter.
 1. The second and following elements must be letters, numbers, or underscores.
-1. The last symbol should not be an underscore.
-Additionally, some words cannot be used as identifiers because they are reserved for statements or specific object names, such as 
+1. It is not recommended for the last symbol to be an underscore.
+1. Some words cannot be used as identifiers because they are reserved for statements or specific object names, such as 
 `NaN`, `Infinity`, `exponentiale`, `pi`, `true`, `false`, `null`,
 `include`, `block`, `namespace`, `abstract`, `concrete`, `begin`, `end`
 
 __Example__
 
-**Correct:** `x`, `x12`, `x_12`, `_12`, `x___12`, `_begin`
+**Correct:** `x`, `x12`, `x_12`, `x___12`
 
-**Incorrect:** `12x`, `x-12`, `x 9`
+**Incorrect:** `12x`, `x-12`, `x 9`, `_12`, `_1`
 
 **Incorrect usage of reserved words as an ID**: `begin`, `block`
 
-**Incorrect underscore position**: `_`, `x12_`
+**Not recommended underscore position**: `x12_`
 
 ### Filepath
 
