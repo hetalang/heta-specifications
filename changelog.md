@@ -11,6 +11,7 @@
 - add SBML compatibility notes
 - allow `Infinity`, `-Infinity`, and `NaN` in `Const.num`
 - clarify `null`, required properties of concrete namespaces, `TimeSwitcher`, `TimeScale`, and `reversible`
+- require IDs to start with a letter; a trailing underscore is discouraged but allowed
 
 ## 0.5.3
 
