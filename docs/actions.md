@@ -337,7 +337,11 @@ scn2 #setScenario {
 
 1. Identifiers of components can be updated using `prefix`, `suffix`, `rename` properties. If no `prefix`, `suffix`, `rename` is declared identifiers remain the same.
 
-1. If `prefix` or `suffix` are declared (for example as `pref_`, `_suf`) the id changes follows the rules: `old` => `pref_old_suf`. `prefix` and `suffix` do not act on a component of classes: `unitDef`.
+1. If `prefix` or `suffix` are declared (for example as `pref_`, `suf`) the id changes follows the rules: `old` => `pref_oldsuf`. `prefix` and `suffix` do not act on a component of classes: `unitDef`.
+
+1. A non-empty `prefix` must follow the ID format. Otherwise, the import shall report an error.
+
+1. The destination namespace retains its system time scale `t`. The time scale is not prefixed or duplicated.
 
 1. `rename` states the rename rule directly. If `rename` set rule for id, `suffix` and `prefix` not used for the particular id.
 

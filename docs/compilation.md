@@ -19,6 +19,8 @@ Nevertheless formulating the Heta specification we keep in mind the following st
 
 1. **Binding.** Binding Heta components are based on internal cross references. Checking references. Checking required properties.
 
+    Calls to user-defined functions are checked for a Boolean result when used in a Boolean position.
+
     The errors which happen at the stage will be of types: `BindingError`.
 
 1. **Testing circular references.** In general case some of references (like `assignments` in `@Record` or `units` in `#defineUnit`) may be circular which is not allowed. On this step the compiler searches them and throws an error if found.

@@ -70,7 +70,7 @@ Here the first operand `b1 < b2` is the boolean expression, then an expression t
 | id | explanation |
 |----|-------------|
 | abs(x) | The absolute value of a number.|
-| add(x, y, ...) | Add values `x + y + ...`, no arguments correspond to `0`. |
+| add(x, y, ...) | Add values `x + y + ...`; no arguments correspond to `0`, and one argument is returned unchanged. |
 | ceil(x) | Round a value towards plus. |
 | cube(x) | The cube of a value, `x * x * x`. |
 | divide(x, y) | Divide two values, `x / y`. |
@@ -81,7 +81,7 @@ Here the first operand `b1 < b2` is the boolean expression, then an expression t
 | logbase(x, base) | The logarithm of a value with base. |
 | log10(x) | The 10-base logarithm of a value. |
 | log2(x) | The 2-base logarithm of a value. |
-| multiply(x, y, ...)| Multiply values `x * y * ...`, no arguments correspond to `1`. |
+| multiply(x, y, ...)| Multiply values `x * y * ...`; no arguments correspond to `1`, and one argument is returned unchanged. |
 | pow(x, y)	| The power of x to y, `x ^ y`. |
 | sign(x) | Compute the sign of a value. |
 | sqrt(x) | Calculate the square root of a value. |

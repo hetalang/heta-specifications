@@ -5,13 +5,14 @@
 - add support for empty arguments in `add()` and `multiply()` functions
 - normalize `0` and `1` to boolean values in logical expression contexts and boolean table properties
 - rename Euler constant `e` to `exponentiale`
-- add reserved words: `true`, `false`, `null`
+- add reserved words: `true`, `false`, `null`; `E` and `PI` are no longer reserved
 - allow return boolean values from `#defineFunction`
 - `piecewise` function is not experimental anymore
 - add SBML compatibility notes
 - allow `Infinity`, `-Infinity`, and `NaN` in `Const.num`
 - clarify `null`, required properties of concrete namespaces, `TimeSwitcher`, `TimeScale`, and `reversible`
 - require IDs to start with a letter; a trailing underscore is discouraged but allowed
+- validate non-empty `prefix` values in `#importNS` against the ID format
 
 ## 0.5.4
 
