@@ -23,6 +23,13 @@ SBML modules of levels 2 and 3 are supported. An SBML module is included with
 1. A supported SBML expression shall be converted to Heta [MathExpr](math).
    Function names and expression forms may be changed to the Heta form.
 
+1. An SBML identifier that is invalid or reserved in Heta shall be replaced with
+   a collision-free identifier of the form `sbml_<source>_<n>`. All references
+   to the identifier, including MathML identifiers, shall be updated.
+
+1. Generated identifiers shall be collision-free. Anonymous events shall be
+   named `event_<n>`, where numbering starts at one.
+
 1. If the document contains an unsupported construct, the compiler shall report
    an import error. It shall not silently omit that construct.
 
@@ -45,8 +52,8 @@ The following table defines the conversion of supported SBML contents.
 | Reaction | `@Reaction` | The kinetic law becomes the reaction expression. Reactants and products become actors; modifiers become reaction modifiers. |
 | Initial assignment | `start_` assignment | The assignment is applied to its target as the initial value. |
 | Assignment rule | `ode_` assignment | The rule expression is assigned to `ode_` of its target. |
-| Rate rule | `@Process` | A generated process changes the rule target at the specified rate. The target is made non-boundary. |
-| Event | `@DSwitcher` | Event assignments become assignments associated with the switcher. An import option may use `@CSwitcher` instead. |
+| Rate rule | `@Process` | A generated process named `rate_<variable>` changes the rule target at the specified rate. The target is made non-boundary. |
+| Event | `@DSwitcher` | An event with a trigger becomes a generated switcher. Event assignments become assignments associated with the switcher. An import option may use `@CSwitcher` instead. |
 
 ### 2.1 Units
 
@@ -66,21 +73,24 @@ The values of `boundaryCondition` and `constant` shall be used to set the Heta
 ### 2.3 Parameters and reactions
 
 For SBML Level 2, an omitted `constant` attribute of a parameter shall be treated
-as `true`.
+as `true`. In Level 3, an omitted `constant` attribute remains unspecified.
 
-For reactions in SBML Level 2 Version 5 and earlier, an omitted `reversible`
-attribute shall be treated as `true`. In Level 3, an omitted `reversible`
+For reactions in SBML Level 2, an omitted `reversible` attribute shall be
+treated as `true`. In Level 3, an omitted `reversible`
 attribute remains unspecified. A reaction with `fast="true"` is not supported;
 `fast="false"` and an omitted `fast` attribute are ignored.
 
 Local parameters of a reaction shall be created as generated Heta constants. Their
-identifiers may be changed so that they do not conflict with other declarations.
+identifiers shall be `local_<reaction>_<parameter>` and shall be changed further
+when necessary to avoid conflicts with other declarations.
 The stoichiometry of a reactant shall be negative and the stoichiometry of a
 product shall be positive in the generated reaction actors.
 
 ### 2.4 Rules and events
 
-An `algebraicRule` is not supported. An event with a `delay` is not supported.
+An `algebraicRule` is not supported. An event without a trigger shall not create
+a switcher; its assignments shall still be imported. An event with a `delay` or
+`priority` is not supported.
 When an event is imported as a `@CSwitcher`, equality and inequality conditions
 are not supported; boolean conditions are converted to a numeric trigger.
 
@@ -88,6 +98,10 @@ are not supported; boolean conditions are converted to a numeric trigger.
 
 MathML expressions shall be converted to Heta expression syntax. The following
 table lists direct conversions.
+
+The `<plus>`, `<times>`, `<and>`, `<or>`, and `<xor>` elements shall accept zero,
+one, or more operands. Zero-operand and one-operand forms shall retain their
+defined identity and pass-through semantics.
 
 | SBML MathML element | Heta expression |
 |---|---|
@@ -155,8 +169,11 @@ The compiler shall report an import error for the following contents:
 | `algebraicRule` | Not supported. |
 | Reaction with `fast="true"` | Not supported. |
 | `stoichiometryMath` | Not supported. |
-| `delay` symbol in an expression | Not supported. |
+| `CSymbolDelay` | Not supported. |
+| Reference to a `SpeciesReference` identifier in Core MathML | Not supported. |
 | Event `delay` | Not supported. |
+| Event `priority` | Not supported. |
+| Required SBML Level 3 package | Not supported. Optional package declarations are allowed, but package-specific content is not interpreted. |
 | Unknown `csymbol` URL | Not supported. |
 
 Other SBML contents not covered by this document are not required to be

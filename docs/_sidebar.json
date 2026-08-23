@@ -31,7 +31,8 @@
                 ]
             },
             { "text": "Compilation steps", "link": "/specifications/compilation" },
-            { "test": "Change Log", "link": "https://github.com/hetalang/heta-specifications/blob/master/changelog.md" }
+            { "text": "SBML conversion", "link": "/specifications/sbml-conversion" },
+            { "text": "Change Log", "link": "https://github.com/hetalang/heta-specifications/blob/master/changelog.md" }
         ]
     }
 ]
