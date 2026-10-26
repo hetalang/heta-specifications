@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.5.4
+
+- Clarify switcher assignment semantics: all right-hand sides are evaluated from the pre-event state before their results are assigned to targets.
+
 ## 0.5.3
 
 - `Infinity` is not allowed as a number in properties

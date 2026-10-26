@@ -654,6 +654,19 @@ It serves as a base class for specific types of switchers, such as `TimeSwitcher
 - Subclasses of `_Switcher` define specific conditions or events that activate the assignments.
 - The `active` property can be used to enable or disable the switcher during the simulation.
 - `_Switcher`s can change value or `Record`, `Species`, `Compartment`, etc. instances but not `Const` instances.
+- When a switcher activates, all right-hand sides of assignments associated with that switcher are evaluated using the values immediately before the event. The resulting values are then assigned to their targets. The order in which the assignments are written does not affect their results.
+
+For example, this switcher swaps the values of `x` and `y`:
+
+```heta
+sw @TimeSwitcher { start: 5 };
+x @Record .= 1;
+y @Record .= 2;
+x [sw]= y;
+y [sw]= x;
+```
+
+After `sw` activates, `x` is `2` and `y` is `1`.
 
 ## TimeSwitcher
 
